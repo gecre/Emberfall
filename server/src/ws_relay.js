@@ -350,6 +350,22 @@ export function setupWsRelay(server) {
           });
           break;
         }
+
+        case "friend_notify": {
+          // Real-time notification: a friend request was sent
+          const targetName = String(data.target_name || "");
+          for (const [cid, c] of clients) {
+            if (c.name.toLowerCase() === targetName.toLowerCase() && c.ws.readyState === WebSocket.OPEN) {
+              c.ws.send(JSON.stringify({
+                type: "friend_notify",
+                from_name: client.name,
+                message: data.message || `${client.name} sent you a friend request!`,
+              }));
+              break;
+            }
+          }
+          break;
+        }
       }
     });
 
