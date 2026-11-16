@@ -253,7 +253,16 @@
     <datalist id="items-datalist"></datalist>
 
     <script>
-      const KEY = "__ADMIN_KEY__";
+      let KEY = "__ADMIN_KEY__";
+      if (!KEY || KEY === "__ADMIN_KEY__") {
+        KEY = new URLSearchParams(location.search).get("key") || localStorage.getItem("emberfall_admin_key") || "";
+        if (!KEY) {
+          KEY = prompt("Enter Admin Key:") || "";
+        }
+        if (KEY) {
+          localStorage.setItem("emberfall_admin_key", KEY);
+        }
+      }
       let accounts = [];
       let characters = [];
       let itemsList = [];
