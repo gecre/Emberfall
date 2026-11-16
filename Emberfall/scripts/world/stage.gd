@@ -262,6 +262,7 @@ func _remote_players_setup() -> void:
 		Network.player_stall_changed.connect(_on_player_stall_changed)
 		Network.trade_requested.connect(_on_incoming_trade_request)
 		Network.trade_responded.connect(_on_trade_responded)
+		Network.chat_message_received.connect(_on_chat_message_received)
 		Network.join_stage(stage_number, spawn_point)
 		_setup_stall_hud_button()
 
@@ -332,6 +333,18 @@ func _setup_stall_hud_button() -> void:
 			stall_panel.open_for_setup()
 	)
 	cl.add_child(btn)
+
+
+func _on_chat_message_received(channel: String, sender: String, _whisper_to: String, text: String) -> void:
+	# Show overhead speech bubbles for players currently in this stage
+	if channel == "stage" or channel == "global":
+		if player != null and is_instance_valid(player) and sender.to_lower() == GameState.player_name.to_lower():
+			player.show_speech_bubble(text)
+		elif remote_players_container != null:
+			for r in remote_players_container.get_children():
+				if r is Player and str(r.remote_data.get("name", "")).to_lower() == sender.to_lower():
+					r.show_speech_bubble(text)
+					break
 
 
 func interact_with_remote_player(rplayer: Player) -> void:
