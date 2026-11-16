@@ -271,6 +271,13 @@ func focus_chat_input(prefill: String = "") -> void:
 	_input_line.caret_column = _input_line.text.length()
 
 
+## Sets whisper target and switches to whisper channel — called from Friends panel.
+func start_whisper(target: String) -> void:
+	whisper_target = target
+	_set_channel("whisper")
+	focus_chat_input()
+
+
 func _on_header_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
