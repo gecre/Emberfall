@@ -121,6 +121,7 @@ var stage_list: Control
 var dialogue_panel: PanelContainer
 var dialogue_name_label: Label
 var dialogue_text_label: Label
+var chat_box = null
 
 var _hotbar_assignments: Dictionary = {}
 
@@ -463,7 +464,7 @@ func _build_ui() -> void:
 	top_right.add_theme_constant_override("separation", 6)
 	top_right.anchor_left = 1.0
 	top_right.anchor_right = 1.0
-	top_right.offset_left = -660.0
+	top_right.offset_left = -740.0
 	top_right.offset_right = -12.0
 	top_right.offset_top = 12.0
 	root.add_child(top_right)
@@ -487,6 +488,11 @@ func _build_ui() -> void:
 	inv_button.add_theme_font_size_override("font_size", 13)
 	inv_button.pressed.connect(_toggle_inventory)
 	top_right.add_child(inv_button)
+
+	var chat_button := _make_button("Chat", Vector2(64, 32))
+	chat_button.add_theme_font_size_override("font_size", 13)
+	chat_button.pressed.connect(_toggle_chat_box)
+	top_right.add_child(chat_button)
 
 	var pedia_button := _make_button("Monsterpedia", Vector2(120, 32))
 	pedia_button.add_theme_font_size_override("font_size", 13)
@@ -515,7 +521,7 @@ func _build_ui() -> void:
 	stage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	stage_label.anchor_left = 1.0
 	stage_label.anchor_right = 1.0
-	stage_label.offset_left = -660.0
+	stage_label.offset_left = -740.0
 	stage_label.offset_right = -14.0
 	stage_label.offset_top = 54.0
 	root.add_child(stage_label)
@@ -599,6 +605,26 @@ func _build_ui() -> void:
 	_build_skills_panel()
 	_build_monsterpedia_panel()
 	_build_settings_panel()
+	_build_chat_box()
+
+
+func _build_chat_box() -> void:
+	chat_box = preload("res://Emberfall/scripts/ui/chat_box.gd").new()
+	var screen_h := 720.0
+	if get_viewport() != null:
+		screen_h = get_viewport().get_visible_rect().size.y
+	if _is_mobile_platform():
+		chat_box.position = Vector2(16, maxf(180, screen_h - 380))
+		chat_box.is_minimized = true
+		chat_box._toggle_minimize()
+	else:
+		chat_box.position = Vector2(16, maxf(280, screen_h - 240))
+	root.add_child(chat_box)
+
+
+func _toggle_chat_box() -> void:
+	if chat_box != null and is_instance_valid(chat_box):
+		chat_box.toggle_window()
 
 
 func _centered_panel(min_size: Vector2) -> PanelContainer:
@@ -2243,6 +2269,27 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Ignore gameplay hotkeys if typing in chat or another input field
+	var focus_owner := get_viewport().gui_get_focus_owner()
+	if focus_owner is LineEdit or focus_owner is TextEdit:
+		if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+			focus_owner.release_focus()
+			get_viewport().set_input_as_handled()
+		return
+
+	# Chat hotkeys: Enter or / to open/focus chat
+	if event is InputEventKey and event.pressed and not event.echo and not paused:
+		if event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER:
+			if chat_box != null and is_instance_valid(chat_box):
+				chat_box.focus_chat_input()
+				get_viewport().set_input_as_handled()
+				return
+		elif event.keycode == KEY_SLASH:
+			if chat_box != null and is_instance_valid(chat_box):
+				chat_box.focus_chat_input("/")
+				get_viewport().set_input_as_handled()
+				return
+
 	if event.is_action_pressed("pause"):
 		if death_panel.visible:
 			return
