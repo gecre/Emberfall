@@ -26,6 +26,7 @@ var _their_status_label: Label
 var _lock_button: Button
 var _trade_button: Button
 var _status_banner: Label
+var _backpack_container: GridContainer
 
 
 func _ready() -> void:
@@ -71,7 +72,7 @@ func _build_ui() -> void:
 
 	# Semi-transparent backdrop
 	var bg := ColorRect.new()
-	bg.color = Color(0, 0, 0, 0.72)
+	bg.color = Color(0, 0, 0, 0.76)
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_panel.add_child(bg)
 
@@ -81,28 +82,28 @@ func _build_ui() -> void:
 	_panel.add_child(center)
 
 	var frame := PanelContainer.new()
-	frame.custom_minimum_size = Vector2(680, 420)
+	frame.custom_minimum_size = Vector2(720, 520)
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.11, 0.13, 0.18, 0.98)
+	style.bg_color = Color(0.10, 0.12, 0.18, 0.98)
 	style.set_corner_radius_all(10)
 	style.border_width_left = 2
 	style.border_width_top = 2
 	style.border_width_right = 2
 	style.border_width_bottom = 2
-	style.border_color = Color(0.32, 0.38, 0.52)
+	style.border_color = Color(0.85, 0.65, 0.25)
 	frame.add_theme_stylebox_override("panel", style)
 	center.add_child(frame)
 
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 12)
+	vbox.add_theme_constant_override("separation", 10)
 	frame.add_child(vbox)
 
 	# Title bar
 	var title := Label.new()
-	title.text = "PLAYER TRADE"
+	title.text = "PLAYER-TO-PLAYER TRADE"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 18)
-	title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.4))
+	title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.35))
 	vbox.add_child(title)
 
 	# Columns (Left: You, Right: Partner)
@@ -111,81 +112,95 @@ func _build_ui() -> void:
 	cols.add_theme_constant_override("separation", 24)
 	vbox.add_child(cols)
 
-	# Left column: Your Offer
+	# --- Left column: Your Offer ---
 	var left := VBoxContainer.new()
-	left.custom_minimum_size = Vector2(300, 240)
+	left.custom_minimum_size = Vector2(320, 180)
 	cols.add_child(left)
 
 	var my_lbl := Label.new()
 	my_lbl.text = "YOUR OFFER"
 	my_lbl.add_theme_font_size_override("font_size", 13)
+	my_lbl.add_theme_color_override("font_color", Color(0.4, 0.8, 1.0))
 	left.add_child(my_lbl)
 
 	_my_slots_box = HBoxContainer.new()
-	_my_slots_box.add_theme_constant_override("separation", 8)
+	_my_slots_box.add_theme_constant_override("separation", 6)
 	left.add_child(_my_slots_box)
 
 	for i in range(4):
 		var btn := Button.new()
-		btn.custom_minimum_size = Vector2(64, 64)
+		btn.custom_minimum_size = Vector2(74, 56)
 		btn.text = "Empty"
 		btn.pressed.connect(_on_my_slot_clicked.bind(i))
 		_my_slots_box.add_child(btn)
 
 	var gold_row := HBoxContainer.new()
-	gold_row.add_theme_constant_override("separation", 8)
+	gold_row.add_theme_constant_override("separation", 4)
 	left.add_child(gold_row)
 
 	_my_gold_label = Label.new()
 	_my_gold_label.text = "Gold: 0"
+	_my_gold_label.custom_minimum_size = Vector2(90, 0)
 	gold_row.add_child(_my_gold_label)
 
 	var add_10k := Button.new()
 	add_10k.text = "+10K"
-	add_10k.custom_minimum_size = Vector2(50, 32)
+	add_10k.custom_minimum_size = Vector2(46, 32)
 	add_10k.pressed.connect(func(): _add_gold(10000))
 	gold_row.add_child(add_10k)
 
 	var add_100k := Button.new()
 	add_100k.text = "+100K"
-	add_100k.custom_minimum_size = Vector2(55, 32)
+	add_100k.custom_minimum_size = Vector2(50, 32)
 	add_100k.pressed.connect(func(): _add_gold(100000))
 	gold_row.add_child(add_100k)
 
+	var add_1m := Button.new()
+	add_1m.text = "+1M"
+	add_1m.custom_minimum_size = Vector2(46, 32)
+	add_1m.pressed.connect(func(): _add_gold(1000000))
+	gold_row.add_child(add_1m)
+
 	var clr_gold := Button.new()
-	clr_gold.text = "Clear"
-	clr_gold.custom_minimum_size = Vector2(50, 32)
+	clr_gold.text = "Clr"
+	clr_gold.custom_minimum_size = Vector2(40, 32)
 	clr_gold.pressed.connect(func(): _set_gold(0))
 	gold_row.add_child(clr_gold)
 
+	var status_row := HBoxContainer.new()
+	status_row.add_theme_constant_override("separation", 8)
+	left.add_child(status_row)
+
 	_my_status_label = Label.new()
 	_my_status_label.text = "Editing offer..."
+	_my_status_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_my_status_label.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
-	left.add_child(_my_status_label)
+	status_row.add_child(_my_status_label)
 
 	_lock_button = Button.new()
-	_lock_button.text = "LOCK IN OFFER"
-	_lock_button.custom_minimum_size = Vector2(280, 42)
+	_lock_button.text = "LOCK OFFER"
+	_lock_button.custom_minimum_size = Vector2(110, 36)
 	_lock_button.pressed.connect(_toggle_lock)
-	left.add_child(_lock_button)
+	status_row.add_child(_lock_button)
 
-	# Right column: Partner Offer
+	# --- Right column: Partner Offer ---
 	var right := VBoxContainer.new()
-	right.custom_minimum_size = Vector2(300, 240)
+	right.custom_minimum_size = Vector2(320, 180)
 	cols.add_child(right)
 
 	var their_lbl := Label.new()
 	their_lbl.text = "THEIR OFFER"
 	their_lbl.add_theme_font_size_override("font_size", 13)
+	their_lbl.add_theme_color_override("font_color", Color(1.0, 0.7, 0.3))
 	right.add_child(their_lbl)
 
 	_their_slots_box = HBoxContainer.new()
-	_their_slots_box.add_theme_constant_override("separation", 8)
+	_their_slots_box.add_theme_constant_override("separation", 6)
 	right.add_child(_their_slots_box)
 
 	for i in range(4):
 		var btn := Button.new()
-		btn.custom_minimum_size = Vector2(64, 64)
+		btn.custom_minimum_size = Vector2(74, 56)
 		btn.disabled = true
 		btn.text = "Empty"
 		_their_slots_box.add_child(btn)
@@ -200,7 +215,24 @@ func _build_ui() -> void:
 	_their_status_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
 	right.add_child(_their_status_label)
 
-	# Bottom action bar
+	# --- Middle Divider: Backpack Picker ---
+	var inv_header := Label.new()
+	inv_header.text = "YOUR BACKPACK (Tap any item to add to your trade offer):"
+	inv_header.add_theme_font_size_override("font_size", 12)
+	inv_header.add_theme_color_override("font_color", Color(0.75, 0.75, 0.75))
+	vbox.add_child(inv_header)
+
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(680, 120)
+	vbox.add_child(scroll)
+
+	_backpack_container = GridContainer.new()
+	_backpack_container.columns = 6
+	_backpack_container.add_theme_constant_override("h_separation", 6)
+	_backpack_container.add_theme_constant_override("v_separation", 6)
+	scroll.add_child(_backpack_container)
+
+	# --- Bottom action bar ---
 	_status_banner = Label.new()
 	_status_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_banner.add_theme_color_override("font_color", Color(1.0, 0.75, 0.3))
@@ -213,14 +245,14 @@ func _build_ui() -> void:
 
 	_trade_button = Button.new()
 	_trade_button.text = "CONFIRM TRADE"
-	_trade_button.custom_minimum_size = Vector2(180, 46)
+	_trade_button.custom_minimum_size = Vector2(180, 44)
 	_trade_button.disabled = true
 	_trade_button.pressed.connect(_on_confirm_trade_pressed)
 	bot_actions.add_child(_trade_button)
 
 	var cancel_btn := Button.new()
 	cancel_btn.text = "CANCEL"
-	cancel_btn.custom_minimum_size = Vector2(130, 46)
+	cancel_btn.custom_minimum_size = Vector2(120, 44)
 	cancel_btn.pressed.connect(close)
 	bot_actions.add_child(cancel_btn)
 
@@ -229,19 +261,22 @@ func _on_my_slot_clicked(slot_idx: int) -> void:
 	if my_locked:
 		return
 	if slot_idx < my_items.size():
-		# Remove item from trade offer
 		my_items.remove_at(slot_idx)
-	else:
-		# Add first available unoffered item from inventory
-		for inv_item in GameState.inventory:
-			var already := false
-			for offered in my_items:
-				if offered.get("name") == inv_item.get("name"):
-					already = true
-					break
-			if not already and not inv_item.get("locked", false):
-				my_items.append({"name": inv_item.name, "qty": 1})
-				break
+		_sync_my_offer()
+		_refresh_ui()
+
+
+func _on_inventory_item_clicked(inv_item: Dictionary) -> void:
+	if my_locked:
+		return
+	if my_items.size() >= 4:
+		GameState.message.emit("You can only offer up to 4 items at a time.")
+		return
+	for offered in my_items:
+		if offered.get("name") == inv_item.get("name"):
+			GameState.message.emit("Item is already in your offer.")
+			return
+	my_items.append({"name": inv_item.name, "qty": 1})
 	_sync_my_offer()
 	_refresh_ui()
 
@@ -302,7 +337,7 @@ func _on_trade_confirmed_by_partner(from_id: int) -> void:
 	if from_id != partner_id:
 		return
 	their_confirmed = true
-	_their_status_label.text = "Accepted trade! ✓"
+	_their_status_label.text = "Partner Accepted! ✓"
 	_their_status_label.add_theme_color_override("font_color", Color(0.4, 0.9, 0.4))
 	if my_confirmed:
 		_execute_trade()
@@ -318,13 +353,11 @@ func _on_trade_cancelled_by_partner(from_id: int) -> void:
 
 
 func _execute_trade() -> void:
-	# Deduct your offered items and gold
 	for it in my_items:
 		GameState.remove_inventory_item(str(it.get("name")), int(it.get("qty", 1)))
 	if my_gold > 0:
 		GameState.gold = maxi(0, GameState.gold - my_gold)
 
-	# Grant their offered items and gold
 	for it in their_items:
 		GameState.add_inventory_item(str(it.get("name")), int(it.get("qty", 1)))
 	if their_gold > 0:
@@ -338,15 +371,15 @@ func _execute_trade() -> void:
 
 
 func _refresh_ui() -> void:
-	# My slots
+	# 1. My slots
 	for i in range(4):
 		var btn: Button = _my_slots_box.get_child(i)
 		if i < my_items.size():
 			btn.text = my_items[i].get("name", "Item")
 		else:
-			btn.text = "Tap to add" if not my_locked else "Empty"
+			btn.text = "Empty"
 
-	# Their slots
+	# 2. Their slots
 	for i in range(4):
 		var btn: Button = _their_slots_box.get_child(i)
 		if i < their_items.size():
@@ -354,15 +387,15 @@ func _refresh_ui() -> void:
 		else:
 			btn.text = "Empty"
 
-	_my_gold_label.text = "Gold: %s" % GameState.format_number(my_gold)
-	_their_gold_label.text = "Gold: %s" % GameState.format_number(their_gold)
+	_my_gold_label.text = "Gold: %s" % Number(my_gold).toLocaleString()
+	_their_gold_label.text = "Gold: %s" % Number(their_gold).toLocaleString()
 
 	if my_locked:
-		_lock_button.text = "UNLOCK OFFER"
+		_lock_button.text = "UNLOCK"
 		_my_status_label.text = "Offer Locked ✓"
 		_my_status_label.add_theme_color_override("font_color", Color(0.4, 0.85, 0.4))
 	else:
-		_lock_button.text = "LOCK IN OFFER"
+		_lock_button.text = "LOCK OFFER"
 		_my_status_label.text = "Editing offer..."
 		_my_status_label.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8))
 
@@ -373,12 +406,34 @@ func _refresh_ui() -> void:
 		_their_status_label.text = "Partner is choosing items..."
 		_their_status_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
 
-	# Enable confirm button only when both locked
 	if my_locked and their_locked:
 		_trade_button.disabled = my_confirmed
-		_status_banner.text = "Both offers locked! Confirm to finalize trade."
+		_status_banner.text = "Both offers locked! Click Confirm to finalize trade."
 		_status_banner.add_theme_color_override("font_color", Color(0.4, 0.9, 0.4))
 	else:
 		_trade_button.disabled = true
-		_status_banner.text = "Both players must lock in their offers."
+		_status_banner.text = "Both players must lock their offers."
 		_status_banner.add_theme_color_override("font_color", Color(1.0, 0.7, 0.3))
+
+	# 3. Refresh backpack item grid
+	for child in _backpack_container.get_children():
+		child.queue_free()
+
+	for inv_item in GameState.inventory:
+		var btn := Button.new()
+		btn.custom_minimum_size = Vector2(105, 36)
+		btn.text = inv_item.name
+		btn.clip_text = true
+
+		var already_offered := false
+		for off in my_items:
+			if off.get("name") == inv_item.name:
+				already_offered = true
+				break
+
+		if already_offered or my_locked or inv_item.get("locked", false):
+			btn.disabled = true
+		else:
+			btn.pressed.connect(_on_inventory_item_clicked.bind(inv_item))
+
+		_backpack_container.add_child(btn)

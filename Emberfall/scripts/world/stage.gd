@@ -355,55 +355,215 @@ func interact_with_remote_player(rplayer: Player) -> void:
 		if is_instance_valid(stall_panel):
 			stall_panel.open_for_browsing(pid, rname, stall)
 	else:
-		_show_player_trade_prompt(pid, rname)
+		_show_player_interaction_menu(rplayer)
 
 
-func _show_player_trade_prompt(pid: int, rname: String) -> void:
-	var popup := PanelContainer.new()
-	popup.set_anchors_preset(Control.PRESET_CENTER)
-	popup.custom_minimum_size = Vector2(240, 110)
+func _show_player_interaction_menu(rplayer: Player) -> void:
+	var pid: int = int(rplayer.remote_data.get("id", 0))
+	var rname: String = str(rplayer.remote_data.get("name", "Player"))
+	var rclass: String = str(rplayer.remote_data.get("class", "Warrior"))
+	var rlevel: int = int(rplayer.remote_data.get("level", 1))
+	var req: Dictionary = rplayer.remote_data.get("equipment", {})
+
+	var canvas := CanvasLayer.new()
+	canvas.layer = 90
+	add_child(canvas)
+
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	canvas.add_child(center)
+
+	var frame := PanelContainer.new()
+	frame.custom_minimum_size = Vector2(340, 260)
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.12, 0.15, 0.22, 0.98)
-	style.set_corner_radius_all(8)
+	style.bg_color = Color(0.11, 0.13, 0.19, 0.98)
+	style.set_corner_radius_all(10)
 	style.border_width_left = 2
 	style.border_width_top = 2
 	style.border_width_right = 2
 	style.border_width_bottom = 2
-	style.border_color = Color(0.35, 0.45, 0.65)
-	popup.add_theme_stylebox_override("panel", style)
-	add_child(popup)
+	style.border_color = Color(0.85, 0.65, 0.25)
+	frame.add_theme_stylebox_override("panel", style)
+	center.add_child(frame)
 
 	var vbox := VBoxContainer.new()
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	vbox.add_theme_constant_override("separation", 10)
-	popup.add_child(vbox)
+	frame.add_child(vbox)
 
-	var lbl := Label.new()
-	lbl.text = rname
-	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lbl.add_theme_font_size_override("font_size", 14)
-	vbox.add_child(lbl)
+	# Name & Level Header
+	var name_lbl := Label.new()
+	name_lbl.text = rname
+	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_lbl.add_theme_font_size_override("font_size", 18)
+	name_lbl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.35))
+	vbox.add_child(name_lbl)
 
-	var row := HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", 12)
-	vbox.add_child(row)
+	var sub_lbl := Label.new()
+	sub_lbl.text = "%s • Level %d" % [rclass, rlevel]
+	sub_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sub_lbl.add_theme_font_size_override("font_size", 13)
+	sub_lbl.add_theme_color_override("font_color", Color(0.75, 0.8, 0.9))
+	vbox.add_child(sub_lbl)
 
+	# Equipment overview
+	var eq_box := PanelContainer.new()
+	var eq_style := StyleBoxFlat.new()
+	eq_style.bg_color = Color(0.16, 0.18, 0.26, 0.9)
+	eq_style.set_corner_radius_all(6)
+	eq_box.add_theme_stylebox_override("panel", eq_style)
+	vbox.add_child(eq_box)
+
+	var eq_vbox := VBoxContainer.new()
+	eq_vbox.add_theme_constant_override("separation", 3)
+	eq_box.add_child(eq_vbox)
+
+	var weapon_name := str(req.get("weapon", "None"))
+	var armor_name := str(req.get("armor", "None"))
+	var helmet_name := str(req.get("helmet", "None"))
+	var shield_name := str(req.get("shield", "None"))
+
+	var w_lbl := Label.new()
+	w_lbl.text = " ⚔ Weapon: %s" % (weapon_name if weapon_name != "" else "None")
+	w_lbl.add_theme_font_size_override("font_size", 11)
+	eq_vbox.add_child(w_lbl)
+
+	var a_lbl := Label.new()
+	a_lbl.text = " 🛡 Armor: %s" % (armor_name if armor_name != "" else "None")
+	a_lbl.add_theme_font_size_override("font_size", 11)
+	eq_vbox.add_child(a_lbl)
+
+	var h_lbl := Label.new()
+	h_lbl.text = " 🪖 Helmet: %s" % (helmet_name if helmet_name != "" else "None")
+	h_lbl.add_theme_font_size_override("font_size", 11)
+	eq_vbox.add_child(h_lbl)
+
+	if shield_name != "":
+		var s_lbl := Label.new()
+		s_lbl.text = " 🔰 Shield: %s" % shield_name
+		s_lbl.add_theme_font_size_override("font_size", 11)
+		eq_vbox.add_child(s_lbl)
+
+	# Action Buttons Row
+	var actions := HBoxContainer.new()
+	actions.alignment = BoxContainer.ALIGNMENT_CENTER
+	actions.add_theme_constant_override("separation", 10)
+	vbox.add_child(actions)
+
+	# 1. Trade Button
 	var trade_btn := Button.new()
-	trade_btn.text = "Trade"
-	trade_btn.custom_minimum_size = Vector2(90, 38)
+	trade_btn.text = "TRADE"
+	trade_btn.custom_minimum_size = Vector2(90, 42)
 	trade_btn.pressed.connect(func():
-		popup.queue_free()
+		canvas.queue_free()
 		Network.request_trade(pid)
 		GameState.message.emit("Sent trade request to %s..." % rname)
 	)
-	row.add_child(trade_btn)
+	actions.add_child(trade_btn)
+
+	# 2. Add Friend Button
+	var friend_btn := Button.new()
+	friend_btn.text = "ADD FRIEND"
+	friend_btn.custom_minimum_size = Vector2(105, 42)
+	friend_btn.pressed.connect(func():
+		canvas.queue_free()
+		var friends: Array = GameState.quests.get("_friends", [])
+		if not friends.has(rname):
+			friends.append(rname)
+			GameState.quests["_friends"] = friends
+			GameState.save_game()
+			GameState.message.emit("%s added to your friends list!" % rname)
+		else:
+			GameState.message.emit("%s is already in your friends list." % rname)
+	)
+	actions.add_child(friend_btn)
+
+	# 3. Stats Button
+	var stats_btn := Button.new()
+	stats_btn.text = "STATS"
+	stats_btn.custom_minimum_size = Vector2(85, 42)
+	stats_btn.pressed.connect(func():
+		canvas.queue_free()
+		_show_player_stats_inspection(rplayer)
+	)
+	actions.add_child(stats_btn)
+
+	# Close Button
+	var close_btn := Button.new()
+	close_btn.text = "CLOSE"
+	close_btn.custom_minimum_size = Vector2(120, 36)
+	close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	close_btn.pressed.connect(func(): canvas.queue_free())
+	vbox.add_child(close_btn)
+
+
+func _show_player_stats_inspection(rplayer: Player) -> void:
+	var rname: String = str(rplayer.remote_data.get("name", "Player"))
+	var rclass: String = str(rplayer.remote_data.get("class", "Warrior"))
+	var rlevel: int = int(rplayer.remote_data.get("level", 1))
+	var req: Dictionary = rplayer.remote_data.get("equipment", {})
+
+	var canvas := CanvasLayer.new()
+	canvas.layer = 92
+	add_child(canvas)
+
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	canvas.add_child(center)
+
+	var frame := PanelContainer.new()
+	frame.custom_minimum_size = Vector2(380, 320)
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.10, 0.12, 0.17, 0.98)
+	style.set_corner_radius_all(10)
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.border_color = Color(0.35, 0.55, 0.85)
+	frame.add_theme_stylebox_override("panel", style)
+	center.add_child(frame)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 10)
+	frame.add_child(vbox)
+
+	var title := Label.new()
+	title.text = "%s's Profile" % rname
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 17)
+	title.add_theme_color_override("font_color", Color(0.4, 0.8, 1.0))
+	vbox.add_child(title)
+
+	var info := Label.new()
+	info.text = "Class: %s  |  Level: %d" % [rclass, rlevel]
+	info.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vbox.add_child(info)
+
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(340, 180)
+	vbox.add_child(scroll)
+
+	var list := VBoxContainer.new()
+	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	list.add_theme_constant_override("separation", 4)
+	scroll.add_child(list)
+
+	for slot in ["weapon", "helmet", "armor", "legs", "boots", "shield", "accessory", "pet_helmet"]:
+		var iname := str(req.get(slot, ""))
+		if iname != "":
+			var idata := GameData.item(iname)
+			var ilvl := int(idata.get("level", 1))
+			var row := Label.new()
+			row.text = "• %s: %s (Lv. %d)" % [slot.capitalize(), iname, ilvl]
+			row.add_theme_font_size_override("font_size", 12)
+			list.add_child(row)
 
 	var close_btn := Button.new()
-	close_btn.text = "Cancel"
-	close_btn.custom_minimum_size = Vector2(80, 38)
-	close_btn.pressed.connect(func(): popup.queue_free())
-	row.add_child(close_btn)
+	close_btn.text = "BACK"
+	close_btn.custom_minimum_size = Vector2(100, 38)
+	close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	close_btn.pressed.connect(func(): canvas.queue_free())
+	vbox.add_child(close_btn)
 
 
 func _on_incoming_trade_request(from_id: int, from_name: String) -> void:
