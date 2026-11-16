@@ -326,8 +326,9 @@ func _setup_stall_hud_button() -> void:
 
 	var btn := Button.new()
 	btn.text = "🏪 Setup Shop"
-	btn.custom_minimum_size = Vector2(130, 42)
-	btn.position = Vector2(20, 80)
+	btn.custom_minimum_size = Vector2(130, 36)
+	btn.position = Vector2(20, 165)
+	btn.add_theme_font_size_override("font_size", 12)
 	btn.pressed.connect(func():
 		if is_instance_valid(stall_panel):
 			stall_panel.open_for_setup()
