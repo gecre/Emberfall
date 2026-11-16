@@ -4,6 +4,7 @@ import path from "node:path";
 import { signToken, hashPassword, verifyPassword } from "./auth.js";
 import { MAX_CHARACTERS, dbFingerprint } from "./config.js";
 import {
+  db,
   activeBan,
   characterFull,
   characterSummary,
@@ -18,6 +19,12 @@ import {
   parseJson,
   touchLogin,
   updateCharacter,
+  sendFriendRequest,
+  respondFriendRequest,
+  listFriends,
+  listPendingRequests,
+  listSentRequests,
+  removeFriend,
 } from "./db.js";
 import { rateLimit, requireAuth } from "./middleware.js";
 import {
@@ -245,4 +252,68 @@ api.get("/items", (_req, res) => {
     level: Number(item.level) || 0,
   }));
   res.json({ count: items.length, items });
+});
+
+// ---------------------------------------------------------------------------
+// Friends
+// ---------------------------------------------------------------------------
+
+// GET /api/friends  — my accepted friends
+api.get("/friends", requireAuth, (req, res) => {
+  const friends = listFriends(req.account.id);
+  res.json({ friends });
+});
+
+// GET /api/friends/requests  — pending incoming requests
+api.get("/friends/requests", requireAuth, (req, res) => {
+  const requests = listPendingRequests(req.account.id);
+  const sent = listSentRequests(req.account.id);
+  res.json({ requests, sent });
+});
+
+// POST /api/friends/request  — send a friend request by username
+api.post("/friends/request", requireAuth, (req, res) => {
+  const { username } = req.body ?? {};
+  if (typeof username !== "string" || !username.trim()) {
+    return res.status(400).json({ error: "Username is required." });
+  }
+  const target = findAccountByUsername(username.trim());
+  if (!target) {
+    return res.status(404).json({ error: "Player not found." });
+  }
+  if (target.id === req.account.id) {
+    return res.status(400).json({ error: "You cannot add yourself as a friend." });
+  }
+  // Check if already friends or pending
+  const existing = db.prepare(
+    `SELECT * FROM friends WHERE (requester_id = ? AND addressee_id = ?) OR (requester_id = ? AND addressee_id = ?)`
+  ).get(req.account.id, target.id, target.id, req.account.id);
+  if (existing) {
+    if (existing.status === "accepted") return res.status(409).json({ error: "Already friends." });
+    if (existing.status === "pending") return res.status(409).json({ error: "Friend request already pending." });
+  }
+  sendFriendRequest(req.account.id, target.id);
+  res.json({ ok: true, to: target.username });
+});
+
+// POST /api/friends/respond  — accept or decline an incoming request
+api.post("/friends/respond", requireAuth, (req, res) => {
+  const { requester_id, accept } = req.body ?? {};
+  if (typeof requester_id !== "number" && typeof requester_id !== "string") {
+    return res.status(400).json({ error: "requester_id is required." });
+  }
+  const rid = Number(requester_id);
+  const row = db.prepare(
+    `SELECT * FROM friends WHERE requester_id = ? AND addressee_id = ? AND status = 'pending'`
+  ).get(rid, req.account.id);
+  if (!row) return res.status(404).json({ error: "Friend request not found." });
+  respondFriendRequest(rid, req.account.id, Boolean(accept));
+  res.json({ ok: true });
+});
+
+// DELETE /api/friends/:id  — remove a friend (account id of the other person)
+api.delete("/friends/:id", requireAuth, (req, res) => {
+  const otherId = Number(req.params.id);
+  removeFriend(req.account.id, otherId);
+  res.json({ ok: true });
 });
