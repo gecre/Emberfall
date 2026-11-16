@@ -322,6 +322,50 @@ func _build_ui() -> void:
 		_style_button(b, "ghost")
 		links.add_child(b)
 
+	# ---- Bottom-left: Check for Updates & Version ----
+	var bottom_left := Control.new()
+	bottom_left.layout_mode = 1
+	bottom_left.anchors_preset = Control.PRESET_BOTTOM_LEFT
+	bottom_left.anchor_left = 0.0
+	bottom_left.anchor_right = 0.0
+	bottom_left.anchor_top = 1.0
+	bottom_left.anchor_bottom = 1.0
+	bottom_left.offset_left = 24.0
+	bottom_left.offset_bottom = -24.0
+	bottom_left.grow_horizontal = Control.GROW_DIRECTION_END
+	bottom_left.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	bottom_left.z_index = 10
+	add_child(bottom_left)
+
+	var update_row := HBoxContainer.new()
+	update_row.grow_horizontal = Control.GROW_DIRECTION_END
+	update_row.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	update_row.add_theme_constant_override("separation", 10)
+	bottom_left.add_child(update_row)
+
+	var update_btn := Button.new()
+	update_btn.text = "Check Updates"
+	update_btn.custom_minimum_size = Vector2(130, 36)
+	update_btn.add_theme_font_size_override("font_size", 12)
+	_style_button(update_btn, "secondary")
+	update_btn.pressed.connect(_on_check_updates_pressed)
+	update_row.add_child(update_btn)
+
+	var ver_str := "v1.0.0"
+	if FileAccess.file_exists("user://version.json"):
+		var f := FileAccess.open("user://version.json", FileAccess.READ)
+		if f:
+			var parsed: Variant = JSON.parse_string(f.get_as_text())
+			if parsed is Dictionary and parsed.has("version"):
+				ver_str = "v" + str(parsed["version"])
+	var ver_label := _make_label(ver_str, 12, Color(0.7, 0.7, 0.75))
+	ver_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	update_row.add_child(ver_label)
+
+
+func _on_check_updates_pressed() -> void:
+	get_tree().change_scene_to_file("res://Emberfall/scenes/interface/updater.tscn")
+
 
 func _box(bg: Color, border: Color = Color(0, 0, 0, 0), border_w: int = 0, radius: int = 8, pad: Vector2 = Vector2(14, 8)) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
