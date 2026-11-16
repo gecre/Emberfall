@@ -176,7 +176,7 @@ func _refresh_ui() -> void:
 		hbox.add_child(name_lbl)
 
 		var price_lbl := Label.new()
-		price_lbl.text = "%s Gold" % Number(iprice).toLocaleString()
+		price_lbl.text = "%s Gold" % GameState.format_number(iprice)
 		price_lbl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))
 		hbox.add_child(price_lbl)
 
@@ -245,7 +245,7 @@ func _on_stall_buy_completed(success: bool, item: Dictionary, price: int, error:
 	GameState.gold_changed.emit()
 	GameState.inventory_changed.emit()
 	GameState.save_game()
-	GameState.message.emit("Bought %s for %s Gold!" % [item.get("name"), Number(price).toLocaleString()])
+	GameState.message.emit("Bought %s for %s Gold!" % [item.get("name"), GameState.format_number(price)])
 	close()
 
 
@@ -255,4 +255,4 @@ func _on_stall_item_sold(buyer_name: String, item: Dictionary, price: int) -> vo
 	GameState.gold_changed.emit()
 	GameState.inventory_changed.emit()
 	GameState.save_game()
-	GameState.message.emit("%s bought your %s for %s Gold!" % [buyer_name, item.get("name"), Number(price).toLocaleString()])
+	GameState.message.emit("%s bought your %s for %s Gold!" % [buyer_name, item.get("name"), GameState.format_number(price)])
