@@ -46,6 +46,18 @@ var _position_history: Array = []  # [{time, position, velocity, facing}]
 var _is_remote := false
 var remote_data: Dictionary = {}
 
+## Overhead speech bubble for in-game chat
+var speech_bubble_text := ""
+var speech_bubble_timer := 0.0
+
+
+func show_speech_bubble(text: String) -> void:
+	speech_bubble_text = text.strip_edges()
+	if speech_bubble_text.length() > 60:
+		speech_bubble_text = speech_bubble_text.substr(0, 57) + "..."
+	speech_bubble_timer = 4.5
+	queue_redraw()
+
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var interact_area: Area2D = $InteractArea
@@ -109,52 +121,57 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 
-	if Input.is_action_just_pressed("move_down") and is_on_floor():
-		_try_drop_through()
-	# Keyboard input actions; mobile touch invokes touch_attack / touch_jump directly.
-	if Input.is_action_just_pressed("jump"):
-		jump_buffer_timer = JUMP_BUFFER_TIME
-	if Input.is_action_pressed("attack") and attack_cooldown <= 0.0:
-		_attack()
-	var interact_just := Input.is_action_just_pressed("interact")
-	if interact_just:
-		# E is loot only: pick up the nearest nearby item. NPCs are clicked, never E'd.
-		var loot := _nearest_loot()
-		if loot != null and is_instance_valid(loot) and loot.has_method("interact"):
-			loot.interact(self)
-	# --- Rage (Self Rage / Guild Rage): press R ---
-	if Input.is_action_just_pressed("rage") and not dead:
-		var skill_name := "Self Rage" if int(GameState.skills.get("Self Rage", 0)) > 0 else "Guild Rage"
-		# Cooldown takes priority: if the skill is on cooldown, report that
-		# instead of saying it is active.
-		var remaining := float(GameState.skill_cooldowns.get(skill_name, 0))
-		if remaining > 0.0:
-			GameState.message.emit("%s on cooldown (%.1fs)" % [skill_name, remaining])
-		else:
-			var active := GameState.get_active_skills()
-			if active.has("Self Rage"):
-				GameState.message.emit("Self Rage is active!")
-			elif active.has("Guild Rage"):
-				GameState.message.emit("Guild Rage is active!")
-			elif GameState.activate_skill(skill_name):
-				var rage_lvl := int(GameState.skills.get(skill_name, 0))
-				rage_timer = float(rage_lvl)  # 1 second per level
-				active_rage_skill = skill_name
-				GameState.set_active_skill(skill_name, rage_timer)
-				GameState.message.emit("Rage activated! (%d seconds)" % rage_lvl)
-			else:
-				GameState.message.emit("%s on cooldown (%.1fs)" % [skill_name, remaining])
+	# Disable keyboard actions and walking while typing in chat or input fields
+	var focus_owner := get_viewport().gui_get_focus_owner()
+	var is_typing := focus_owner is LineEdit or focus_owner is TextEdit
 
-	# --- Block (V key): hold to reduce incoming damage ---
-	var block_lvl := int(GameState.skills.get("Block", 0))
-	if block_lvl > 0 and not dead:
-		if Input.is_action_pressed("block") and not blocking:
-			if GameState.current_mp > 0:
-				blocking = true
-				GameState.set_active_skill("Block", 999.0)
-		elif Input.is_action_just_released("block"):
-			blocking = false
-			GameState.set_active_skill("Block", 0.0)
+	if not is_typing:
+		if Input.is_action_just_pressed("move_down") and is_on_floor():
+			_try_drop_through()
+		# Keyboard input actions; mobile touch invokes touch_attack / touch_jump directly.
+		if Input.is_action_just_pressed("jump"):
+			jump_buffer_timer = JUMP_BUFFER_TIME
+		if Input.is_action_pressed("attack") and attack_cooldown <= 0.0:
+			_attack()
+		var interact_just := Input.is_action_just_pressed("interact")
+		if interact_just:
+			# E is loot only: pick up the nearest nearby item. NPCs are clicked, never E'd.
+			var loot := _nearest_loot()
+			if loot != null and is_instance_valid(loot) and loot.has_method("interact"):
+				loot.interact(self)
+		# --- Rage (Self Rage / Guild Rage): press R ---
+		if Input.is_action_just_pressed("rage") and not dead:
+			var skill_name := "Self Rage" if int(GameState.skills.get("Self Rage", 0)) > 0 else "Guild Rage"
+			# Cooldown takes priority: if the skill is on cooldown, report that
+			# instead of saying it is active.
+			var remaining := float(GameState.skill_cooldowns.get(skill_name, 0))
+			if remaining > 0.0:
+				GameState.message.emit("%s on cooldown (%.1fs)" % [skill_name, remaining])
+			else:
+				var active := GameState.get_active_skills()
+				if active.has("Self Rage"):
+					GameState.message.emit("Self Rage is active!")
+				elif active.has("Guild Rage"):
+					GameState.message.emit("Guild Rage is active!")
+				elif GameState.activate_skill(skill_name):
+					var rage_lvl := int(GameState.skills.get(skill_name, 0))
+					rage_timer = float(rage_lvl)  # 1 second per level
+					active_rage_skill = skill_name
+					GameState.set_active_skill(skill_name, rage_timer)
+					GameState.message.emit("Rage activated! (%d seconds)" % rage_lvl)
+				else:
+					GameState.message.emit("%s on cooldown (%.1fs)" % [skill_name, remaining])
+
+		# --- Block (V key): hold to reduce incoming damage ---
+		var block_lvl := int(GameState.skills.get("Block", 0))
+		if block_lvl > 0 and not dead:
+			if Input.is_action_pressed("block") and not blocking:
+				if GameState.current_mp > 0:
+					blocking = true
+					GameState.set_active_skill("Block", 999.0)
+			elif Input.is_action_just_released("block"):
+				blocking = false
+				GameState.set_active_skill("Block", 0.0)
 
 	if blocking:
 		block_mp_timer += delta
@@ -181,7 +198,7 @@ func _physics_process(delta: float) -> void:
 		active_rage_skill = ""
 
 	var pstats := GameState.stats()
-	var axis := Input.get_axis("move_left", "move_right")
+	var axis := 0.0 if is_typing else Input.get_axis("move_left", "move_right")
 	if _virtual_axis != Vector2.ZERO:
 		axis = _virtual_axis.x
 	var move_speed: float = float(pstats.get("speed", SPEED))
@@ -290,6 +307,11 @@ func _end_drop_through() -> void:
 func _process(delta: float) -> void:
 	if absf(velocity.x) > 8.0 and is_on_floor():
 		walk_phase += delta * 2.0
+	if speech_bubble_timer > 0.0:
+		speech_bubble_timer -= delta
+		if speech_bubble_timer <= 0.0:
+			speech_bubble_text = ""
+			queue_redraw()
 
 
 # ---------------------------------------------------------------------------
@@ -567,14 +589,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# Left-click a portal to travel (when standing near it). Portals are no
 		# longer activated with T — click them like NPCs.
-		# Touch tap a remote player to trade or open their stall
-		for rplayer in get_tree().get_nodes_in_group("remote_players"):
-			if is_instance_valid(rplayer) and touch_world.distance_to(rplayer.global_position) < 80.0:
-				var st := get_tree().get_first_node_in_group("stage")
-				if st != null and st.has_method("interact_with_remote_player"):
-					st.interact_with_remote_player(rplayer)
-					return
-
 		var best_portal: Portal = null
 		var best_portal_dist := 1.0e20
 		for p in get_tree().get_nodes_in_group("portals"):
@@ -746,6 +760,35 @@ func _draw() -> void:
 			var sign_pos := Vector2(-sign_w * 0.5, -120.0 + y)
 			draw_string(font, sign_pos + Vector2(1, 1), st_title, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(0, 0, 0, 0.9))
 			draw_string(font, sign_pos, st_title, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(1.0, 0.85, 0.35))
+
+	# In-game speech bubble
+	if speech_bubble_text != "":
+		var sfont := ThemeDB.fallback_font
+		var sfont_size := 11
+		var text_sz := sfont.get_string_size(speech_bubble_text, HORIZONTAL_ALIGNMENT_CENTER, -1, sfont_size)
+		var bubble_w := clampf(text_sz.x + 16.0, 44.0, 240.0)
+		var bubble_h := 22.0
+		var bubble_y := -108.0 + y
+		if _is_remote and remote_data.get("stall") != null:
+			bubble_y = -140.0 + y
+
+		var bubble_rect := Rect2(-bubble_w * 0.5, bubble_y - bubble_h, bubble_w, bubble_h)
+		# Background shadow & bubble
+		draw_rect(Rect2(bubble_rect.position + Vector2(1, 1), bubble_rect.size), Color(0, 0, 0, 0.4), true)
+		draw_rect(bubble_rect, Color(0.98, 0.98, 0.95, 0.95), true)
+		# Border
+		draw_rect(bubble_rect, Color(0.2, 0.22, 0.25, 0.9), false, 1.5)
+		# Small pointer triangle pointing down
+		var tri_pts := PackedVector2Array([
+			Vector2(-4, bubble_y),
+			Vector2(4, bubble_y),
+			Vector2(0, bubble_y + 5)
+		])
+		draw_colored_polygon(tri_pts, Color(0.98, 0.98, 0.95, 0.95))
+		# Text inside bubble
+		var text_x := -minf(text_sz.x, bubble_w - 12.0) * 0.5
+		var text_pos := Vector2(text_x, bubble_y - 7.0)
+		draw_string(sfont, text_pos, speech_bubble_text, HORIZONTAL_ALIGNMENT_CENTER, int(bubble_w - 8.0), sfont_size, Color(0.12, 0.14, 0.16))
 
 	# Weapon / swing
 	var hand := Vector2(facing * 11.0, -38 + y)
