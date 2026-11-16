@@ -32,6 +32,7 @@ signal trade_cancelled_by_partner(from_id: int)
 signal player_stall_changed(peer_id: int, stall_data: Variant)
 signal stall_buy_completed(success: bool, item: Dictionary, price: int, error: String)
 signal stall_item_sold_notification(buyer_name: String, item: Dictionary, price: int)
+signal friend_notify_received(from_name: String, message: String)
 
 const MAX_PLAYERS := 8
 const DEFAULT_PORT := 7576
@@ -184,6 +185,11 @@ func _handle_ws_message(msg: Dictionary) -> void:
 			var it: Dictionary = msg.get("item", {})
 			var pr := int(msg.get("price", 0))
 			stall_item_sold_notification.emit(bname, it, pr)
+
+		"friend_notify":
+			var from_name := str(msg.get("from_name", ""))
+			var message := str(msg.get("message", ""))
+			friend_notify_received.emit(from_name, message)
 
 
 func _send_json(data: Dictionary) -> void:
@@ -343,6 +349,16 @@ func buy_from_stall(seller_id: int, item_name: String) -> void:
 		"type": "stall_buy",
 		"seller_id": seller_id,
 		"item_name": item_name
+	})
+
+
+func notify_friend_request(target_name: String) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({
+		"type": "friend_notify",
+		"target_name": target_name,
+		"message": "%s sent you a friend request!" % GameState.player_name
 	})
 
 
