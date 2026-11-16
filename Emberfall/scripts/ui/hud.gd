@@ -612,6 +612,7 @@ func _build_ui() -> void:
 	_build_monsterpedia_panel()
 	_build_settings_panel()
 	_build_chat_box()
+	_build_friends_panel()
 
 
 func _build_chat_box() -> void:
