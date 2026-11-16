@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emberfall Admin</title>
+    <style>
+      :root {
+        --bg: #12141a;
+        --panel: #1a1d26;
+        --panel-2: #21252f;
+        --line: #2c3140;
+        --text: #e6e8ee;
+        --muted: #949cb0;
+        --accent: #ff8c42;
+        --ok: #4ade80;
+        --bad: #f87171;
+        --warn: #fbbf24;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 14px/1.5 "Segoe UI", system-ui, sans-serif;
+      }
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 20px;
+        background: var(--panel);
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      h1 { font-size: 17px; margin: 0; letter-spacing: .5px; }
+      h1 span { color: var(--accent); }
+      .path { color: var(--muted); font-size: 12px; font-family: Consolas, monospace; }
+      .spacer { flex: 1; }
+      .stats { display: flex; gap: 14px; flex-wrap: wrap; }
+      .stat { text-align: right; }
+      .stat b { display: block; font-size: 16px; }
+      .stat span { color: var(--muted); font-size: 11px; text-transform: uppercase; }
+      nav { display: flex; gap: 2px; padding: 0 20px; background: var(--panel); border-bottom: 1px solid var(--line); }
+      nav button {
+        background: none; border: none; border-bottom: 2px solid transparent;
+        color: var(--muted); padding: 10px 14px; cursor: pointer; font-size: 14px;
+      }
+      nav button:hover { color: var(--text); }
+      nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+      main { padding: 20px; }
+      section { display: none; }
+      section.active { display: block; }
+      .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+      .toolbar { display: flex; gap: 8px; align-items: center; padding: 12px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+      .toolbar input, .toolbar select {
+        background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+        padding: 7px 10px; border-radius: 6px; font-size: 13px;
+      }
+      .toolbar input { min-width: 220px; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+      th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .4px; background: var(--panel-2); }
+      tr:hover td { background: rgba(255, 255, 255, .025); }
+      td.num { text-align: right; font-family: Consolas, monospace; }
+      td.actions { white-space: nowrap; }
+      .pill { padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+      .pill.yes { background: rgba(248, 113, 113, .18); color: var(--bad); }
+      .pill.no { background: rgba(74, 222, 128, .14); color: var(--ok); }
+      .pill.warn { background: rgba(251, 191, 36, .16); color: var(--warn); }
+      th.sortable { cursor: pointer; user-select: none; }
+      th.sortable:hover { color: var(--accent); background: var(--panel); }
+      .sort-icon { display: inline-block; margin-left: 4px; font-size: 10px; color: var(--accent); }
+      .pagination {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 10px 14px; border-top: 1px solid var(--line); flex-wrap: wrap; gap: 10px;
+        font-size: 13px;
+      }
+      .pager-nav { display: flex; align-items: center; gap: 6px; }
+      button.act {
+        background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+        padding: 4px 9px; border-radius: 5px; cursor: pointer; font-size: 12px;
+      }
+      button.act:hover { border-color: var(--accent); color: var(--accent); }
+      button.act.danger:hover { border-color: var(--bad); color: var(--bad); }
+      button.primary { background: var(--accent); border-color: var(--accent); color: #1a1207; font-weight: 600; }
+      button.primary:hover { filter: brightness(1.1); color: #1a1207; }
+      .row-actions { display: flex; gap: 5px; flex-wrap: nowrap; white-space: nowrap; }
+      textarea {
+        width: 100%; min-height: 150px; background: var(--panel-2); color: var(--text);
+        border: 1px solid var(--line); border-radius: 6px; padding: 12px;
+        font-family: Consolas, monospace; font-size: 13px; resize: vertical;
+      }
+      #result { margin-top: 14px; }
+      #toast {
+        position: fixed; right: 18px; bottom: 18px; padding: 11px 16px; border-radius: 7px;
+        background: var(--panel-2); border: 1px solid var(--line); opacity: 0;
+        transform: translateY(8px); transition: .2s; pointer-events: none; max-width: 420px;
+      }
+      #toast.show { opacity: 1; transform: none; }
+      #toast.bad { border-color: var(--bad); color: var(--bad); }
+      #toast.good { border-color: var(--ok); color: var(--ok); }
+      .muted { color: var(--muted); }
+      .empty { padding: 26px; text-align: center; color: var(--muted); }
+      code { font-family: Consolas, monospace; background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
+      /* ---- Modals ---- */
+      #char-modal, #monster-modal, #item-modal {
+        display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65);
+        z-index: 100; align-items: center; justify-content: center;
+      }
+      #char-modal .modal-box, #monster-modal .modal-box, #item-modal .modal-box {
+        background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+        padding: 24px; width: min(920px, 96vw); max-height: 88vh; overflow-y: auto;
+      }
+      #char-modal .modal-header, #monster-modal .modal-header, #item-modal .modal-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+      #char-modal h2, #monster-modal h2, #item-modal h2 { font-size: 16px; margin: 0; flex: 1; color: var(--accent); }
+      .cm-section {
+        font-size: 11px; font-weight: 600; text-transform: uppercase;
+        letter-spacing: .4px; color: var(--muted); margin-bottom: 6px; margin-top: 2px;
+      }
+      .cm-input {
+        background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+        padding: 6px 10px; border-radius: 6px; font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Emberfall <span>Admin</span></h1>
+      <div class="path" id="dbpath">loading...</div>
+      <div class="spacer"></div>
+      <div class="stats" id="stats"></div>
+    </header>
+
+    <nav>
+      <button data-tab="accounts" class="active">Accounts</button>
+      <button data-tab="characters">Characters</button>
+      <button data-tab="items">Items</button>
+      <button data-tab="monsters">Monsters</button>
+      <button data-tab="sql">SQL</button>
+      <button data-tab="backups">Backups</button>
+    </nav>
+
+    <main>
+      <section id="accounts" class="active">
+        <div class="card">
+          <div class="toolbar">
+            <input id="acct-filter" placeholder="Filter by username..." />
+            <button class="act primary" onclick="reload()">Refresh</button>
+            <span class="muted" id="auto-refresh-label" style="font-size:12px"></span>
+          </div>
+          <div id="accounts-table"></div>
+        </div>
+      </section>
+
+      <section id="characters">
+        <div class="card">
+          <div class="toolbar">
+            <input id="char-filter" placeholder="Filter by name or owner..." />
+            <button class="act primary" onclick="reload()">Refresh</button>
+          </div>
+          <div id="characters-table"></div>
+        </div>
+      </section>
+
+      <section id="items">
+        <div class="card">
+          <div class="toolbar">
+            <input id="item-search" placeholder="Search items..." />
+            <button class="act primary" onclick="loadItems()">Search</button>
+          </div>
+          <div id="items-table"></div>
+        </div>
+      </section>
+
+      <section id="monsters">
+        <div class="card">
+          <div class="toolbar">
+            <input id="monster-search" placeholder="Search monsters by name..." />
+            <select id="monster-boss-filter" onchange="loadMonsters()">
+              <option value="">All monsters</option>
+              <option value="1">Bosses only</option>
+              <option value="0">Regular only</option>
+            </select>
+            <button class="act primary" onclick="loadMonsters()">Search</button>
+          </div>
+          <div id="monsters-table"></div>
+        </div>
+      </section>
+
+      <section id="sql">
+        <div class="card">
+          <div class="toolbar">
+            <span class="muted">Read-only. SELECT / WITH / PRAGMA / EXPLAIN.</span>
+            <button class="act primary" onclick="runSql()">Run</button>
+          </div>
+          <div style="padding: 12px">
+            <textarea id="sql-input">SELECT id, username, banned, muted, last_login FROM accounts</textarea>
+            <div id="result"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="backups">
+        <div class="card">
+          <div class="toolbar">
+            <button class="act primary" onclick="makeBackup()">Take a snapshot</button>
+            <button class="act" onclick="loadBackups()">Refresh</button>
+            <span class="muted">Restoring replaces the live database. A pre-restore copy is kept automatically.</span>
+          </div>
+          <div id="backups-table"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Character detail modal -->
+    <div id="char-modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 id="cm-title"></h2>
+          <button class="act" onclick="closeCharModal()">✕ Close</button>
+        </div>
+        <div id="cm-body"></div>
+      </div>
+    </div>
+
+    <!-- Monster detail/edit modal -->
+    <div id="monster-modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 id="mm-title"></h2>
+          <button class="act" onclick="closeMonsterModal()">✕ Close</button>
+        </div>
+        <div id="mm-body"></div>
+      </div>
+    </div>
+
+    <!-- Item edit modal -->
+    <div id="item-modal">
+      <div class="modal-box" style="max-width:780px">
+        <div class="modal-header">
+          <h2 id="im-title"></h2>
+          <button class="act" onclick="closeItemModal()">✕ Close</button>
+        </div>
+        <div id="im-body"></div>
+      </div>
+    </div>
+
+    <div id="toast"></div>
+    <datalist id="items-datalist"></datalist>
+
+    <script>
+      const KEY = "__ADMIN_KEY__";
+      let accounts = [];
+      let characters = [];
+      let itemsList = [];
+      let monstersList = [];
+      let itemNames = [];
+
+      function loadItemNames() {
+        if (itemNames.length > 0) return Promise.resolve(itemNames);
+        return api("/api/item-names").then((d) => {
+          itemNames = d.names || [];
+          const dl = document.getElementById("items-datalist");
+          if (dl) {
+            dl.innerHTML = itemNames.map((n) => `<option value="${esc(n)}"></option>`).join("");
+          }
+          return itemNames;
+        }).catch(() => []);
+      }
+
+      // ---- Auto-refresh (every 30s) ----
+      let _autoRefreshTimer = null;
+      let _autoRefreshCountdown = 30;
+      function startAutoRefresh() {
+        clearInterval(_autoRefreshTimer);
+        _autoRefreshCountdown = 30;
+        _autoRefreshTimer = setInterval(() => {
+          _autoRefreshCountdown -= 1;
+          const lbl = document.getElementById("auto-refresh-label");
+          if (lbl) lbl.textContent = `Auto-refresh in ${_autoRefreshCountdown}s`;
+          if (_autoRefreshCountdown <= 0) {
+            _autoRefreshCountdown = 30;
+            reload();
+          }
+        }, 1000);
+      }
+
+      function toast(message, kind = "") {
+        const el = document.getElementById("toast");
+        el.textContent = message;
+        el.className = "show " + kind;
+        clearTimeout(el._timer);
+        el._timer = setTimeout(() => (el.className = ""), 3200);
+      }
+
+      async function api(path, options = {}) {
+        const response = await fetch("/admin" + path, {
+          ...options,
+          headers: {
+            "Content-Type": "application/json",
+            "X-Admin-Key": KEY,
+            ...(options.headers || {}),
+          },
+        });
+        const text = await response.text();
+        let data = null;
+        try { data = text ? JSON.parse(text) : null; } catch { data = { error: text }; }
+        if (!response.ok) throw new Error(data?.error || response.statusText);
+        return data;
+      }
+
+      const esc = (v) =>
+        v === null || v === undefined
+          ? ""
+          : String(v).replace(/[&<>"']/g, (c) =>
+              ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+      function table(columns, rows, renderRow) {
+        if (!rows.length) return '<div class="empty">Nothing here yet.</div>';
+        const head = columns.map((c) => `<th>${esc(c.label)}</th>`).join("");
+        const body = rows.map((r) => `<tr>${renderRow(r)}</tr>`).join("");
+        return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+      }
+
+      const tableStates = {
+        "accounts-table": { page: 1, pageSize: 25, sortKey: "id", sortDir: "asc", draw: () => drawAccounts() },
+        "characters-table": { page: 1, pageSize: 25, sortKey: "id", sortDir: "asc", draw: () => drawCharacters() },
+        "items-table": { page: 1, pageSize: 25, sortKey: "name", sortDir: "asc", draw: () => drawItems() },
+        "monsters-table": { page: 1, pageSize: 25, sortKey: "name", sortDir: "asc", draw: () => drawMonsters() },
+      };
+
+      function setTableSort(id, key) {
+        const s = tableStates[id];
+        if (!s) return;
+        if (s.sortKey === key) {
+          s.sortDir = s.sortDir === "asc" ? "desc" : "asc";
+        } else {
+          s.sortKey = key;
+          s.sortDir = "asc";
+        }
+        s.draw();
+      }
+
+      function setTablePage(id, page) {
+        const s = tableStates[id];
+        if (!s) return;
+        s.page = page;
+        s.draw();
+      }
+
+      function setTablePageSize(id, size) {
+        const s = tableStates[id];
+        if (!s) return;
+        s.pageSize = size;
+        s.page = 1;
+        s.draw();
+      }
+
+      function renderSortableTable({ containerId, columns, data, state, renderRow }) {
+        let sorted = [...data];
+        if (state.sortKey) {
+          const k = state.sortKey;
+          const dir = state.sortDir === "desc" ? -1 : 1;
+          sorted.sort((a, b) => {
+            let va = typeof k === "function" ? k(a) : a[k];
+            let vb = typeof k === "function" ? k(b) : b[k];
+            if (va === null || va === undefined || va === "-") va = typeof vb === "number" ? -Infinity : "";
+            if (vb === null || vb === undefined || vb === "-") vb = typeof va === "number" ? -Infinity : "";
+            if (typeof va === "string") va = va.toLowerCase();
+            if (typeof vb === "string") vb = vb.toLowerCase();
+            if (va < vb) return -1 * dir;
+            if (va > vb) return 1 * dir;
+            return 0;
+          });
+        }
+
+        const total = sorted.length;
+        const totalPages = Math.max(1, Math.ceil(total / state.pageSize));
+        if (state.page > totalPages) state.page = totalPages;
+        if (state.page < 1) state.page = 1;
+
+        const startIdx = (state.page - 1) * state.pageSize;
+        const endIdx = Math.min(total, startIdx + state.pageSize);
+        const pagedRows = sorted.slice(startIdx, endIdx);
+
+        if (!data.length) {
+          document.getElementById(containerId).innerHTML = '<div class="empty">Nothing here yet.</div>';
+          return;
+        }
+
+        const head = columns
+          .map((c) => {
+            if (!c.key) return `<th>${esc(c.label)}</th>`;
+            const isSorted = state.sortKey === c.key;
+            const icon = isSorted ? (state.sortDir === "desc" ? " ▼" : " ▲") : "";
+            return `<th class="sortable" onclick="setTableSort('${containerId}', '${c.key}')">${esc(c.label)}<span class="sort-icon">${icon}</span></th>`;
+          })
+          .join("");
+
+        const body = pagedRows.map((r) => `<tr>${renderRow(r)}</tr>`).join("");
+        const tableHtml = `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+
+        const pagerHtml = `
+          <div class="pagination">
+            <div class="muted">Showing ${total > 0 ? startIdx + 1 : 0}–${endIdx} of ${total.toLocaleString()}</div>
+            <div class="pager-nav">
+              <button class="act" ${state.page <= 1 ? "disabled" : ""} onclick="setTablePage('${containerId}', 1)">« First</button>
+              <button class="act" ${state.page <= 1 ? "disabled" : ""} onclick="setTablePage('${containerId}', ${state.page - 1})">‹ Prev</button>
+              <span style="margin: 0 4px">Page <b>${state.page}</b> of <b>${totalPages}</b></span>
+              <button class="act" ${state.page >= totalPages ? "disabled" : ""} onclick="setTablePage('${containerId}', ${state.page + 1})">Next ›</button>
+              <button class="act" ${state.page >= totalPages ? "disabled" : ""} onclick="setTablePage('${containerId}', ${totalPages})">Last »</button>
+            </div>
+            <div>
+              <select onchange="setTablePageSize('${containerId}', Number(this.value))">
+                <option value="25" ${state.pageSize === 25 ? "selected" : ""}>25 / page</option>
+                <option value="50" ${state.pageSize === 50 ? "selected" : ""}>50 / page</option>
+                <option value="100" ${state.pageSize === 100 ? "selected" : ""}>100 / page</option>
+                <option value="250" ${state.pageSize === 250 ? "selected" : ""}>250 / page</option>
+              </select>
+            </div>
+          </div>
+        `;
+
+        document.getElementById(containerId).innerHTML = tableHtml + pagerHtml;
+      }
+
+      function loadOverview() {
+        api("/api/overview").then((o) => {
+          document.getElementById("dbpath").textContent = o.db_path;
+          document.getElementById("stats").innerHTML = [
+            ["accounts", o.accounts],
+            ["characters", o.characters],
+            ["items", o.items],
+            ["bans", o.bans],
+            ["mutes", o.mutes],
+          ]
+            .map(([k, v]) => `<div class="stat"><b>${v}</b><span>${k}</span></div>`)
+            .join("");
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function loadAccounts() {
+        api("/api/accounts").then((d) => {
+          accounts = d.accounts;
+          drawAccounts();
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function drawAccounts() {
+        const filter = document.getElementById("acct-filter").value.toLowerCase();
+        const rows = accounts.filter((a) => a.username.toLowerCase().includes(filter));
+        renderSortableTable({
+          containerId: "accounts-table",
+          columns: [
+            { label: "ID", key: "id" },
+            { label: "Username", key: "username" },
+            { label: "Characters", key: "characters" },
+            { label: "State", key: "banned" },
+            { label: "Created", key: "created_at" },
+            { label: "Last login", key: "last_login" },
+            { label: "Actions" },
+          ],
+          data: rows,
+          state: tableStates["accounts-table"],
+          renderRow: (a) => `
+            <td class="num">${a.id}</td>
+            <td><b>${esc(a.username)}</b></td>
+            <td class="num">${a.characters}</td>
+            <td>${
+              a.banned
+                ? `<span class="pill yes">banned</span> ${esc(a.ban_reason || "")}`
+                : a.muted
+                ? `<span class="pill warn">muted</span> ${esc(a.mute_reason || "")}`
+                : `<span class="pill no">ok</span>`
+            }</td>
+            <td class="muted">${esc(a.created_at)}</td>
+            <td class="muted">${esc(a.last_login || "-")}</td>
+            <td><div class="row-actions">
+              ${
+                a.banned
+                  ? `<button class="act" onclick="unban(${a.id})">Unban</button>`
+                  : `<button class="act" onclick="ban(${a.id})">Ban</button>`
+              }
+              ${
+                a.muted
+                  ? `<button class="act" onclick="unmute(${a.id})">Unmute</button>`
+                  : `<button class="act" onclick="mute(${a.id})">Mute</button>`
+              }
+              <button class="act" onclick="renameAccount(${a.id}, '${esc(a.username)}')">Rename</button>
+              <button class="act" onclick="setPassword(${a.id})">Password</button>
+              <button class="act danger" onclick="delAccount(${a.id})">Delete</button>
+            </div></td>`,
+        });
+      }
+
+      function loadCharacters() {
+        api("/api/characters").then((d) => {
+          characters = d.characters;
+          drawCharacters();
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function drawCharacters() {
+        const filter = document.getElementById("char-filter").value.toLowerCase();
+        const rows = characters.filter(
+          (c) =>
+            c.name.toLowerCase().includes(filter) ||
+            (c.owner || "").toLowerCase().includes(filter)
+        );
+        renderSortableTable({
+          containerId: "characters-table",
+          columns: [
+            { label: "ID", key: "id" },
+            { label: "Name", key: "name" },
+            { label: "Owner", key: "owner" },
+            { label: "Class", key: "class" },
+            { label: "Level", key: "level" },
+            { label: "Gold", key: "gold" },
+            { label: "Stage", key: "current_stage" },
+            { label: "Updated", key: "updated_at" },
+            { label: "Actions" },
+          ],
+          data: rows,
+          state: tableStates["characters-table"],
+          renderRow: (c) => `
+            <td class="num">${c.id}</td>
+            <td><b>${esc(c.name)}</b></td>
+            <td class="muted">${esc(c.owner)}</td>
+            <td>${esc(c.class)}</td>
+            <td class="num">${c.level}</td>
+            <td class="num">${Number(c.gold).toLocaleString()}</td>
+            <td class="num">${c.current_stage}</td>
+            <td class="muted">${esc(c.updated_at)}</td>
+            <td><div class="row-actions">
+              <button class="act" onclick="viewCharacter(${c.id})">View</button>
+              <button class="act danger" onclick="delCharacter(${c.id})">Delete</button>
+            </div></td>`,
+        });
+      }
+
+      function loadItems() {
+        const q = document.getElementById("item-search").value;
+        api("/api/items?q=" + encodeURIComponent(q)).then((d) => {
+          itemsList = d.items || [];
+          tableStates["items-table"].page = 1;
+          drawItems();
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function drawItems() {
+        renderSortableTable({
+          containerId: "items-table",
+          columns: [
+            { label: "Name", key: "name" },
+            { label: "Type", key: "type" },
+            { label: "Slot", key: "slot" },
+            { label: "Level", key: "level" },
+            { label: "Price", key: "price" },
+            { label: "Sell", key: "sell" },
+            { label: "Dmg Min", key: "damage_min" },
+            { label: "Dmg Max", key: "damage_max" },
+            { label: "Defense", key: "defense" },
+            { label: "Reach", key: "reach" },
+            { label: "RPM", key: "rpm" },
+            { label: "Actions" },
+          ],
+          data: itemsList,
+          state: tableStates["items-table"],
+          renderRow: (i) => `
+            <td><b>${esc(i.name)}</b></td>
+            <td class="muted">${esc(i.type)}</td>
+            <td class="muted">${esc(i.slot)}</td>
+            <td class="num">${i.level ?? "-"}</td>
+            <td class="num">${Number(i.price ?? 0).toLocaleString()}</td>
+            <td class="num">${Number(i.sell ?? 0).toLocaleString()}</td>
+            <td class="num">${i.damage_min ?? "-"}</td>
+            <td class="num">${i.damage_max ?? "-"}</td>
+            <td class="num">${i.defense ?? "-"}</td>
+            <td class="num">${i.reach ?? "-"}</td>
+            <td class="num">${i.rpm ?? "-"}</td>
+            <td><div class="row-actions">
+              <button class="act primary" onclick="openItemModal('${esc(i.name)}')">Edit</button>
+            </div></td>`,
+        });
+      }
+
+      function loadBackups() {
+        api("/api/backups").then((d) => {
+          document.getElementById("backups-table").innerHTML = table(
+            [{ label: "Snapshot" }, { label: "Size" }, { label: "Taken" }, { label: "Accounts" }, { label: "Characters" }, { label: "Actions" }],
+            d.backups,
+            (b) => `
+              <td><code>${esc(b.name)}</code></td>
+              <td class="num">${(b.size / 1024).toFixed(1)} KB</td>
+              <td class="muted">${esc(b.modified)}</td>
+              <td class="num">${b.manifest?.counts?.accounts ?? "?"}</td>
+              <td class="num">${b.manifest?.counts?.characters ?? "?"}</td>
+              <td><div class="row-actions">
+                <button class="act" onclick="verifyBackup('${esc(b.file)}')">Verify</button>
+                <button class="act danger" onclick="restoreBackup('${esc(b.file)}')">Restore</button>
+              </div></td>`
+          );
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function runSql() {
+        const sql = document.getElementById("sql-input").value;
+        api("/api/query", { method: "POST", body: JSON.stringify({ sql }) })
+          .then((d) => {
+            const rows = d.rows || [];
+            if (!rows.length) {
+              document.getElementById("result").innerHTML = '<div class="empty">No rows.</div>';
+              return;
+            }
+            const cols = Object.keys(rows[0]);
+            document.getElementById("result").innerHTML =
+              `<div class="card">${table(
+                cols.map((c) => ({ label: c })),
+                rows,
+                (r) => cols.map((c) => `<td class="num">${esc(r[c])}</td>`).join("")
+              )}</div>`;
+          })
+          .catch((e) => toast(e.message, "bad"));
+      }
+
+      // ---- Character modal ----
+      let _charModalId = null;
+
+      function viewCharacter(id) {
+        _charModalId = id;
+        api("/api/character/" + id).then((d) => {
+          const c = d.character;
+          const inv = (c.inventory || []).map((e) =>
+            `<tr><td>${esc(e.name)}</td><td class="num">${e.qty ?? 1}</td><td>${e.locked ? "🔒" : ""}</td></tr>`
+          ).join("") || '<tr><td colspan="3" class="empty">Empty</td></tr>';
+          const equip = Object.entries(c.equipment || {}).filter(([, v]) => v).map(([slot, name]) =>
+            `<tr><td class="muted">${esc(slot)}</td><td>${esc(name)}</td></tr>`
+          ).join("") || '<tr><td colspan="2" class="empty">Nothing equipped</td></tr>';
+          const attrs = Object.entries(c.attributes || {}).map(([k, v]) =>
+            `<tr><td class="muted">${esc(k)}</td><td class="num">${v}</td></tr>`
+          ).join("") || "";
+          const skillz = Object.entries(c.skills || {}).map(([k, v]) =>
+            `<tr><td class="muted">${esc(k)}</td><td class="num">Lv ${v}</td></tr>`
+          ).join("") || '<tr><td colspan="2" class="empty">No skills</td></tr>';
+
+          document.getElementById("cm-title").textContent = `${c.name}  (${c.class})`;
+          document.getElementById("cm-body").innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div class="cm-section">Summary</div>
+                <table><tbody>
+                  <tr><td class="muted">Owner</td><td>${esc(c.owner ?? "-")}</td></tr>
+                  <tr><td class="muted">Level</td><td class="num">${c.level}</td></tr>
+                  <tr><td class="muted">XP</td><td class="num">${Number(c.xp).toLocaleString()}</td></tr>
+                  <tr><td class="muted">Gold</td><td class="num">${Number(c.gold).toLocaleString()}</td></tr>
+                  <tr><td class="muted">Stage</td><td class="num">${c.current_stage} / ${c.unlocked_stage}</td></tr>
+                  <tr><td class="muted">Play time</td><td class="num">${Math.floor((c.play_time || 0) / 60)}m</td></tr>
+                  <tr><td class="muted">Updated</td><td class="muted">${esc(c.updated_at)}</td></tr>
+                </tbody></table>
+                <div class="cm-section" style="margin-top:14px">Attributes</div>
+                <table><tbody>${attrs}</tbody></table>
+              </div>
+              <div>
+                <div class="cm-section">Skills</div>
+                <table><tbody>${skillz}</tbody></table>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+              <div>
+                <div class="cm-section">Equipment</div>
+                <table><tbody>${equip}</tbody></table>
+              </div>
+              <div>
+                <div class="cm-section">Inventory (${(c.inventory || []).length} slots)</div>
+                <div style="max-height:220px;overflow-y:auto">
+                  <table><thead><tr><th>Item</th><th>Qty</th><th></th></tr></thead><tbody>${inv}</tbody></table>
+                </div>
+              </div>
+            </div>
+            <div class="cm-section" style="margin-top:18px">Admin Actions</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;align-items:center">
+              <input id="cm-gold" class="cm-input" type="number" placeholder="Set gold" style="width:130px" value="${c.gold}">
+              <button class="act primary" onclick="cmSetGold()">Set Gold</button>
+              <input id="cm-level" class="cm-input" type="number" placeholder="Set level" style="width:110px" value="${c.level}" min="1">
+              <button class="act primary" onclick="cmSetLevel()">Set Level</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center">
+              <input id="cm-cur-stage" class="cm-input" type="number" placeholder="Current stage" style="width:130px" value="${c.current_stage}" min="1">
+              <input id="cm-unlocked-stage" class="cm-input" type="number" placeholder="Unlocked stage" style="width:130px" value="${c.unlocked_stage}" min="1">
+              <button class="act primary" onclick="cmSetStage()">Set Stages / Teleport</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center">
+              <input id="cm-item" list="items-datalist" class="cm-input" type="text" placeholder="Select or type item name..." style="flex:1;min-width:180px">
+              <input id="cm-qty" class="cm-input" type="number" value="1" min="1" style="width:70px">
+              <button class="act primary" onclick="cmGiveItem()">Give Item</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center">
+              <input id="cm-newname" class="cm-input" type="text" placeholder="New character name" style="flex:1;min-width:180px">
+              <button class="act" onclick="cmRenameChar()">Rename Character</button>
+            </div>`;
+          document.getElementById("char-modal").style.display = "flex";
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function closeCharModal() {
+        document.getElementById("char-modal").style.display = "none";
+        _charModalId = null;
+      }
+
+      function cmSetGold() {
+        const gold = Number(document.getElementById("cm-gold").value);
+        if (!Number.isFinite(gold)) return;
+        act("/api/character/" + _charModalId, { gold }, "PATCH")
+          .then(() => { toast("Gold updated.", "good"); closeCharModal(); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function cmSetLevel() {
+        const level = Number(document.getElementById("cm-level").value);
+        if (!Number.isFinite(level) || level < 1) return;
+        act("/api/character/" + _charModalId, { level }, "PATCH")
+          .then(() => { toast("Level updated.", "good"); closeCharModal(); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function cmGiveItem() {
+        const item = document.getElementById("cm-item").value.trim();
+        const qty = Number(document.getElementById("cm-qty").value) || 1;
+        if (!item) return;
+        act("/api/character/" + _charModalId + "/give", { item, qty })
+          .then(() => { toast(`Gave ${qty}× ${item}.`, "good"); closeCharModal(); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function cmSetStage() {
+        const current_stage = Number(document.getElementById("cm-cur-stage").value);
+        const unlocked_stage = Number(document.getElementById("cm-unlocked-stage").value);
+        if (!Number.isFinite(current_stage) || current_stage < 1) return;
+        const payload = { current_stage };
+        if (Number.isFinite(unlocked_stage) && unlocked_stage >= 1) {
+          payload.unlocked_stage = unlocked_stage;
+        }
+        act("/api/character/" + _charModalId, payload, "PATCH")
+          .then(() => { toast("Stages updated.", "good"); closeCharModal(); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+
+      function cmRenameChar() {
+        const name = document.getElementById("cm-newname").value.trim();
+        if (!name) return;
+        act("/api/character/" + _charModalId + "/rename", { name })
+          .then(() => { toast("Character renamed.", "good"); closeCharModal(); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+
+      // ---- Account actions ----
+      const act = (path, body, method = "POST") =>
+        api(path, { method, body: body === undefined ? undefined : JSON.stringify(body) });
+
+      function ban(id) {
+        const reason = prompt("Reason for the ban:", "Banned by an administrator.");
+        if (reason === null) return;
+        act("/api/accounts/" + id + "/ban", { reason })
+          .then(() => { toast("Account banned.", "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function unban(id) {
+        act("/api/accounts/" + id + "/unban")
+          .then(() => { toast("Ban lifted.", "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function mute(id) {
+        const reason = prompt("Reason for the mute:", "Muted by an administrator.");
+        if (reason === null) return;
+        act("/api/accounts/" + id + "/mute", { reason })
+          .then(() => { toast("Account muted.", "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function unmute(id) {
+        act("/api/accounts/" + id + "/unmute")
+          .then(() => { toast("Mute lifted.", "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function renameAccount(id, current) {
+        const name = prompt("New username:", current);
+        if (!name || name.trim() === current) return;
+        act("/api/accounts/" + id + "/rename", { username: name.trim() })
+          .then(() => { toast("Username changed.", "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function setPassword(id) {
+        const password = prompt("New password (at least 6 characters):");
+        if (!password) return;
+        act("/api/accounts/" + id + "/password", { password })
+          .then(() => { toast("Password changed.", "good"); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function delAccount(id) {
+        const account = accounts.find((a) => a.id === id);
+        if (!confirm(`Delete "${account.username}" and its ${account.characters} character(s)? This cannot be undone.`)) return;
+        act("/api/accounts/" + id, undefined, "DELETE")
+          .then((r) => { toast(`Deleted ${r.deleted}.`, "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function delCharacter(id) {
+        const character = characters.find((c) => c.id === id);
+        if (!confirm(`Delete the character "${character.name}"?`)) return;
+        act("/api/characters/" + id, undefined, "DELETE")
+          .then(() => { toast("Character deleted.", "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function makeBackup() {
+        act("/api/backups")
+          .then(() => { toast("Snapshot taken.", "good"); loadBackups(); loadOverview(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function verifyBackup(file) {
+        api("/api/backups/verify?file=" + encodeURIComponent(file))
+          .then((r) => toast(`Snapshot OK: ${r.report.counts.accounts} accounts, ${r.report.counts.characters} characters.`, "good"))
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function restoreBackup(file) {
+        if (!confirm("Restore this snapshot over the live database?\n\nA pre-restore copy is kept automatically, but players connected right now will see the change.")) return;
+        act("/api/backups/restore", { file })
+          .then((r) => { toast(`Restored: ${r.accounts} accounts, ${r.characters} characters.`, "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+
+      // ---- Item full edit ----
+      let _editingItem = "";
+      function openItemModal(name) {
+        _editingItem = name;
+        api("/api/items/" + encodeURIComponent(name)).then((d) => {
+          const it = d.item || {};
+          document.getElementById("im-title").textContent = `Edit Item: ${name}`;
+          const slots = ["weapon", "helmet", "armor", "legs", "boots", "shield", "accessory", "pet_helmet", "consumable", "material", "none"];
+          const slotOptions = slots.map((s) => `<option value="${s}" ${s === it.slot ? 'selected' : ''}>${s}</option>`).join("");
+
+          document.getElementById("im-body").innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+              <div>
+                <div class="cm-section">Buy Price (Gold)</div>
+                <input id="im-price" class="cm-input" type="number" style="width:100%" value="${it.price ?? 0}" min="0">
+              </div>
+              <div>
+                <div class="cm-section">Sell Price (Gold)</div>
+                <input id="im-sell" class="cm-input" type="number" style="width:100%" value="${it.sell ?? 0}" min="0">
+              </div>
+              <div>
+                <div class="cm-section">Required Level</div>
+                <input id="im-level" class="cm-input" type="number" style="width:100%" value="${it.level ?? 0}" min="0">
+              </div>
+              <div>
+                <div class="cm-section">Slot</div>
+                <select id="im-slot" class="cm-input" style="width:100%">${slotOptions}</select>
+              </div>
+              <div>
+                <div class="cm-section">Type</div>
+                <input id="im-type" class="cm-input" type="text" style="width:100%" value="${esc(it.type ?? '')}">
+              </div>
+              <div style="display:flex;align-items:center;margin-top:16px">
+                <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
+                  <input id="im-twohanded" type="checkbox" ${it.two_handed ? 'checked' : ''}> Two-Handed
+                </label>
+              </div>
+            </div>
+
+            <div class="cm-section" style="margin-top:16px">Combat Stats</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:12px">
+              <div>
+                <div class="cm-section">Min Damage</div>
+                <input id="im-dmg-min" class="cm-input" type="number" style="width:100%" value="${it.damage_min ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Max Damage</div>
+                <input id="im-dmg-max" class="cm-input" type="number" style="width:100%" value="${it.damage_max ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Defense</div>
+                <input id="im-defense" class="cm-input" type="number" style="width:100%" value="${it.defense ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Reach</div>
+                <input id="im-reach" class="cm-input" type="number" step="0.1" style="width:100%" value="${it.reach ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">RPM</div>
+                <input id="im-rpm" class="cm-input" type="number" style="width:100%" value="${it.rpm ?? 0}">
+              </div>
+            </div>
+
+            <div class="cm-section" style="margin-top:16px">Attribute Bonuses</div>
+            <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:12px">
+              <div>
+                <div class="cm-section">Strength</div>
+                <input id="im-str" class="cm-input" type="number" style="width:100%" value="${it.strength ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Power</div>
+                <input id="im-power" class="cm-input" type="number" style="width:100%" value="${it.power ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Range</div>
+                <input id="im-range" class="cm-input" type="number" style="width:100%" value="${it.range ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Magic</div>
+                <input id="im-magic" class="cm-input" type="number" style="width:100%" value="${it.magic ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Dexterity</div>
+                <input id="im-dex" class="cm-input" type="number" style="width:100%" value="${it.dexterity ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Luck</div>
+                <input id="im-luck" class="cm-input" type="number" style="width:100%" value="${it.luck ?? 0}">
+              </div>
+              <div>
+                <div class="cm-section">Bonus HP</div>
+                <input id="im-hp" class="cm-input" type="number" style="width:100%" value="${it.health ?? 0}">
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+              <button class="act" onclick="closeItemModal()">Cancel</button>
+              <button class="act primary" onclick="saveItem()">Save Item</button>
+            </div>
+          `;
+          document.getElementById("item-modal").style.display = "flex";
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function closeItemModal() {
+        document.getElementById("item-modal").style.display = "none";
+        _editingItem = "";
+      }
+
+      function saveItem() {
+        if (!_editingItem) return;
+        const payload = {
+          price: Number(document.getElementById("im-price").value),
+          sell: Number(document.getElementById("im-sell").value),
+          level: Number(document.getElementById("im-level").value),
+          slot: document.getElementById("im-slot").value,
+          type: document.getElementById("im-type").value.trim(),
+          two_handed: document.getElementById("im-twohanded").checked,
+          damage_min: Number(document.getElementById("im-dmg-min").value),
+          damage_max: Number(document.getElementById("im-dmg-max").value),
+          defense: Number(document.getElementById("im-defense").value),
+          reach: Number(document.getElementById("im-reach").value),
+          rpm: Number(document.getElementById("im-rpm").value),
+          strength: Number(document.getElementById("im-str").value),
+          power: Number(document.getElementById("im-power").value),
+          range: Number(document.getElementById("im-range").value),
+          magic: Number(document.getElementById("im-magic").value),
+          dexterity: Number(document.getElementById("im-dex").value),
+          luck: Number(document.getElementById("im-luck").value),
+          health: Number(document.getElementById("im-hp").value),
+        };
+        act("/api/items/" + encodeURIComponent(_editingItem), payload, "PATCH")
+          .then(() => {
+            toast(`Item "${_editingItem}" updated.`, "good");
+            closeItemModal();
+            loadItems();
+          })
+          .catch((e) => toast(e.message, "bad"));
+      }
+
+      // ---- Monsters tab & modal ----
+      function loadMonsters() {
+        const q = document.getElementById("monster-search").value;
+        const boss = document.getElementById("monster-boss-filter").value;
+        let url = "/api/monsters?q=" + encodeURIComponent(q);
+        if (boss !== "") url += "&boss=" + encodeURIComponent(boss);
+        api(url).then((d) => {
+          monstersList = d.monsters || [];
+          tableStates["monsters-table"].page = 1;
+          drawMonsters();
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function drawMonsters() {
+        renderSortableTable({
+          containerId: "monsters-table",
+          columns: [
+            { label: "Name", key: "name" },
+            { label: "Type", key: "boss" },
+            { label: "HP", key: "health" },
+            { label: "Defense", key: "defense" },
+            { label: "EXP", key: "xp" },
+            { label: "Gold (Worth)", key: "worth" },
+            { label: "Drops", key: (m) => (m.drops || []).length },
+            { label: "Actions" },
+          ],
+          data: monstersList,
+          state: tableStates["monsters-table"],
+          renderRow: (m) => `
+            <td><b>${esc(m.name)}</b></td>
+            <td>${m.boss ? '<span class="pill yes">Boss</span>' : '<span class="pill no">Regular</span>'}</td>
+            <td class="num">${Number(m.health).toLocaleString()}</td>
+            <td class="num">${Number(m.defense || 0).toLocaleString()}</td>
+            <td class="num">${Number(m.xp).toLocaleString()}</td>
+            <td class="num">${Number(m.worth).toLocaleString()}</td>
+            <td><span class="muted" title="${esc((m.drops || []).join(', '))}">` +
+              `${(m.drops || []).length} items` +
+            `</span></td>
+            <td><div class="row-actions">
+              <button class="act primary" onclick="editMonster('${esc(m.name)}')">Edit</button>
+            </div></td>`,
+        });
+      }
+
+      let _editingMonster = "";
+      function editMonster(name) {
+        _editingMonster = name;
+        api("/api/monsters/" + encodeURIComponent(name)).then((d) => {
+          const m = d.monster;
+          document.getElementById("mm-title").textContent = `Edit Monster: ${m.name} ${m.boss ? '(Boss)' : ''}`;
+          document.getElementById("mm-body").innerHTML = `
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div>
+                <div class="cm-section">Health / HP</div>
+                <input id="mm-hp" class="cm-input" type="number" style="width:100%" value="${m.health || 10}" min="1">
+              </div>
+              <div>
+                <div class="cm-section">Defense</div>
+                <input id="mm-def" class="cm-input" type="number" style="width:100%" value="${m.defense || 0}" min="0">
+              </div>
+              <div>
+                <div class="cm-section">EXP Reward</div>
+                <input id="mm-xp" class="cm-input" type="number" style="width:100%" value="${m.xp || 0}" min="0">
+              </div>
+              <div>
+                <div class="cm-section">Gold Reward (Worth)</div>
+                <input id="mm-gold" class="cm-input" type="number" style="width:100%" value="${m.worth || 0}" min="0">
+              </div>
+            </div>
+            <div style="margin-top:14px">
+              <div class="cm-section">Drops (one item name per line or comma-separated)</div>
+              <textarea id="mm-drops" style="min-height:120px;font-size:13px">${(m.drops || []).join('\n')}</textarea>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px">
+              <button class="act" onclick="closeMonsterModal()">Cancel</button>
+              <button class="act primary" onclick="saveMonster()">Save Monster</button>
+            </div>
+          `;
+          document.getElementById("monster-modal").style.display = "flex";
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      function closeMonsterModal() {
+        document.getElementById("monster-modal").style.display = "none";
+        _editingMonster = "";
+      }
+
+      function saveMonster() {
+        if (!_editingMonster) return;
+        const health = Number(document.getElementById("mm-hp").value);
+        const defense = Number(document.getElementById("mm-def").value);
+        const xp = Number(document.getElementById("mm-xp").value);
+        const worth = Number(document.getElementById("mm-gold").value);
+        const dropsText = document.getElementById("mm-drops").value;
+        const drops = dropsText
+          .split(/[\n,]/)
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0);
+
+        act("/api/monsters/" + encodeURIComponent(_editingMonster), {
+          health,
+          defense,
+          xp,
+          worth,
+          drops,
+        }, "PATCH").then(() => {
+          toast(`Monster "${_editingMonster}" updated.`, "good");
+          closeMonsterModal();
+          loadMonsters();
+        }).catch((e) => toast(e.message, "bad"));
+      }
+
+      // ---- Wiring ----
+      function reload() {
+        loadOverview();
+        loadAccounts();
+        loadCharacters();
+        loadItemNames();
+        startAutoRefresh();
+      }
+
+      document.querySelectorAll("nav button").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll("nav button").forEach((b) => b.classList.remove("active"));
+          document.querySelectorAll("section").forEach((s) => s.classList.remove("active"));
+          button.classList.add("active");
+          document.getElementById(button.dataset.tab).classList.add("active");
+          if (button.dataset.tab === "items") loadItems();
+          if (button.dataset.tab === "monsters") loadMonsters();
+          if (button.dataset.tab === "backups") loadBackups();
+        });
+      });
+
+      document.getElementById("acct-filter").addEventListener("input", drawAccounts);
+      document.getElementById("char-filter").addEventListener("input", drawCharacters);
+      document.getElementById("monster-search").addEventListener("input", loadMonsters);
+
+      // Close modal when clicking outside the box
+      ["char-modal", "monster-modal", "item-modal"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener("click", (e) => {
+            if (e.target === el) {
+              if (id === "char-modal") closeCharModal();
+              if (id === "monster-modal") closeMonsterModal();
+              if (id === "item-modal") closeItemModal();
+            }
+          });
+        }
+      });
+
+      reload();
+    </script>
+  </body>
+</html>

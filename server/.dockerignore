@@ -1,0 +1,7 @@
+node_modules
+data/emberfall.sqlite
+data/backups
+data/jwt_secret.txt
+data/admin_key.txt
+test
+*.md

@@ -1,0 +1,417 @@
+[
+	{
+		"name":  "Increased Jump Height",
+		"max_level":  "10",
+		"points_required":  2,
+		"base_stat":  "7.63 ft",
+		"max_stat":  "8.75 ft",
+		"description":  "Increases your overall jump height by approximately 0.12 ft per level.",
+		"skill_type":  null
+	},
+	{
+		"name":  "Increased Critical Damage",
+		"max_level":  "20",
+		"points_required":  3,
+		"base_stat":  "2.4300000000000002",
+		"max_stat":  "4.5",
+		"description":  "Increases the amount of damage done by critical hits by approximately 12%.",
+		"skill_type":  null
+	},
+	{
+		"name":  "Loot Stealer",
+		"max_level":  "45",
+		"points_required":  1,
+		"base_stat":  "3.93 seconds",
+		"max_stat":  "0.85 (wrong #) seconds",
+		"description":  "Decreases the amount of time by approximately 0.07 seconds that you must wait before stealing someone\u0027s loot.",
+		"skill_type":  null
+	},
+	{
+		"name":  "Rigorous Training",
+		"max_level":  "Infinite",
+		"points_required":  16,
+		"base_stat":  "NA",
+		"max_stat":  "NA",
+		"description":  "Increases your strength, range, magic, and dexterity by 1 and increases your HP and MP by 10.",
+		"skill_type":  null
+	},
+	{
+		"name":  "Self Rage",
+		"max_level":  "35",
+		"points_required":  1,
+		"base_stat":  "4 seconds",
+		"max_stat":  "38 seconds",
+		"description":  "Must be upgraded to use. Boosts your power, range, magic, and artillery by 35%. One skill point increases the duration by 1 second. Press R to rage. Costs 35 MP.",
+		"mana_cost":  35,
+		"cooldown":  10,
+		"skill_type":  null
+	},
+	{
+		"name":  "Guild Rage",
+		"max_level":  "35",
+		"points_required":  1,
+		"base_stat":  "4 seconds",
+		"max_stat":  "38 seconds",
+		"description":  "Must be upgraded to use. Boosts the power, range, magic, and artillery of all present guildmates (including you) by 25%. One skill point increases the duration by 1 second. Press T to rage. Costs 45 MP.",
+		"mana_cost":  45,
+		"cooldown":  10,
+		"skill_type":  null
+	},
+	{
+		"name":  "MP Restoration",
+		"max_level":  "40",
+		"points_required":  2,
+		"base_stat":  "1 MP/10 seconds",
+		"max_stat":  "40 MP/10 seconds",
+		"description":  "Restores MP every 10 seconds. 2 points increases MP restored by 1. The very first level increases MP restored by 2.",
+		"skill_type":  null
+	},
+	{
+		"name":  "Avoidance",
+		"max_level":  "25",
+		"points_required":  2,
+		"base_stat":  "1% dodge change",
+		"max_stat":  "25% dodge chance",
+		"description":  "Chance of completely avoiding an attack. 2 skill points increases the chance by 1%.",
+		"skill_type":  null
+	},
+	{
+		"name":  "Speed Dash",
+		"max_level":  "15",
+		"points_required":  4,
+		"base_stat":  "1.6x walking speed",
+		"max_stat":  "3.0x walking speed",
+		"description":  "Speed dash is activated by double tapping the directional keys. Each point increases your speed by 0.1. Uses 3 MP per second.",
+		"mana_cost":  3,
+		"cooldown":  0,
+		"skill_type":  null
+	},
+	{
+		"name":  "Downward Acceleration",
+		"max_level":  "40",
+		"points_required":  1,
+		"base_stat":  "Down acceleration: 150% \u0026 210%",
+		"max_stat":  "Down acceleration: 540% \u0026 600%",
+		"description":  "Accelerates your drop speed by pressing down in the air. If you press down while your player is falling rather than rising, the downward acceleration is even greater. Each point increases the effectiveness by 10%. Uses 3 MP per second.",
+		"mana_cost":  3,
+		"cooldown":  0,
+		"skill_type":  null
+	},
+	{
+		"name":  "Block",
+		"max_level":  "30",
+		"points_required":  1,
+		"base_stat":  "Damage reduction: 51%",
+		"max_stat":  "Damage reduction: 80%",
+		"description":  "Enables your character to withstand damage. When blocking, the damage is reduced by the amount shown. Each level increases the percent by 1. A shield adds an additional 10%. Press V to use. Uses 8 MP per second.",
+		"mana_cost":  8,
+		"cooldown":  0,
+		"skill_type":  null
+	},
+	{
+		"name":  "Charged Arrow Barrage",
+		"max_level":  "4",
+		"points_required":  5,
+		"base_stat":  "1 arrow",
+		"max_stat":  "5 arrows",
+		"description":  "Increases the amount of arrows you shoot when fully charged by 1. Uses 7 MP.",
+		"mana_cost":  7,
+		"cooldown":  2,
+		"skill_type":  "archer"
+	},
+	{
+		"name":  "Arrow Knockback Bonus",
+		"max_level":  "20",
+		"points_required":  1,
+		"base_stat":  "0.3 feet",
+		"max_stat":  "0.6 feet",
+		"description":  "Increases the distance that enemies are knock backed from ranged attacks by approximately 0.03 feet per skill point.",
+		"skill_type":  "archer"
+	},
+	{
+		"name":  "Expert Archer",
+		"max_level":  "Infinite",
+		"points_required":  3,
+		"base_stat":  "NA",
+		"max_stat":  "NA",
+		"description":  "Increases your range stat by 1.",
+		"skill_type":  "archer"
+	},
+	{
+		"name":  "Triple Shot Attack",
+		"max_level":  "10",
+		"points_required":  2,
+		"base_stat":  "7 feet",
+		"max_stat":  "16 feet",
+		"description":  "Shoot 3 arrows one after the other. Two points increases the distance the arrows travel by 1 foot. Costs 8 MP. Press space + down to use.",
+		"mana_cost":  8,
+		"cooldown":  3,
+		"skill_type":  "archer"
+	},
+	{
+		"name":  "Arrow Rain Attack",
+		"max_level":  "6",
+		"points_required":  4,
+		"base_stat":  "1 arrow",
+		"max_stat":  "6 arrows",
+		"description":  "An attack that rains arrows down on enemies. Four points increases the number of arrows shot by 1. Costs 9 MP. Press space + up to use.",
+		"mana_cost":  9,
+		"cooldown":  3,
+		"skill_type":  "archer"
+	},
+	{
+		"name":  "Piercing Arrow Attack",
+		"max_level":  "6",
+		"points_required":  2,
+		"base_stat":  "1 enemy",
+		"max_stat":  "6 enemies",
+		"description":  "Shoots an arrow that travels through multiple enemies. 2 skill points increases the number of enemies the arrow can pass through by 1. Costs 6 MP. Press space + forward to use.",
+		"mana_cost":  6,
+		"cooldown":  2,
+		"skill_type":  "archer"
+	},
+	{
+		"name":  "Down Crush",
+		"max_level":  "10",
+		"points_required":  1,
+		"base_stat":  "103% damage",
+		"max_stat":  "130% damage",
+		"description":  "A downward air attack that sends you plummeting towards the ground at a fast speed. Each level increases the damage by 3%. Press space + down in the air to use. Uses 12 MP.",
+		"mana_cost":  12,
+		"cooldown":  3,
+		"skill_type":  "archer"
+	},
+	{
+		"name":  "Power Attack",
+		"max_level":  "200",
+		"points_required":  1,
+		"base_stat":  "132% damage",
+		"max_stat":  "530% damage",
+		"description":  "A single attack that damages an enemy more than a normal attack. One point increases damage by 2%. Uses 6 MP. Press forward + space to use.",
+		"mana_cost":  6,
+		"cooldown":  2,
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Expert Warrior",
+		"max_level":  "Infinite",
+		"points_required":  3,
+		"base_stat":  "NA",
+		"max_stat":  "NA",
+		"description":  "Increases your power stat by 1.",
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Multi-Attack Distance",
+		"max_level":  "5",
+		"points_required":  3,
+		"base_stat":  "Chaining Distance 2.7 feet",
+		"max_stat":  "Chaining Distance 15 feet",
+		"description":  "Increases the distance between enemies that a multi-attack can hit by approximately 0.6 feet.",
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Air Power Slash",
+		"max_level":  "20",
+		"points_required":  1,
+		"base_stat":  "103% damage",
+		"max_stat":  "160% damage",
+		"description":  "Creates a powerful swing thrusting your weapon and body downward onto enemies. Each point increases the damage by 3%. Press space + down in the air to use it. Uses 24 MP",
+		"mana_cost":  24,
+		"cooldown":  4,
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Shield Mastery",
+		"max_level":  "35",
+		"points_required":  1,
+		"base_stat":  "Shield Bonus 102%",
+		"max_stat":  "Shield Bonus 170%",
+		"description":  "Increases the effectiveness of shields by multiplying the defense of a shield by the \u0027shield bonus\u0027. One point increases the bonus by 2%.",
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Multi-Attack",
+		"max_level":  "5",
+		"points_required":  3,
+		"base_stat":  "2 enemies",
+		"max_stat":  "6 enemies",
+		"description":  "A special attack that also hits nearby enemies. 3 skill points increases the chain effect by 1. Costs 8 MP. Press down + space to use.",
+		"mana_cost":  8,
+		"cooldown":  2,
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Melee Knockback",
+		"max_level":  "16",
+		"points_required":  1,
+		"base_stat":  "0.8 feet",
+		"max_stat":  "1.3 feet",
+		"description":  "Increases the distance enemies are knocked back by melee attacks by 0.03 feet per skill point.",
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Spinning Cutter",
+		"max_level":  "25",
+		"points_required":  1,
+		"base_stat":  "16% damage",
+		"max_stat":  "40% damage",
+		"description":  "Performs a damaging spin attack when jumping into the air. Press space + up to use. Uses 5 MP",
+		"mana_cost":  5,
+		"cooldown":  2,
+		"skill_type":  "warrior"
+	},
+	{
+		"name":  "Magic Shots",
+		"max_level":  "3",
+		"points_required":  20,
+		"base_stat":  "2 projectiles",
+		"max_stat":  "4 projectiles",
+		"description":  "Increases the number of magic projectiles released when attacking by 1.",
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Expert Wizard",
+		"max_level":  "Infinite",
+		"points_required":  3,
+		"base_stat":  "NA",
+		"max_stat":  "NA",
+		"description":  "Increases your magic stat by 1.",
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Circular Magic Attack",
+		"max_level":  "6",
+		"points_required":  3,
+		"base_stat":  "1 projectile",
+		"max_stat":  "6 projectiles",
+		"description":  "A circular magic attack that can hit enemies in all directions. 3 skill points increases the number of projectiles by 1. Costs 6 MP. Press the B key to use.",
+		"mana_cost":  6,
+		"cooldown":  2,
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Light Beam",
+		"max_level":  "6",
+		"points_required":  3,
+		"base_stat":  "x feet",
+		"max_stat":  "x+25 feet",
+		"description":  "A damaging light beam. Deals 200% damage. Uses 40 MP. Press B to use.",
+		"mana_cost":  40,
+		"cooldown":  5,
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Magic Distance Increase",
+		"max_level":  "20",
+		"points_required":  1,
+		"base_stat":  "8 feet",
+		"max_stat":  "27 feet",
+		"description":  "Increases the flying distance of your magic projectiles by 1 foot per skill point used.",
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Thunder Attack",
+		"max_level":  "6",
+		"points_required":  4,
+		"base_stat":  "1 cloud",
+		"max_stat":  "6 clouds",
+		"description":  "Must be upgraded to use. A special attack that summons lightning that attacks nearby enemies. Each cloud deals 180% damage of primary magic weapon. 1 cloud per enemy. Uses 30 MP. M to initiate.",
+		"mana_cost":  30,
+		"cooldown":  8,
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Self Heal",
+		"max_level":  "50",
+		"points_required":  1,
+		"base_stat":  "35 health healed",
+		"max_stat":  "280 health healed",
+		"description":  "An ability that allows you to heal your health. One point increases the amount healed by 5. Uses 15 MP. Press the H key to use.",
+		"mana_cost":  15,
+		"cooldown":  8,
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Guild/Pet Heal",
+		"max_level":  "50",
+		"points_required":  1,
+		"base_stat":  "25 health healed",
+		"max_stat":  "270 health healed",
+		"description":  "Heals present guild members (including yourself). One point increases the amount healed by 5. Uses 19 MP. Press the G key to use.",
+		"mana_cost":  19,
+		"cooldown":  8,
+		"skill_type":  "wizard"
+	},
+	{
+		"name":  "Grenade Attack",
+		"max_level":  "7",
+		"points_required":  5,
+		"base_stat":  "1 Grenade",
+		"max_stat":  "6 Grenades",
+		"description":  "Throws grenades that deal 3x damage to enemies (1x to players in PvP). 1 level = 1 more grenade. Uses 30 MP. Press the B key to use.",
+		"mana_cost":  30,
+		"cooldown":  5,
+		"skill_type":  "cowboy"
+	},
+	{
+		"name":  "Upward Shoot",
+		"max_level":  "2",
+		"points_required":  7,
+		"base_stat":  "NA",
+		"max_stat":  "NA",
+		"description":  "Allows you to point and shoot your gun straight up in the air. Useful for attacking enemies above you. Uses 2 MP. Press space + up to use",
+		"mana_cost":  2,
+		"cooldown":  1,
+		"skill_type":  "cowboy"
+	},
+	{
+		"name":  "Expert Cowboy",
+		"max_level":  "Infinite",
+		"points_required":  3,
+		"base_stat":  "NA",
+		"max_stat":  "NA",
+		"description":  "Increases Artillery by 1.",
+		"skill_type":  "cowboy"
+	},
+	{
+		"name":  "Bullet Distance Increase",
+		"max_level":  "30",
+		"points_required":  1,
+		"base_stat":  "70 feet",
+		"max_stat":  "99 feet",
+		"description":  "Increases the distance that your bullets will travel. 1 point increases the distance by 1 foot.",
+		"skill_type":  "cowboy"
+	},
+	{
+		"name":  "Shotgun Attack",
+		"max_level":  "5",
+		"points_required":  15,
+		"base_stat":  "1 bullet",
+		"max_stat":  "5 bullets",
+		"description":  "Shoots your gun and sprays a fury of bullets into the air. Uses 12 MP. Press the N key to use.",
+		"mana_cost":  12,
+		"cooldown":  3,
+		"skill_type":  "cowboy"
+	},
+	{
+		"name":  "Bullet Knockback",
+		"max_level":  "6",
+		"points_required":  2,
+		"base_stat":  "0.32 feet",
+		"max_stat":  "0.47 feet",
+		"description":  "Increases the distance that enemies are knocked back from gun attacks by 0.03 feet per 2 points.",
+		"skill_type":  "cowboy"
+	},
+	{
+		"name":  "Jump Grenade",
+		"max_level":  "20",
+		"points_required":  1,
+		"base_stat":  "110% damage",
+		"max_stat":  "300% damage",
+		"description":  "Drops one grenade below you while in the air. Each point increases the damage by 10%. Use by pressing space + down in the air. Uses 20 MP.",
+		"mana_cost":  20,
+		"cooldown":  4,
+		"skill_type":  "cowboy"
+	}
+]

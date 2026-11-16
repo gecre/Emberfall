@@ -1,0 +1,1092 @@
+﻿{
+    "Albert":  {
+                   "name":  "Albert",
+                   "gender":  "Male",
+                   "location":  "(#23) Goo Dungeon",
+                   "stage_number":  23,
+                   "stage_name":  "Goo Dungeon",
+                   "service":  "",
+                   "mission":  "Complete Albert\u0027s Puzzle",
+                   "quote":  ""
+               },
+    "Alfred":  {
+                   "name":  "Alfred",
+                   "gender":  "Male",
+                   "location":  "(#2) Palm Forest",
+                   "stage_number":  2,
+                   "stage_name":  "Palm Forest",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Fighting monsters makes you stronger. As you kill monsters you gain experience and you can level up. You can also get better weapons and armor to make you powerful. Also, if you press down while on solid ground, you can slide. Practice it out on this incline."
+               },
+    "Alpipa":  {
+                   "name":  "Alpipa",
+                   "gender":  "Male",
+                   "location":  "(#65) Death Valley",
+                   "stage_number":  65,
+                   "stage_name":  "Death Valley",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "What do you want? No you don\u0027t know me but you\u0027ve probably met my brother Anoop, so don\u0027t call me Anoop because it\u0027s not my name. So what do you want? Are you just going to stand there and look at me? This ain\u0027t a nice place to be, so if you want something you better buy it or scram!"
+               },
+    "Andrew":  {
+                   "name":  "Andrew",
+                   "gender":  "Male",
+                   "location":  "(#13) Mushroom Village",
+                   "stage_number":  13,
+                   "stage_name":  "Mushroom Village",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Welcome to Mushroom Village! I love it here, they\u0027ve got weapon and armor shops, food, hotels, and even a few pretty girls."
+               },
+    "Anoop":  {
+                  "name":  "Anoop",
+                  "gender":  "Male",
+                  "location":  "(#7) Heath\u0027s Training Ground",
+                  "stage_number":  7,
+                  "stage_name":  "Heath\u0027s Training Ground",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  "V\u0027elcome my friend, to my end of the woods! Pretty cool place I have wouldn\u0027t you say? This is where I live, eating leaves and drinking dirt all day. ...Nah, I\u0027m just kidding I don\u0027t drink dirt. Anyways, I have some things for sale. Maybe you would like to take a look?"
+              },
+    "Arny":  {
+                 "name":  "Arny",
+                 "gender":  "Male",
+                 "location":  "(#7) Tropical Beach",
+                 "stage_number":  7,
+                 "stage_name":  "Tropical Beach",
+                 "service":  "",
+                 "mission":  "Give Cleveland His Letter",
+                 "quote":  "Hey man, how\u0027s it going? I like just being at beach, it\u0027s so relaxing. I need to get up and go somewhere at some point though, it\u0027s making me so lazy. I haven\u0027t seen my pal Cleveland in a few months now. Say... I have a letter for him, do you think you could give it to him for me? He lives in Mushroom Village. Thanks!"
+             },
+    "Barbara":  {
+                    "name":  "Barbara",
+                    "gender":  "Female",
+                    "location":  "(#26) Arena Entrance",
+                    "stage_number":  26,
+                    "stage_name":  "Arena Entrance",
+                    "service":  "Healing",
+                    "mission":  null,
+                    "quote":  "Hello. If you plan on fighting anybody in the PVP areas then it\u0027s best to be at full health. I can heal you."
+                },
+    "Bartholomew":  {
+                        "name":  "Bartholomew",
+                        "gender":  "Male",
+                        "location":  "(#52) Bartholomew\u0027s Shop",
+                        "stage_number":  52,
+                        "stage_name":  "Bartholomew\u0027s Shop",
+                        "service":  "Shop",
+                        "mission":  null,
+                        "quote":  "Welcome to my home and shop. I live here out in the darkness and I make a living from selling beholder and other high level items. Dark Beholders are very very strong creatures. It\u0027s an amazing thing that you\u0027ve made it here. Perhaps I can interest you in some equipment?"
+                    },
+    "Ben":  {
+                "name":  "Ben",
+                "gender":  "Male",
+                "location":  "(#5) Mushroom Alley",
+                "stage_number":  5,
+                "stage_name":  "Mushroom Alley",
+                "service":  null,
+                "mission":  null,
+                "quote":  "I like to chill. No... I LOVE to chill. I think I\u0027m a chill guy don\u0027t you? If I had a coin for everytime I said the word chill, I\u0027d have about 1 coin in total. Wait, that\u0027s not right..."
+            },
+    "Bert":  {
+                 "name":  "Bert",
+                 "gender":  "Male",
+                 "location":  "(#69) Craftman Falls",
+                 "stage_number":  69,
+                 "stage_name":  "Craftman Falls",
+                 "service":  null,
+                 "mission":  null,
+                 "quote":  "If you press and hold the P key near trees you will see two bars above them. The top blue bar is the tree\u0027s evolution bar. The bottom is its health."
+             },
+    "Betty":  {
+                  "name":  "Betty",
+                  "gender":  "Female",
+                  "location":  "(#68) Fishing Fort",
+                  "stage_number":  68,
+                  "stage_name":  "Fishing Fort",
+                  "service":  "Healing",
+                  "mission":  null,
+                  "quote":  "Aqualantis is an amazing city. It\u0027s where everyone starts their fishing journey. Perhaps I could heal you?"
+              },
+    "Billbert":  {
+                     "name":  "Billbert",
+                     "gender":  "Male",
+                     "location":  "(#47) Geraldo\u0027s Food",
+                     "stage_number":  47,
+                     "stage_name":  "Geraldo\u0027s Food",
+                     "service":  "",
+                     "mission":  "Complete Billbert\u0027s Puzzle",
+                     "quote":  "Good work solving my puzzle. And by the way, watch out for Carnelia, she\u0027s mean! Along with puzzles, I also like random facts. Did you know that the skull crusher items are made from the bones of night stalkers? The bones are then chemically infused with super strong metals to make them even tougher than beholder items."
+                 },
+    "Blaire":  {
+                   "name":  "Blaire",
+                   "gender":  "Male",
+                   "location":  "(#43) Wastelands Entrance",
+                   "stage_number":  43,
+                   "stage_name":  "Wastelands Entrance",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Out here in the wastelands is a scary place. Not only is it scary, but it\u0027s empty. It\u0027s so empty I get bored just standing here. I tell you what, sometimes I even get so bored I just punch myself in the face for fun. Doesn\u0027t sound like a bad idea does it? Watch yourself out here, Night Stalkers aren\u0027t friendly enemies. One of my friends caught one and kept it as a pet. The next day, it ate him for breakfast. You better believe it."
+               },
+    "Bobby":  {
+                  "name":  "Bobby",
+                  "gender":  "Male",
+                  "location":  "(#52) Bartholomew\u0027s Shop",
+                  "stage_number":  52,
+                  "stage_name":  "Bartholomew\u0027s Shop",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  "I like to stay in here away from the Dark Beholders and Kreetons."
+              },
+    "Brad Anderson":  {
+                          "name":  "Brad Anderson",
+                          "gender":  "Male",
+                          "location":  "(#23) Anderson Family Home",
+                          "stage_number":  23,
+                          "stage_name":  "Anderson Family Home",
+                          "service":  null,
+                          "mission":  null,
+                          "quote":  "My two cousins Ron and Kyle just argue all day. It\u0027s really annoying. The thing is, I\u0027m not sure who to agree with. In my opinion, I like to stack my HP, that way I never die."
+                      },
+    "Brody":  {
+                  "name":  "Brody",
+                  "gender":  "Male",
+                  "location":  "(#13) Mushroom Village",
+                  "stage_number":  13,
+                  "stage_name":  "Mushroom Village",
+                  "service":  "",
+                  "mission":  "Get Brody a Garbage Can Lid",
+                  "quote":  "Bro, dude, man. Like... I love the garbage can lid dude. Not because I like the smell of garbage or anything... Actually dude, that\u0027s exactly why."
+              },
+    "Butch":  {
+                  "name":  "Butch",
+                  "gender":  "Male",
+                  "location":  "(#7) Tropical Beach",
+                  "stage_number":  7,
+                  "stage_name":  "Tropical Beach",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  "Hey you! Have you seen anything suspicious going on?"
+              },
+    "Carter":  {
+                   "name":  "Carter",
+                   "gender":  "Male",
+                   "location":  "(#120) Carter\u0027s Coconuts",
+                   "stage_number":  120,
+                   "stage_name":  "Carter\u0027s Coconuts",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "Hey man, can\u0027t a guy climb some boxes in peace!?"
+               },
+    "Cassie":  {
+                   "name":  "Cassie",
+                   "gender":  "Female",
+                   "location":  "(#42) Robo Lover\u0027s Home",
+                   "stage_number":  42,
+                   "stage_name":  "Robo Lover\u0027s Home",
+                   "service":  "",
+                   "mission":  "Get Cassie Pumpkin Helmets",
+                   "quote":  "WE NEED A QUOTATION FOR WHEN SHE GIVES THE PLAYER THE MISSION?"
+               },
+    "Chad":  {
+                 "name":  "Chad",
+                 "gender":  "Male",
+                 "location":  "(#4) High Greens",
+                 "stage_number":  4,
+                 "stage_name":  "High Greens",
+                 "service":  null,
+                 "mission":  null,
+                 "quote":  "I love it out here. It\u0027s so nice and peaceful by the water. Do you travel a lot? I have heard there are guilds in Mushroom Village. Is it true? If so, I want to join one! I think it\u0027d be cool to make some new friends."
+             },
+    "Chance":  {
+                   "name":  "Chance",
+                   "gender":  "Male",
+                   "location":  "Pablo\u0027s House ( #79 )",
+                   "stage_number":  79,
+                   "stage_name":  "",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "I\u0027ve got some top quality stuff for sale if you\u0027re interested. I bet you could use it if you plan on taking down any of them frogs."
+               },
+    "Charles":  {
+                    "name":  "Charles",
+                    "gender":  "Male",
+                    "location":  "(#17) Mushroom Village Hotel",
+                    "stage_number":  17,
+                    "stage_name":  "Mushroom Village Hotel",
+                    "service":  "Healing",
+                    "mission":  null,
+                    "quote":  "Welcome to my hotel. With a good nights sleep, we can heal you back to full health."
+                },
+    "Chipper":  {
+                    "name":  "Chipper",
+                    "gender":  "Male",
+                    "location":  "(#26) Arena Entrance",
+                    "stage_number":  26,
+                    "stage_name":  "Arena Entrance",
+                    "service":  null,
+                    "mission":  null,
+                    "quote":  "Be careful going into there, it\u0027s very dangerous. You can be attacked by anybody in there and if you die, you will loose half of your money. One day, I\u0027ll be strong enough to destroy anybody in there! Right now, I\u0027m kind of scared though... If you want to get onto the kill leaderboards, PVP kills only count in this area, NOT the sparring grounds."
+                },
+    "Chris":  {
+                  "name":  "Chris",
+                  "gender":  "Male",
+                  "location":  "(#17) Mushroom Village Hotel",
+                  "stage_number":  17,
+                  "stage_name":  "Mushroom Village Hotel",
+                  "service":  null,
+                  "mission":  null,
+                  "quote":  "All I want to do is watch some TV. Is that too much to ask? The stupid thing must be broke, because it\u0027s not turning on!"
+              },
+    "Christy":  {
+                    "name":  "Christy",
+                    "gender":  "Female",
+                    "location":  "(#73) Pet Adoption District",
+                    "stage_number":  73,
+                    "stage_name":  "Pet Adoption District",
+                    "service":  null,
+                    "mission":  null,
+                    "quote":  "Welcome to the Pet Adoption District. Here you find a bunch of pets that other players have placed up for adoption."
+                },
+    "Chucky":  {
+                   "name":  "Chucky",
+                   "gender":  "Male",
+                   "location":  "(#20) Haunted Woods",
+                   "stage_number":  20,
+                   "stage_name":  "Haunted Woods",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "E.V.I.L.? You don\u0027t know what it stands for? What are you dumb? Everybody knows that E.V.I.L. stands for... it stands for... Elephant... Violin... Image... Lemon. Wait, that might be a little bit off."
+               },
+    "Clark":  {
+                  "name":  "Clark",
+                  "gender":  "Male",
+                  "location":  "(#60)Seaside Zone",
+                  "stage_number":  60,
+                  "stage_name":  "Seaside Zone",
+                  "service":  "",
+                  "mission":  "Look Like the Lost Warrior",
+                  "quote":  "You know, I was thinking about it. I think you may have tricked me, there is no Lost Warrior anymore is there? Or is there?"
+              },
+    "Cleveland":  {
+                      "name":  "Cleveland",
+                      "gender":  "Male",
+                      "location":  "(#13) Mushroom Village",
+                      "stage_number":  13,
+                      "stage_name":  "Mushroom Village",
+                      "service":  null,
+                      "mission":  null,
+                      "quote":  "I love Mushroom Village. I like to call it \"Mush Vill\" for short. I think it sounds way cooler. Just say it with me, \"Mush Vill\". Feels great doesn\u0027t it? You can thank me later."
+                  },
+    "Craft-Man":  {
+                      "name":  "Craft-Man",
+                      "gender":  "Male",
+                      "location":  "(#69) Craftman Falls",
+                      "stage_number":  69,
+                      "stage_name":  "Craftman Falls",
+                      "service":  "Shop",
+                      "mission":  null,
+                      "quote":  ""
+                  },
+    "Craftman":  {
+                     "name":  "Craftman",
+                     "gender":  "M maribujok",
+                     "location":  "(#148) Long Dunjoun server 4",
+                     "stage_number":  148,
+                     "stage_name":  "Long Dunjoun server 4",
+                     "service":  "Displays",
+                     "mission":  null,
+                     "quote":  ""
+                 },
+    "Dan":  {
+                "name":  "Dan",
+                "gender":  "Male",
+                "location":  "(#75) Heated Stones",
+                "stage_number":  75,
+                "stage_name":  "Heated Stones",
+                "service":  "Shop",
+                "mission":  null,
+                "quote":  "Wooo! It\u0027s hotter than a Magmagon\u0027s rear end after eating a habanero!"
+            },
+    "Daniel":  {
+                   "name":  "Daniel",
+                   "gender":  "Male",
+                   "location":  "(#26) Arena Entrance",
+                   "stage_number":  26,
+                   "stage_name":  "Arena Entrance",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Through this portal is the Training Grounds. There you can be attacked by anybody, but luckily if you die no money will be taken away. Sometimes I go in there to spar against my buddies and see who will win."
+               },
+    "Derek":  {
+                  "name":  "Derek",
+                  "gender":  "Male",
+                  "location":  "(#53) Blue Shroom Den",
+                  "stage_number":  53,
+                  "stage_name":  "Blue Shroom Den",
+                  "service":  "",
+                  "mission":  "Reach a High Energy Level",
+                  "quote":  "Wow!! You hit an energy level over 9,000! You\u0027re nuts! I wish I could be as powerful as you... I\u0027ve seen guys even higher than 9,000 though. The strongest guy I\u0027ve ever seen was around 17,000. CRAZY POWERFUL"
+              },
+    "Donald":  {
+                   "name":  "Donald",
+                   "gender":  "Male",
+                   "location":  "(#64) Aqualantis",
+                   "stage_number":  64,
+                   "stage_name":  "Aqualantis",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Have you ever noticed it smells kind of weird when you\u0027re underwater?"
+               },
+    "Drew":  {
+                 "name":  "Drew",
+                 "gender":  "Male",
+                 "location":  "(#55) Mushroom Village",
+                 "stage_number":  55,
+                 "stage_name":  "Mushroom Village",
+                 "service":  null,
+                 "mission":  null,
+                 "quote":  "I like to stand right in the sunlight. It makes me feel like I\u0027m cool. I mean, even if I didn\u0027t stand in the sunlight, I\u0027d still be cool, but I\u0027m even cooler when I\u0027m in the light."
+             },
+    "Ethan":  {
+                  "name":  "Ethan",
+                  "gender":  "Male",
+                  "location":  "Cloud Fort (#145)",
+                  "stage_number":  145,
+                  "stage_name":  "",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  ""
+              },
+    "Fredward":  {
+                     "name":  "Fredward",
+                     "gender":  "Male",
+                     "location":  "(#20) Haunted Woods",
+                     "stage_number":  20,
+                     "stage_name":  "Haunted Woods",
+                     "service":  "",
+                     "mission":  "Look Like a Black Hood",
+                     "quote":  "I gave you your money, so leave me alone."
+                 },
+    "Gary":  {
+                 "name":  "Gary",
+                 "gender":  "Male",
+                 "location":  "(#16) Carter\u0027s Coconuts",
+                 "stage_number":  16,
+                 "stage_name":  "Carter\u0027s Coconuts",
+                 "service":  null,
+                 "mission":  null,
+                 "quote":  "Coconut this, coconut that.. All the boss has me do all day is make stuff out of coconuts while he climbs up and down on his boxes. He calls the guy next door crazy, yet he\u0027s growing a coconut tree inside a house!"
+             },
+    "Gellius":  {
+                    "name":  "Gellius",
+                    "gender":  "Male",
+                    "location":  "(#15) The Guild House",
+                    "stage_number":  15,
+                    "stage_name":  "The Guild House",
+                    "service":  "Guild",
+                    "mission":  null,
+                    "quote":  "Welcome, welcome! I am the creator of the widely known \"Guild system\"! If you would like to join or create a guild, you can do it through me. If you join, create, or leave a guild, you may have to leave this house before your guild flag appears or goes away."
+                },
+    "Geraldo":  {
+                    "name":  "Geraldo",
+                    "gender":  "Male",
+                    "location":  "(#74) Geraldo\u0027s Food",
+                    "stage_number":  74,
+                    "stage_name":  "Geraldo\u0027s Food",
+                    "service":  "Shop",
+                    "mission":  null,
+                    "quote":  "Welcome to my tree fort. I live out here in the rain forest away from everyone else. It\u0027s peaceful out here but it can be very dangerous. Some people come here just to see the Lotus Eyes, then shortly after they wind up in the hospital or dead. Be careful out here, it\u0027s a dangerous place in the rain forest. Say, do you need to buy anything? I specialize in a many variety of food and potions."
+                },
+    "Gordon":  {
+                   "name":  "Gordon",
+                   "gender":  "Male",
+                   "location":  "(#10) Windmill Top",
+                   "stage_number":  10,
+                   "stage_name":  "Windmill Top",
+                   "service":  "",
+                   "mission":  "Get Gordon Watermelon",
+                   "quote":  "Thanks for the watermelons man, they were delicious"
+               },
+    "Hambone":  {
+                    "name":  "Hambone",
+                    "gender":  "Male",
+                    "location":  "(#13) Mushroom Village",
+                    "stage_number":  13,
+                    "stage_name":  "Mushroom Village",
+                    "service":  "",
+                    "mission":  "Get Hambone Apples",
+                    "quote":  "Thanks for the apples, they were delicious."
+                },
+    "Hamlet":  {
+                   "name":  "Hamlet",
+                   "gender":  "Male",
+                   "location":  "(#136) Toxic Jungle",
+                   "stage_number":  136,
+                   "stage_name":  "Toxic Jungle",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "This acid is rough out here. It burns, it\u0027s slippery, and it makes me trip. It\u0027d make a good addition to a weapon though. Image you covered your weapon in acid. Ouch! I\u0027ve got some things I can sell and craft for you. It\u0027s good to keep a stock of equipment out here in a dangerous place like this"
+               },
+    "Heath":  {
+                  "name":  "Heath",
+                  "gender":  "Male",
+                  "location":  "(#3) Heath\u0027s Training Ground",
+                  "stage_number":  3,
+                  "stage_name":  "Heath\u0027s Training Ground",
+                  "service":  "Healing",
+                  "mission":  null,
+                  "quote":  ""
+              },
+    "Howard":  {
+                   "name":  "Howard",
+                   "gender":  "Male",
+                   "location":  "(#26) Arena Entrance",
+                   "stage_number":  26,
+                   "stage_name":  "Arena Entrance",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Through this portal is a GVG area. It allows guilds to fight other guilds. If you go there with a fellow guild member, you won\u0027t be able to hurt them! This makes it easy to team up on other players from other guilds. Like the sparring grounds, money is not lost if you die in here. If you kill somebody in here and you are in a guild, you will add one to your guild total kills."
+               },
+    "Hubert":  {
+                   "name":  "Hubert",
+                   "gender":  "Male",
+                   "location":  "(#75) Heated Stones",
+                   "stage_number":  75,
+                   "stage_name":  "Heated Stones",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "It\u0027s a hot, mean, nasty world out here."
+               },
+    "Isaac Jr":  {
+                     "name":  "Isaac Jr",
+                     "gender":  "Male",
+                     "location":  "(#141) Isaac\u0027s Equipment Shop",
+                     "stage_number":  141,
+                     "stage_name":  "Isaac\u0027s Equipment Shop",
+                     "service":  "Shop",
+                     "mission":  null,
+                     "quote":  ""
+                 },
+    "Isaac Sr":  {
+                     "name":  "Isaac Sr",
+                     "gender":  "Male",
+                     "location":  "(#141) Isaac\u0027s Equipment Shop",
+                     "stage_number":  141,
+                     "stage_name":  "Isaac\u0027s Equipment Shop",
+                     "service":  "Shop",
+                     "mission":  null,
+                     "quote":  ""
+                 },
+    "Jenkins":  {
+                    "name":  "Jenkins",
+                    "gender":  "Male",
+                    "location":  "(#75) Heated Stones",
+                    "stage_number":  75,
+                    "stage_name":  "Heated Stones",
+                    "service":  "Shop",
+                    "mission":  null,
+                    "quote":  "I bet you could use some strong equipment! There\u0027s no doubt you will need it in a savage place like this. I can offer you some, but you must pay a hefty price."
+                },
+    "Jim Sanders":  {
+                        "name":  "Jim Sanders",
+                        "gender":  "Male",
+                        "location":  "(#2) Palm Forest",
+                        "stage_number":  2,
+                        "stage_name":  "Palm Forest",
+                        "service":  "",
+                        "mission":  "Get Jim Sanders Some Gear",
+                        "quote":  "Hey, gingers DO have souls! ...And sickles."
+                    },
+    "Jimmy":  {
+                  "name":  "Jimmy",
+                  "gender":  "Male",
+                  "location":  "Cold Front ( #81 )",
+                  "stage_number":  81,
+                  "stage_name":  "",
+                  "service":  "",
+                  "mission":  "Solve Jimmy\u0027s Puzzle",
+                  "quote":  "You know me, I love graffiti! Hopefully I don\u0027t get busted for painting on random things. Oh well!"
+              },
+    "Joshua":  {
+                   "name":  "Joshua",
+                   "gender":  "Male",
+                   "location":  "(#4) High Greens",
+                   "stage_number":  4,
+                   "stage_name":  "High Greens",
+                   "service":  "",
+                   "mission":  "Show Joshua All Enemies",
+                   "quote":  "There are so many types of monsters, I which I could see them all. Some of them are so powerful though, I\u0027m afraid I might get knocked out if I get too close. Say, when you filled your Hero-Pedia up with all of the monsters info do you think you could show me? I love to learn about all the new monsters there are!"
+               },
+    "Keith":  {
+                  "name":  "Keith",
+                  "gender":  "Male",
+                  "location":  "(#20) Haunted Woods",
+                  "stage_number":  20,
+                  "stage_name":  "Haunted Woods",
+                  "service":  null,
+                  "mission":  null,
+                  "quote":  "Hey buddy, I don\u0027t like you. Why? I don\u0027t need a reason! This is our hideout, and if anyone dislikes it, I will pinch them!"
+              },
+    "Kris":  {
+                 "name":  "Kris",
+                 "gender":  "Male",
+                 "location":  "(#144) Sky Kingdom",
+                 "stage_number":  144,
+                 "stage_name":  "Sky Kingdom",
+                 "service":  null,
+                 "mission":  null,
+                 "quote":  "Welcome to Cloud Kingdom the most fascinating place in all of the world. Even though it is a purely beautiful place, there still lurks the omega fluffs in all corners."
+             },
+    "Kyle Anderson":  {
+                          "name":  "Kyle Anderson",
+                          "gender":  "Male",
+                          "location":  "(#23) Anderson Family Home",
+                          "stage_number":  23,
+                          "stage_name":  "Anderson Family Home",
+                          "service":  null,
+                          "mission":  null,
+                          "quote":  "My brother Ron likes to be \u0027well rounded\u0027, but I just call him \u0027well idiot\u0027. Like I always say, the best defense is a good offense!"
+                      },
+    "Lamar":  {
+                  "name":  "Lamar",
+                  "gender":  "Male",
+                  "location":  "(#64) Aqualantis",
+                  "stage_number":  64,
+                  "stage_name":  "Aqualantis",
+                  "service":  "",
+                  "mission":  "Catch Every Fish",
+                  "quote":  "So have you caught Every fish type yet?"
+              },
+    "Larry":  {
+                  "name":  "Larry",
+                  "gender":  "Male",
+                  "location":  "(#41) Larry\u0027s House",
+                  "stage_number":  41,
+                  "stage_name":  "Larry\u0027s House",
+                  "service":  null,
+                  "mission":  null,
+                  "quote":  "Robo City sure is a cool place to be isn\u0027t it? It\u0027s even cooler to live in Robo City. I do all the paper work for the robots. When a robot creates another robot, there is a lot of paperwork that is involved. What else would I have all of these drawers for? They hold all my paperwork."
+              },
+    "Lewis":  {
+                  "name":  "Lewis",
+                  "gender":  "Male",
+                  "location":  "(#18) Mushroom Library",
+                  "stage_number":  18,
+                  "stage_name":  "Mushroom Library",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  "They say there is no power greater than knowledge. So why not read? You never know, it may help you out."
+              },
+    "Lottery Man":  {
+                        "name":  "Lottery Man",
+                        "gender":  "Male",
+                        "location":  "(#33) Snowy Flats",
+                        "stage_number":  33,
+                        "stage_name":  "Snowy Flats",
+                        "service":  "Shop",
+                        "mission":  null,
+                        "quote":  "Hello there! Would you like to be rich beyond your wildest dreams?"
+                    },
+    "Mad Ricky":  {
+                      "name":  "Mad Ricky",
+                      "gender":  "Male",
+                      "location":  "N/A",
+                      "stage_number":  null,
+                      "stage_name":  "N/A",
+                      "service":  "N/A",
+                      "mission":  "N/A",
+                      "quote":  ""
+                  },
+    "Margret":  {
+                    "name":  "Margret",
+                    "gender":  "Female",
+                    "location":  "(#33) Snowy Flats",
+                    "stage_number":  33,
+                    "stage_name":  "Snowy Flats",
+                    "service":  "Healing",
+                    "mission":  null,
+                    "quote":  "Cold, cold, cold! You want healed young one? I can heal you. If you plan on going through that portal to the right, you\u0027re going to need it"
+                },
+    "Markus":  {
+                   "name":  "Markus",
+                   "gender":  "Male",
+                   "location":  "(#54) Pet Building Level 2",
+                   "stage_number":  54,
+                   "stage_name":  "Pet Building Level 2",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "A pet is a man\u0027s best friend. Each pet has 3 different modes available to choose from. Choose the mode that best fits your playing style. During their 3rd form, some pets can even be ridden. Would you like to give one of our precious pets a new home?"
+               },
+    "Martin":  {
+                   "name":  "Martin",
+                   "gender":  "Male",
+                   "location":  "(#51) Pet Helmet Shop 2nd Floor",
+                   "stage_number":  51,
+                   "stage_name":  "Pet Helmet Shop 2nd Floor",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "I love my pets. Even though pets can be very good fighters, you must always love them and treat them as you would like to be treated. A loved pet also makes a stronger pet. When a pet\u0027s love is high, it has a better chance of gaining more whenever it levels up. So always make sure to keep your pet\u0027s love meter up. And also, choose your companion wisely. You cannot remove a pet as your companion unless you permanently release him. A pet that is your companion will feel extra loved, therefore making him potentially strong than your other pets."
+               },
+    "Maxwell":  {
+                    "name":  "Maxwell",
+                    "gender":  "Male",
+                    "location":  "(#38) Robo City",
+                    "stage_number":  38,
+                    "stage_name":  "Robo City",
+                    "service":  null,
+                    "mission":  null,
+                    "quote":  "Welcome to Robo City, home of the robos. In Robo City, electricity rules all. If you mess with the robos or their electricity, things could get ugly."
+                },
+    "Michael":  {
+                    "name":  "Michael",
+                    "gender":  "Male",
+                    "location":  "(#10) Windmill Top",
+                    "stage_number":  10,
+                    "stage_name":  "Windmill Top",
+                    "service":  null,
+                    "mission":  null,
+                    "quote":  "I think I\u0027m pretty strong but this area next to me is pretty tough. Make sure you got some good gear and are strong enough to fight the enemies in there."
+                },
+    "Milton":  {
+                   "name":  "Milton",
+                   "gender":  "Male",
+                   "location":  "(#92) Fishing Fort",
+                   "stage_number":  92,
+                   "stage_name":  "Fishing Fort",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "Welcome to my fishing castle. It\u0027s not a very big castle, but I still like to call it a castle. Have you been fishing lately? If not, you\u0027re going to need a fishing pole. One pole is all you need, but you have to train your fishing skills to become better. So how about you buy a fishing pole from me?"
+               },
+    "Mitchell":  {
+                     "name":  "Mitchell",
+                     "gender":  "Male",
+                     "location":  "(#33) Snowy Flats",
+                     "stage_number":  33,
+                     "stage_name":  "Snowy Flats",
+                     "service":  "None",
+                     "mission":  "",
+                     "quote":  ""
+                 },
+    "Mizon":  {
+                  "name":  "Mizon",
+                  "gender":  "Male",
+                  "location":  "(#3) Heath\u0027s Training Ground",
+                  "stage_number":  3,
+                  "stage_name":  "Heath\u0027s Training Ground",
+                  "service":  "",
+                  "mission":  "The Black Hooded Hatchet \u0026 Find the Cult\u0027s Hideout",
+                  "quote":  "Leave me alone already!"
+              },
+    "Mystic":  {
+                   "name":  "Mystic",
+                   "gender":  "Male",
+                   "location":  "(#20) Haunted Woods",
+                   "stage_number":  20,
+                   "stage_name":  "Haunted Woods",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "This is the biggest, baddest, cult you will EVER find in your ENTIRE life. We have everything you could ever need here. Trees, ground, graves, trees and a massive 4 foot clubhouse big enought to fit at least 200 people. Luckily I get to chill in the clubhouse all day. ..If you are here looking for Mad Ricky, he\u0027s not here right now."
+               },
+    "Ned":  {
+                "name":  "Ned",
+                "gender":  "Male",
+                "location":  "(#69) Craftman Falls",
+                "stage_number":  69,
+                "stage_name":  "Craftman Falls",
+                "service":  null,
+                "mission":  null,
+                "quote":  "Cutting down trees is good for harnessing their wood, but be sure to plant trees as well."
+            },
+    "Nicolas":  {
+                    "name":  "Nicolas",
+                    "gender":  "Male",
+                    "location":  "(#54) Pet Building Level 2",
+                    "stage_number":  54,
+                    "stage_name":  "Pet Building Level 2",
+                    "service":  "Shop",
+                    "mission":  null,
+                    "quote":  "Pets pets pets! You should always treat pets with love and respect. A pets base stats are indicative of stats throughout their life as they level up. This means, if one pet has a higher power than another, it is more likely to increase its power during a level up. Anyway, would you like to adopt some pets?"
+                },
+    "Pablo":  {
+                  "name":  "Pablo",
+                  "gender":  "Male",
+                  "location":  "(#31) Pablo\u0027s House",
+                  "stage_number":  31,
+                  "stage_name":  "Pablo\u0027s House",
+                  "service":  "",
+                  "mission":  "Get Pablo a Monster Skull",
+                  "quote":  "I love the monster skull you got for me. Thanks man, I love you. Wow wow! Not like that."
+              },
+    "Patrick":  {
+                    "name":  "Patrick",
+                    "gender":  "Male",
+                    "location":  "(#48) Petropolis",
+                    "stage_number":  48,
+                    "stage_name":  "Petropolis",
+                    "service":  "",
+                    "mission":  "Ride a Pet",
+                    "quote":  "Even though I know I\u0027ll never see my Tebra again, it sure would make me happy to see someone with a smile on their face riding a pet they love."
+                },
+    "Philbert":  {
+                     "name":  "Philbert",
+                     "gender":  "Male",
+                     "location":  "(#74) Lavastone Trench",
+                     "stage_number":  74,
+                     "stage_name":  "Lavastone Trench",
+                     "service":  "",
+                     "mission":  "Solve Philbert\u0027s Riddle",
+                     "quote":  "You must find this person, and wear the same shirt as them."
+                 },
+    "R.J.":  {
+                 "name":  "R.J.",
+                 "gender":  "Male",
+                 "location":  "(#37) Hall of Fame",
+                 "stage_number":  37,
+                 "stage_name":  "Hall of Fame",
+                 "service":  null,
+                 "mission":  null,
+                 "quote":  "Here are some billboards of the top level players and records in Emberfall. These guys are the best of the best, the cream of the crop. The top guilds board at the end fo the room is calculated by adding the levels of all players in a guild. It is updated several times a week, so if you cain a level, change members, or anything of that nature it will not be updated immediately. Also, in order to be featured as a statue, you must be a minimum level of"
+             },
+    "Ralph":  {
+                  "name":  "Ralph",
+                  "gender":  "Male",
+                  "location":  "(#1) Wooden Plains",
+                  "stage_number":  1,
+                  "stage_name":  "Wooden Plains",
+                  "service":  null,
+                  "mission":  null,
+                  "quote":  "Welcome to the wonderful world of Emberfall! Here you will find plenty of other people from around the world to interact with!"
+              },
+    "Rebecca":  {
+                    "name":  "Rebecca",
+                    "gender":  "Female",
+                    "location":  "(#40) Viper\u0027s Shop",
+                    "stage_number":  40,
+                    "stage_name":  "Viper\u0027s Shop",
+                    "service":  "Heal",
+                    "mission":  null,
+                    "quote":  "Hello traveler. Do you need to be healed? I can heal you, I am a trained and licensed nurse. Here you are, back to full health."
+                },
+    "Ricardo":  {
+                    "name":  "Ricardo",
+                    "gender":  "Male",
+                    "location":  "(#50) Ricardo\u0027s House",
+                    "stage_number":  50,
+                    "stage_name":  "Ricardo\u0027s House",
+                    "service":  "Shop",
+                    "mission":  null,
+                    "quote":  "Weapons, armor, helmets. I\u0027ve got it all! Most people come to check out Petropolis for its pets, but I like to sell equipment in hopes that they\u0027ll spend their money with me. Hehe! If you buy a helmet, Ill give you half of a 2 year old already chewed up browny made from dirt. Sounds like one awesome deal doesn\u0027t it? Ok, maybe I\u0027m lying, but you should still buy something."
+                },
+    "Rita":  {
+                 "name":  "Rita",
+                 "gender":  "Female",
+                 "location":  "Windy Ridge #20",
+                 "stage_number":  null,
+                 "stage_name":  "Windy Ridge #20",
+                 "service":  "Shop",
+                 "mission":  null,
+                 "quote":  ""
+             },
+    "Ron Anderson":  {
+                         "name":  "Ron Anderson",
+                         "gender":  "Male",
+                         "location":  "(#23) Anderson Family Home",
+                         "stage_number":  23,
+                         "stage_name":  "Anderson Family Home",
+                         "service":  null,
+                         "mission":  null,
+                         "quote":  "My brother Kyle stacked all his attack, now when he gets hit by enemies he takes a lot of damage. I think he\u0027s dumb for doing it, I like to balance everything out."
+                     },
+    "Ronald":  {
+                   "name":  "Ronald",
+                   "gender":  "MaxyPressko",
+                   "location":  "(#1) Wooden Plains",
+                   "stage_number":  1,
+                   "stage_name":  "Wooden Plains",
+                   "service":  "",
+                   "mission":  "The Black Hood Hatchet",
+                   "quote":  "...for now you have to find the guy that cut down the platform you were on. He was carrying a hatchet and dressed in full black so he shouldn\u0027t be hard to find. If you don\u0027t find him soon he\u0027s going to cause mischief in our village."
+               },
+    "Sales Man":  {
+                      "name":  "Sales Man",
+                      "gender":  "Male",
+                      "location":  "Heath\u0027s Training Ground ( #7 )",
+                      "stage_number":  7,
+                      "stage_name":  "",
+                      "service":  "Shop",
+                      "mission":  null,
+                      "quote":  "Welcome to my store. Please buy whatever you would like."
+                  },
+    "Sam Shoe":  {
+                     "name":  "Sam Shoe",
+                     "gender":  "Male",
+                     "location":  "Tropical Beach ( #58 )",
+                     "stage_number":  58,
+                     "stage_name":  "",
+                     "service":  "Shop",
+                     "mission":  null,
+                     "quote":  "Shoes shoes shoes! Get your shoes here! You wanna buy some shoes man?"
+                 },
+    "Samuel":  {
+                   "name":  "Samuel",
+                   "gender":  "Male",
+                   "location":  "(#48) Petropolis",
+                   "stage_number":  48,
+                   "stage_name":  "Petropolis",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Just like us humans, there are many different ways to set up your pet! Pet helmets are much like us human\u0027s helmets, however since pets don\u0027t have range or magic, instead they have luck and healing. You\u0027ll find that archer based items usually increase a pet\u0027s luck, as where magician based items usually increase its healing ability. The luck helps give the owner a better chance of receiving drops from enemies. The healing allows the pet to heal the owner more health every so often. Sometimes when my pet levels up it doesn\u0027t gain any points, which stinks. But sometims it gains a lot!"
+               },
+    "Scarlet":  {
+                    "name":  "Scarlet",
+                    "gender":  "Female",
+                    "location":  "(#22) Fairyville",
+                    "stage_number":  22,
+                    "stage_name":  "Fairyville",
+                    "service":  "",
+                    "mission":  "Get Scarlet a Hockey Mask",
+                    "quote":  "Do you think now that I got this hockey mask that I can smash my head off of anything I want and it won\u0027t hurt? Oh... well neither did I."
+                },
+    "Shane Shield":  {
+                         "name":  "Shane Shield",
+                         "gender":  "Male",
+                         "location":  "Shane Shield\u0027s House ( #121 )",
+                         "stage_number":  121,
+                         "stage_name":  "",
+                         "service":  "Shop",
+                         "mission":  "",
+                         "quote":  "Welcome, welcome! I am Shane the Shield Man, or Shane Shield for short. You came all the way to my house, surely you are interested in buying some shields?"
+                     },
+    "Sneed":  {
+                  "name":  "Sneed",
+                  "gender":  "Male",
+                  "location":  "(#26) Long Dungeon",
+                  "stage_number":  26,
+                  "stage_name":  "Long Dungeon",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  "There\u0027s no way you came down here and risked your life Not to buy something!"
+              },
+    "Snoop":  {
+                  "name":  "Snoop",
+                  "gender":  "Male",
+                  "location":  "(#24) Snoop\u0027s Shop",
+                  "stage_number":  24,
+                  "stage_name":  "Snoop\u0027s Shop",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  "I put that \u0027store\u0027 sign in my house in case anybody came in and couldn\u0027t find me. It\u0027s what I like to call a great idea."
+              },
+    "Susan":  {
+                  "name":  "Susan",
+                  "gender":  "Female",
+                  "location":  "(#24) Snoop\u0027s Shop",
+                  "stage_number":  24,
+                  "stage_name":  "Snoop\u0027s Shop",
+                  "service":  "Healing",
+                  "mission":  null,
+                  "quote":  "Weapons and healing all in one place! Pretty handy isn\u0027t it? I\u0027ll heal you. Don\u0027t worry, I\u0027m a licensed professional."
+              },
+    "Tanner":  {
+                   "name":  "Tanner",
+                   "gender":  "Male",
+                   "location":  "(#53) Pet Building Level 1",
+                   "stage_number":  53,
+                   "stage_name":  "Pet Building Level 1",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "You are in the biggest building not only in Petopia, but the biggest building on Elandra Island. Here in this building we raise pets. You can adopt them here. Here are the ones I have ready for adoption."
+               },
+    "Tanya":  {
+                  "name":  "Tanya",
+                  "gender":  "Female",
+                  "location":  "(#31) Pablo\u0027s House",
+                  "stage_number":  31,
+                  "stage_name":  "Pablo\u0027s House",
+                  "service":  "Healing",
+                  "mission":  null,
+                  "quote":  "This is a dangerous place around these parts. I\u0027m going to take a good guess and say you could use healed."
+              },
+    "Ted":  {
+                "name":  "Ted",
+                "gender":  "Male",
+                "location":  "(#55) Pet Building Level 3",
+                "stage_number":  55,
+                "stage_name":  "Pet Building Level 3",
+                "service":  "Shop",
+                "mission":  null,
+                "quote":  "All pets are born with the natural ability to teleport. This is a unique ability they have that seperates them from the enemy world. When a pet gets too far from you or is confused, they will often teleport to be next to you. You can even tell the pet to teleport by pressing the Q key. Remember that it can often come in handy. Aren\u0027t pets amazing creatures? Would you like to adopt a new friend?"
+            },
+    "Thomas":  {
+                   "name":  "Thomas",
+                   "gender":  "Male",
+                   "location":  "(#5) Mushroom Alley",
+                   "stage_number":  5,
+                   "stage_name":  "Mushroom Alley",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Are you getting the hang of things? This area is what they call Mushroom Alley. I wish I were a mushroom."
+               },
+    "Tiberius":  {
+                     "name":  "Tiberius",
+                     "gender":  "Male",
+                     "location":  "Arena Entrace (#11 )",
+                     "stage_number":  11,
+                     "stage_name":  "",
+                     "service":  "Shop",
+                     "mission":  null,
+                     "quote":  "...And people told me this was a bad place to open up shop, ha!"
+                 },
+    "Toddwell":  {
+                     "name":  "Toddwell",
+                     "gender":  "Male",
+                     "location":  "(#145) Cloud Fort",
+                     "stage_number":  145,
+                     "stage_name":  "Cloud Fort",
+                     "service":  "Shop",
+                     "mission":  null,
+                     "quote":  "Weapons... That is the only thing that will help you tackle these super wicked Omega Fluffs. They may have a charming name, but let me tell you what.. They will rip you a new one!"
+                 },
+    "Train Shack Man":  {
+                            "name":  "Train Shack Man",
+                            "gender":  "Male",
+                            "location":  "(#61) Mushroom Train Station \u0026 (#64) Aqualantis",
+                            "stage_number":  61,
+                            "stage_name":  "Mushroom Train Station \u0026 (#64) Aqualantis",
+                            "service":  "Train Ticketmaster",
+                            "mission":  null,
+                            "quote":  "I\u0027m what they call a train-o-holic\u0027. It costs $1,000 to ride. Trains arrive here 3 minutes before they depart."
+                        },
+    "Travis":  {
+                   "name":  "Travis",
+                   "gender":  "Male",
+                   "location":  "Snowy Flats ( #83 )",
+                   "stage_number":  83,
+                   "stage_name":  "",
+                   "service":  "Shop",
+                   "mission":  null,
+                   "quote":  "I could sell you some weapons, they will help warm you up! ...Oh weapons don\u0027t warm you up? Well buy some anyway."
+               },
+    "Tristan":  {
+                    "name":  "Tristan",
+                    "gender":  "Male",
+                    "location":  "(#48) Petropolis",
+                    "stage_number":  48,
+                    "stage_name":  "Petropolis",
+                    "service":  null,
+                    "mission":  null,
+                    "quote":  "If you buy a pet, be very careful with them. A new pet starts at level one, so don\u0027t take them into areas with monsters too strong for them. Think about it, would you try and fight strong monsters if you were level one? No! So don\u0027t be mean and make a pet fight a monster that will hurt him! Also, did you know that a pet\u0027s feet are close to the same size as us humans? That means they can wear the same shoes as we can! One last thing. A pet feels more love the more pets you have. Pets like being with other pets, so it\u0027s always good to own several pets."
+                },
+    "Val":  {
+                "name":  "Val",
+                "gender":  "Male",
+                "location":  "(#51) Pet Helmet Shop",
+                "stage_number":  51,
+                "stage_name":  "Pet Helmet Shop",
+                "service":  "Shop",
+                "mission":  null,
+                "quote":  "I hate being on the bottom floor. Why can\u0027t I sell stuff on the top floor? Oh well. Anyway, I specialize in selling pet helmets. Are there any I could interest you in?"
+            },
+    "Vince":  {
+                  "name":  "Vince",
+                  "gender":  "Male",
+                  "location":  "(#48) Petropolis",
+                  "stage_number":  48,
+                  "stage_name":  "Petropolis",
+                  "service":  null,
+                  "mission":  null,
+                  "quote":  "Did you know, that inactive pets still play an important role? Inactive pets that are not knocked out can use their spirit to effect their owner. We like to call them \u0027pet spirit orbs\u0027. The orbs grow bigger and stronger as a pet levels up. These orbs add to a user\u0027s power, range, and magic."
+              },
+    "Viper":  {
+                  "name":  "Viper",
+                  "gender":  "Male",
+                  "location":  "Viper\u0027s Shop ( #117 )",
+                  "stage_number":  117,
+                  "stage_name":  "",
+                  "service":  "Shop",
+                  "mission":  null,
+                  "quote":  "Welcome... to the future! Well, not really but everyone here loves robots and technology. I am the local weapon and armor shop guy. Can I interest you in anything?"
+              },
+    "Vlad Shoe":  {
+                      "name":  "Vlad Shoe",
+                      "gender":  "Male",
+                      "location":  "Tropical Beach",
+                      "stage_number":  null,
+                      "stage_name":  "Tropical Beach",
+                      "service":  null,
+                      "mission":  null,
+                      "quote":  ""
+                  },
+    "Wallace":  {
+                    "name":  "Wallace",
+                    "gender":  "Male",
+                    "location":  "Pablo\u0027s House ( #79 )",
+                    "stage_number":  79,
+                    "stage_name":  "",
+                    "service":  "Shop",
+                    "mission":  null,
+                    "quote":  "Them great frogs can be tough you know. You have to have some of the top level gear in order to survive against them."
+                },
+    "Walter":  {
+                   "name":  "Walter",
+                   "gender":  "Male",
+                   "location":  "(#48) Petropolis",
+                   "stage_number":  48,
+                   "stage_name":  "Petropolis",
+                   "service":  null,
+                   "mission":  null,
+                   "quote":  "Pets Pets Pets! They\u0027re so awesome! There are keys to keeping your pet happy and keeping his love up as much as possible. Pets as you can imagine, like food. Food can help raise their love. Also it\u0027s very mean to let a pet die. Pets also get sad if they don\u0027t get used often. You know what\u0027s the worst though? Not using a pet and leaving him passed out with 0 health. That will surely lower their love fast. A pet\u0027s love is a hard thing to manage, so don\u0027t study it too carefully because you never can tell. Some people drive themselves MAD trying to get the pet\u0027s love perfect."
+               },
+    "Wayne":  {
+                  "name":  "Wayne",
+                  "gender":  "Male",
+                  "location":  "(#25) Wayne\u0027s Home",
+                  "stage_number":  25,
+                  "stage_name":  "Wayne\u0027s Home",
+                  "service":  null,
+                  "mission":  null,
+                  "quote":  "People call us folks who live in Fairyville weird, but I don\u0027t think we\u0027re weird, we\u0027re just odd that\u0027s all. Some people even call us dumb, but we ain\u0027t dumb, we stupid. It doesn\u0027t even make me angry when people talk about us, it just makes me mad. People need to stop."
+              },
+    "William":  {
+                    "name":  "William",
+                    "gender":  "Male",
+                    "location":  "(#1) Wooden Plains",
+                    "stage_number":  1,
+                    "stage_name":  "Wooden Plains",
+                    "service":  null,
+                    "mission":  null,
+                    "quote":  "Finally, you\u0027re up! Mad Ricky and his Green Bouncers are back and they\u0027re trying to chop down our forest again! A few of his Green Bouncers are on their way back over here, they crave blood! Get up!"
+                },
+    "Wilson":  {
+                   "name":  "Wilson",
+                   "gender":  "Male",
+                   "location":  "(#49) Elandra Flatts",
+                   "stage_number":  49,
+                   "stage_name":  "Elandra Flatts",
+                   "service":  "",
+                   "mission":  "Collect 4 Pets",
+                   "quote":  "You don\u0027t have what it takes to complete my triple dog dare? Can\u0027t you collect 7 pets? Maybe I will collect them before you do."
+               },
+    "Wood Man Steve":  {
+                           "name":  "Wood Man Steve",
+                           "gender":  "Male",
+                           "location":  "(#77) Frog Country",
+                           "stage_number":  77,
+                           "stage_name":  "Frog Country",
+                           "service":  "Shop",
+                           "mission":  null,
+                           "quote":  "I, like my brother Wood Man Tim, Also can help you craft processed wood. You will need 10 of a log to make it into good wood that can be crafted with. By the way did you know fish are a vital part of crafting ? The fish dont get killed or smooshed into equipment, they are just needed as scales and body contain important DNA that must be replicated when crafting weapons and armour. That way fish arent harmed. Now what can i help you with?"
+                       },
+    "Wood Man Tim":  {
+                         "name":  "Wood Man Tim",
+                         "gender":  "Male",
+                         "location":  "(#54) Pablo\u0027s House",
+                         "stage_number":  54,
+                         "stage_name":  "Pablo\u0027s House",
+                         "service":  "Shop",
+                         "mission":  null,
+                         "quote":  "...here at Pablo\u0027s I can refine and process those logs into ready-to-use wood."
+                     }
+}

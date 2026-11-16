@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dti7pavc2x5ee"]
+
+[ext_resource type="Script" uid="uid://bjd8uotph6vlq" path="res://Emberfall/scripts/entities/monster.gd" id="1_monster"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(44, 44)
+
+[node name="Monster" type="CharacterBody2D" unique_id=1830501911]
+collision_layer = 2
+script = ExtResource("1_monster")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=237183407]
+position = Vector2(0, -22)
+shape = SubResource("RectangleShape2D_body")

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d4lmrdinmcxvl"]
+
+[ext_resource type="Script" uid="uid://bg845wj0aj4f5" path="res://Emberfall/scripts/world/stage.gd" id="1_stage"]
+[ext_resource type="Script" uid="uid://b85d8nrkn0q3w" path="res://Emberfall/scripts/ui/hud.gd" id="2_hud"]
+
+[node name="World" type="Node2D" unique_id=2133888347]
+script = ExtResource("1_stage")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=790105790]
+script = ExtResource("2_hud")

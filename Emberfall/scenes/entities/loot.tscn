@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Emberfall/scripts/entities/loot_pickup.gd" id="1_loot"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_loot"]
+radius = 24.0
+
+[node name="Loot" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+monitorable = true
+script = ExtResource("1_loot")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_loot")

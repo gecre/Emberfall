@@ -1,0 +1,4031 @@
+[
+	{
+		"number":  1,
+		"name":  "Wooden Plains",
+		"display":  "Wooden Plains",
+		"npcs":  [
+					 "Ralph",
+					 "Ronald",
+                     "William"
+				 ],
+		"enemies":  [
+                        "Green Bouncer"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Puffer",
+                     "Coconut Fish"
+				 ],
+		"previous":  null,
+		"next":  {
+					 "number":  2,
+					 "name":  "Green Peak"
+				 },
+		"monsters":  [
+						 "Green Bouncer",
+                         "Sliver"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  2,
+		"name":  "Green Peak",
+		"display":  "Green Peak",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Green Bouncer"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Puffer",
+                     "Coconut Fish"
+				 ],
+		"previous":  {
+						 "number":  1,
+						 "name":  "Wooden Plains"
+					 },
+		"next":  {
+					 "number":  3,
+					 "name":  "Tiki Flatts"
+				 },
+		"monsters":  [
+                         "Green Bouncer"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  3,
+		"name":  "Tiki Flatts",
+		"display":  "Tiki Flatts",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Green Bouncer",
+                        "Purple Goo"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  2,
+						 "name":  "Green Peak"
+					 },
+		"next":  {
+					 "number":  4,
+					 "name":  "Palm Forest"
+				 },
+		"monsters":  [
+						 "Green Bouncer",
+                         "Purple Goo"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  4,
+		"name":  "Palm Forest",
+		"display":  "Palm Forest",
+		"npcs":  [
+					 "Alfred",
+                     "Jim Sanders"
+				 ],
+		"enemies":  [
+						"Green Bouncer",
+                        "Purple Goo"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  3,
+						 "name":  "Tiki Flatts"
+					 },
+		"next":  {
+					 "number":  5,
+					 "name":  "Coconut Stretch"
+				 },
+		"monsters":  [
+						 "Green Bouncer",
+                         "Purple Goo"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  5,
+		"name":  "Coconut Stretch",
+		"display":  "Coconut Stretch",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Green Bouncer",
+                        "Purple Goo"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  4,
+						 "name":  "Palm Forest"
+					 },
+		"next":  {
+					 "number":  6,
+					 "name":  "High Greens"
+				 },
+		"monsters":  [
+						 "Green Bouncer",
+                         "Purple Goo"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  6,
+		"name":  "High Greens",
+		"display":  "High Greens",
+		"npcs":  [
+					 "Chad",
+                     "Joshua"
+				 ],
+		"enemies":  [
+						"Green Bouncer",
+						"Green Walker",
+                        "Purple Goo"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Puffer",
+                     "Coconut Fish"
+				 ],
+		"previous":  {
+						 "number":  5,
+						 "name":  "Coconut Stretch"
+					 },
+		"next":  {
+					 "number":  7,
+					 "name":  "Heath\u0027s Training Ground"
+				 },
+		"monsters":  [
+						 "Flockling",
+						 "Green Bouncer",
+						 "Puffer",
+						 "Sliver",
+						 "Green Walker",
+                         "Purple Goo"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  7,
+		"name":  "Heath\u0027s Training Ground",
+		"display":  "Heath\u0027s Training Ground",
+		"npcs":  [
+					 "Sales Man",
+					 "Heath",
+					 "Mizon",
+                     "Anoop"
+				 ],
+		"enemies":  [
+						"Green Bouncer",
+						"Green Walker",
+                        "Purple Goo"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  6,
+						 "name":  "High Greens"
+					 },
+		"next":  {
+					 "number":  8,
+					 "name":  "Indian Territory"
+				 },
+		"monsters":  [
+						 "Flockling",
+						 "Green Bouncer",
+						 "Purple Goo",
+                         "Green Walker"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  8,
+		"name":  "Indian Territory",
+		"display":  "Indian Territory",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Green Walker"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Coconut Fish",
+                     "Puffer"
+				 ],
+		"previous":  {
+						 "number":  7,
+						 "name":  "Heath\u0027s Training Ground"
+					 },
+		"next":  {
+					 "number":  9,
+					 "name":  "Fairytale Woods"
+				 },
+		"monsters":  [
+                         "Green Walker"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  9,
+		"name":  "Fairytale Woods",
+		"display":  "Fairytale Woods",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Yellow Hairy Monster"
+					],
+		"fish":  [
+					 "Furry Feen",
+					 "Hairloom",
+					 "Hertle",
+					 "Plant Fungus",
+					 "Lion Fish",
+                     "Stagnant Scum"
+				 ],
+		"previous":  {
+						 "number":  8,
+						 "name":  "Indian Territory"
+					 },
+		"next":  {
+					 "number":  10,
+					 "name":  "Candy Lane"
+				 },
+		"monsters":  [
+						 "Furry Feen",
+						 "Hairloom",
+						 "Hertle",
+						 "Lion Fish",
+						 "Plant Fungus",
+						 "Stagnant Scum",
+                         "Yellow Hairy Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  10,
+		"name":  "Candy Lane",
+		"display":  "Candy Lane",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Yellow Hairy Monster"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  9,
+						 "name":  "Fairytale Woods"
+					 },
+		"next":  {
+					 "number":  11,
+					 "name":  "Sugarcane Slopes"
+				 },
+		"monsters":  [
+                         "Yellow Hairy Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  11,
+		"name":  "Sugarcane Slopes",
+		"display":  "Sugarcane Slopes",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Yellow Hairy Monster"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  10,
+						 "name":  "Candy Lane"
+					 },
+		"next":  {
+					 "number":  12,
+					 "name":  "Fairyville"
+				 },
+		"monsters":  [
+                         "Yellow Hairy Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  12,
+		"name":  "Fairyville",
+		"display":  "Fairyville",
+		"npcs":  [
+                     "Scarlet"
+				 ],
+		"enemies":  [
+						"Yellow Puff Monster",
+                        "Yellow Hairy Monster"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  11,
+						 "name":  "Sugarcane Slopes"
+					 },
+		"next":  {
+					 "number":  13,
+					 "name":  "Lollipop Flatts"
+				 },
+		"monsters":  [
+						 "Yellow Puff Monster",
+                         "Yellow Hairy Monster"
+					 ],
+		"spawn_cap":  15
+	},
+	{
+		"number":  13,
+		"name":  "Lollipop Flatts",
+		"display":  "Lollipop Flatts",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Yellow Puff Monster"
+					],
+		"fish":  [
+					 "Furry Feen",
+					 "Hairloom",
+					 "Hertle",
+					 "Plant Fungus",
+					 "Lion Fish",
+                     "Stagnant Scum"
+				 ],
+		"previous":  {
+						 "number":  12,
+						 "name":  "Fairyville"
+					 },
+		"next":  {
+					 "number":  14,
+					 "name":  "Candy Water Wells"
+				 },
+		"monsters":  [
+                         "Yellow Puff Monster"
+					 ],
+		"spawn_cap":  19
+	},
+	{
+		"number":  14,
+		"name":  "Candy Water Wells",
+		"display":  "Candy Water Wells",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Yellow Puff Monster"
+					],
+		"fish":  [
+					 "Furry Feen",
+					 "Hairloom",
+					 "Hertle",
+					 "Plant Fungus",
+					 "Lion Fish",
+                     "Stagnant Scum"
+				 ],
+		"previous":  {
+						 "number":  13,
+						 "name":  "Lollipop Flatts"
+					 },
+		"next":  {
+					 "number":  15,
+					 "name":  "Anderson Family Home"
+				 },
+		"monsters":  [
+                         "Yellow Puff Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  15,
+		"name":  "Anderson Family Home",
+		"display":  "Anderson Family Home",
+		"npcs":  [
+                     "Brad Anderson Kyle Anderson Ron Anderson"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  14,
+						 "name":  "Candy Water Wells"
+					 },
+		"next":  {
+					 "number":  16,
+					 "name":  "Snoop\u0027s Shop"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  16,
+		"name":  "Snoop\u0027s Shop",
+		"display":  "Snoop\u0027s Shop",
+		"npcs":  [
+                     "Snoop Susan"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  15,
+						 "name":  "Anderson Family Home"
+					 },
+		"next":  {
+					 "number":  17,
+					 "name":  "Wayne\u0027s Home"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  17,
+		"name":  "Wayne\u0027s Home",
+		"display":  "Wayne\u0027s Home",
+		"npcs":  [
+                     "Wayne"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  16,
+						 "name":  "Snoop\u0027s Shop"
+					 },
+		"next":  {
+					 "number":  18,
+					 "name":  "Windmill Top"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  18,
+		"name":  "Windmill Top",
+		"display":  "Windmill Top",
+		"npcs":  [
+                     "Gordon"
+				 ],
+		"enemies":  [
+                        "Orange Crazy"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  17,
+						 "name":  "Wayne\u0027s Home"
+					 },
+		"next":  {
+					 "number":  19,
+					 "name":  "Barren Flatts"
+				 },
+		"monsters":  [
+                         "Orange Crazy"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  19,
+		"name":  "Barren Flatts",
+		"display":  "Barren Flatts",
+		"npcs":  [
+                     "Michael"
+				 ],
+		"enemies":  [
+                        "Orange Crazy"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  18,
+						 "name":  "Windmill Top"
+					 },
+		"next":  {
+					 "number":  20,
+					 "name":  "Windy Ridge"
+				 },
+		"monsters":  [
+                         "Orange Crazy"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  20,
+		"name":  "Windy Ridge",
+		"display":  "Windy Ridge",
+		"npcs":  [
+                     "Rita"
+				 ],
+		"enemies":  [
+                        "Orange Crazy"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  19,
+						 "name":  "Barren Flatts"
+					 },
+		"next":  {
+					 "number":  21,
+					 "name":  "Dungeon Entrance"
+				 },
+		"monsters":  [
+                         "Orange Crazy"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  21,
+		"name":  "Dungeon Entrance",
+		"display":  "Dungeon Entrance",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Goo Cube"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  20,
+						 "name":  "Windy Ridge"
+					 },
+		"next":  {
+					 "number":  22,
+					 "name":  "Deadly Dungeon"
+				 },
+		"monsters":  [
+                         "Goo Cube"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  22,
+		"name":  "Deadly Dungeon",
+		"display":  "Deadly Dungeon",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Goo Cube"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  21,
+						 "name":  "Dungeon Entrance"
+					 },
+		"next":  {
+					 "number":  23,
+					 "name":  "Goo Dungeon"
+				 },
+		"monsters":  [
+                         "Goo Cube"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  23,
+		"name":  "Goo Dungeon",
+		"display":  "Goo Dungeon",
+		"npcs":  [
+                     "Albert"
+				 ],
+		"enemies":  [
+                        "Goo Cube"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  22,
+						 "name":  "Deadly Dungeon"
+					 },
+		"next":  {
+					 "number":  24,
+					 "name":  "Brick Dungeon"
+				 },
+		"monsters":  [
+                         "Goo Cube"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  24,
+		"name":  "Brick Dungeon",
+		"display":  "Brick Dungeon",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Goo Cube"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  23,
+						 "name":  "Goo Dungeon"
+					 },
+		"next":  {
+					 "number":  25,
+					 "name":  "Deep Dungeon"
+				 },
+		"monsters":  [
+						 "Brick Monster",
+                         "Goo Cube"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  25,
+		"name":  "Deep Dungeon",
+		"display":  "Deep Dungeon",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Goo Cube"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  24,
+						 "name":  "Brick Dungeon"
+					 },
+		"next":  {
+					 "number":  26,
+					 "name":  "Long Dungeon"
+				 },
+		"monsters":  [
+                         "Goo Cube"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  26,
+		"name":  "Long Dungeon",
+		"display":  "Long Dungeon",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Goo Cube"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  25,
+						 "name":  "Deep Dungeon"
+					 },
+		"next":  {
+					 "number":  27,
+					 "name":  "Giant Goo Cube Den"
+				 },
+		"monsters":  [
+                         "Goo Cube"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  27,
+		"name":  "Giant Goo Cube Den",
+		"display":  "Giant Goo Cube Den",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Giant Goo Cube",
+                        "Goo Cube"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  26,
+						 "name":  "Long Dungeon"
+					 },
+		"next":  {
+					 "number":  28,
+					 "name":  "Mechanical Drop"
+				 },
+		"monsters":  [
+						 "Goo Cube",
+                         "Giant Goo Cube"
+					 ],
+		"spawn_cap":  8
+	},
+	{
+		"number":  28,
+		"name":  "Mechanical Drop",
+		"display":  "Mechanical Drop",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Block Bot"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  27,
+						 "name":  "Giant Goo Cube Den"
+					 },
+		"next":  {
+					 "number":  29,
+					 "name":  "Robotic Structures"
+				 },
+		"monsters":  [
+                         "Block Bot"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  29,
+		"name":  "Robotic Structures",
+		"display":  "Robotic Structures",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Block Bot"
+					],
+		"fish":  [
+					 "Metal Guppy",
+					 "Iron Minnow",
+					 "Peep Fish",
+					 "Sharktooth",
+					 "Glowshine",
+                     "Subordinate"
+				 ],
+		"previous":  {
+						 "number":  28,
+						 "name":  "Mechanical Drop"
+					 },
+		"next":  {
+					 "number":  30,
+					 "name":  "Robo City"
+				 },
+		"monsters":  [
+                         "Block Bot"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  30,
+		"name":  "Robo City",
+		"display":  "Robo City",
+		"npcs":  [
+                     "Maxwell"
+				 ],
+		"enemies":  [
+                        "Block Bot"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  29,
+						 "name":  "Robotic Structures"
+					 },
+		"next":  {
+					 "number":  31,
+					 "name":  "Light Highway"
+				 },
+		"monsters":  [
+                         "Block Bot"
+					 ],
+		"spawn_cap":  15
+	},
+	{
+		"number":  31,
+		"name":  "Light Highway",
+		"display":  "Light Highway",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Block Bot",
+                        "Drill Bot"
+					],
+		"fish":  [
+					 "Metal Guppy",
+					 "Iron Minnow",
+					 "Peep Fish",
+					 "Sharktooth",
+					 "Glowshine",
+                     "Subordinate"
+				 ],
+		"previous":  {
+						 "number":  30,
+						 "name":  "Robo City"
+					 },
+		"next":  {
+					 "number":  32,
+					 "name":  "Future Water Trench"
+				 },
+		"monsters":  [
+						 "Drill Bot",
+						 "Glowshine",
+						 "Iron Minnow",
+						 "Metal Guppy",
+						 "Peep Fish",
+						 "Sharktooth",
+						 "Subordinate",
+                         "Block Bot"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  32,
+		"name":  "Future Water Trench",
+		"display":  "Future Water Trench",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Drill Bot"
+					],
+		"fish":  [
+					 "Metal Guppy",
+					 "Iron Minnow",
+					 "Peep Fish",
+					 "Sharktooth",
+					 "Glowshine",
+                     "Subordinate"
+				 ],
+		"previous":  {
+						 "number":  31,
+						 "name":  "Light Highway"
+					 },
+		"next":  {
+					 "number":  33,
+					 "name":  "Wastelands Entrance"
+				 },
+		"monsters":  [
+						 "Drill Bot",
+                         "Peep Fish"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  33,
+		"name":  "Wastelands Entrance",
+		"display":  "Wastelands Entrance",
+		"npcs":  [
+                     "Blaire"
+				 ],
+		"enemies":  [
+                        "Night Stalker"
+					],
+		"fish":  [
+					 "Dark Tadpole",
+					 "Evil Pupe",
+					 "Dark Toad",
+					 "Dark Reaper",
+					 "Beholder Guppy",
+                     "Krimper"
+				 ],
+		"previous":  {
+						 "number":  32,
+						 "name":  "Future Water Trench"
+					 },
+		"next":  {
+					 "number":  34,
+					 "name":  "Dark Lands"
+				 },
+		"monsters":  [
+						 "Dark Reaper",
+						 "Dark Tadpole",
+						 "Dark Toad",
+						 "Evil Pupe",
+						 "Puffer",
+                         "Night Stalker"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  34,
+		"name":  "Dark Lands",
+		"display":  "Dark Lands",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Night Stalker"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  33,
+						 "name":  "Wastelands Entrance"
+					 },
+		"next":  {
+					 "number":  35,
+					 "name":  "Wasted Plains"
+				 },
+		"monsters":  [
+                         "Night Stalker"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  35,
+		"name":  "Wasted Plains",
+		"display":  "Wasted Plains",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Night Stalker",
+                        "Dark Beholder"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  34,
+						 "name":  "Dark Lands"
+					 },
+		"next":  {
+					 "number":  36,
+					 "name":  "Forbidden Huts"
+				 },
+		"monsters":  [
+						 "Dark Beholder",
+                         "Night Stalker"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  36,
+		"name":  "Forbidden Huts",
+		"display":  "Forbidden Huts",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Dark Beholder"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  35,
+						 "name":  "Wasted Plains"
+					 },
+		"next":  {
+					 "number":  37,
+					 "name":  "Beholder Lookout"
+				 },
+		"monsters":  [
+                         "Dark Beholder"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  37,
+		"name":  "Beholder Lookout",
+		"display":  "Beholder Lookout",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Dark Beholder",
+                        "Kreeton"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  36,
+						 "name":  "Forbidden Huts"
+					 },
+		"next":  {
+					 "number":  38,
+					 "name":  "Indian Burial Grounds"
+				 },
+		"monsters":  [
+						 "Dark Beholder",
+                         "Kreeton"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  38,
+		"name":  "Indian Burial Grounds",
+		"display":  "Indian Burial Grounds",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Kreeton"
+					],
+		"fish":  [
+					 "Dark Tadpole",
+					 "Evil Pupe",
+					 "Dark Toad",
+					 "Dark Reaper",
+					 "Beholder Guppy",
+                     "Krimper"
+				 ],
+		"previous":  {
+						 "number":  37,
+						 "name":  "Beholder Lookout"
+					 },
+		"next":  {
+					 "number":  39,
+					 "name":  "Bartholomew\u0027s Shop"
+				 },
+		"monsters":  [
+                         "Kreeton"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  39,
+		"name":  "Bartholomew\u0027s Shop",
+		"display":  "Bartholomew\u0027s Shop",
+		"npcs":  [
+					 "Bartholomew",
+                     "Bobby"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  38,
+						 "name":  "Indian Burial Grounds"
+					 },
+		"next":  {
+					 "number":  40,
+					 "name":  "Wastelands Maze"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  40,
+		"name":  "Wastelands Maze",
+		"display":  "Wastelands Maze",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Night Stalker"
+					],
+		"fish":  [
+					 "Dark Tadpole",
+					 "Evil Pupe",
+					 "Dark Toad",
+					 "Dark Reaper",
+					 "Beholder Guppy",
+                     "Krimper"
+				 ],
+		"previous":  {
+						 "number":  39,
+						 "name":  "Bartholomew\u0027s Shop"
+					 },
+		"next":  {
+					 "number":  41,
+					 "name":  "Repguana Sanction"
+				 },
+		"monsters":  [
+                         "Night Stalker"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  41,
+		"name":  "Repguana Sanction",
+		"display":  "Repguana Sanction",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Repguana"
+					],
+		"fish":  [
+					 "Plant Fungus",
+					 "Clipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  40,
+						 "name":  "Wastelands Maze"
+					 },
+		"next":  {
+					 "number":  42,
+					 "name":  "Unwelcome Den"
+				 },
+		"monsters":  [
+						 "Clipper",
+						 "Greenspot",
+						 "Plant Fungus",
+                         "Repguana"
+					 ],
+		"spawn_cap":  6
+	},
+	{
+		"number":  42,
+		"name":  "Unwelcome Den",
+		"display":  "Unwelcome Den",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Repguana"
+					],
+		"fish":  [
+					 "Plant Fungus",
+					 "Clipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  41,
+						 "name":  "Repguana Sanction"
+					 },
+		"next":  {
+					 "number":  43,
+					 "name":  "Slimey Territory"
+				 },
+		"monsters":  [
+                         "Repguana"
+					 ],
+		"spawn_cap":  8
+	},
+	{
+		"number":  43,
+		"name":  "Slimey Territory",
+		"display":  "Slimey Territory",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Repguana"
+					],
+		"fish":  [
+					 "Plant Fungus",
+					 "Clipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  42,
+						 "name":  "Unwelcome Den"
+					 },
+		"next":  {
+					 "number":  44,
+					 "name":  "Mushroom Alley"
+				 },
+		"monsters":  [
+                         "Repguana"
+					 ],
+		"spawn_cap":  6
+	},
+	{
+		"number":  44,
+		"name":  "Mushroom Alley",
+		"display":  "Mushroom Alley",
+		"npcs":  [
+					 "Ben",
+                     "Thomas"
+				 ],
+		"enemies":  [
+						"Mushroom Squish",
+                        "Purple Goo"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  43,
+						 "name":  "Slimey Territory"
+					 },
+		"next":  {
+					 "number":  45,
+					 "name":  "Squishy Forest"
+				 },
+		"monsters":  [
+						 "Flockling",
+						 "Mushroom Squish",
+                         "Purple Goo"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  45,
+		"name":  "Squishy Forest",
+		"display":  "Squishy Forest",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Mushroom Squish",
+                        "Purple Goo"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  44,
+						 "name":  "Mushroom Alley"
+					 },
+		"next":  {
+					 "number":  46,
+					 "name":  "Mush Front"
+				 },
+		"monsters":  [
+						 "Mushroom Squish",
+                         "Purple Goo"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  46,
+		"name":  "Mush Front",
+		"display":  "Mush Front",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Mushroom Squish"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  45,
+						 "name":  "Squishy Forest"
+					 },
+		"next":  {
+					 "number":  47,
+					 "name":  "Fungus Lane"
+				 },
+		"monsters":  [
+						 "Flockling",
+                         "Mushroom Squish"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  47,
+		"name":  "Fungus Lane",
+		"display":  "Fungus Lane",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Mushroom Squish"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  46,
+						 "name":  "Mush Front"
+					 },
+		"next":  {
+					 "number":  48,
+					 "name":  "Mush Cave"
+				 },
+		"monsters":  [
+						 "Flockling",
+                         "Mushroom Squish"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  48,
+		"name":  "Mush Cave",
+		"display":  "Mush Cave",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Mushroom Squish"
+					],
+		"fish":  [
+                     "Spud"
+				 ],
+		"previous":  {
+						 "number":  47,
+						 "name":  "Fungus Lane"
+					 },
+		"next":  {
+					 "number":  49,
+					 "name":  "Monkey Jungle"
+				 },
+		"monsters":  [
+                         "Mushroom Squish"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  49,
+		"name":  "Monkey Jungle",
+		"display":  "Monkey Jungle",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Aipster"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  48,
+						 "name":  "Mush Cave"
+					 },
+		"next":  {
+					 "number":  50,
+					 "name":  "Ooka Ooka Shrooms"
+				 },
+		"monsters":  [
+                         "Aipster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  50,
+		"name":  "Ooka Ooka Shrooms",
+		"display":  "Ooka Ooka Shrooms",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Aipster"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  49,
+						 "name":  "Monkey Jungle"
+					 },
+		"next":  {
+					 "number":  52,
+					 "name":  "Fungus Lane"
+				 },
+		"monsters":  [
+                         "Aipster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  52,
+		"name":  "Fungus Lane",
+		"display":  "Fungus Lane",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Mushroom Ball"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  50,
+						 "name":  "Ooka Ooka Shrooms"
+					 },
+		"next":  {
+					 "number":  53,
+					 "name":  "Blue Shroom Den"
+				 },
+		"monsters":  [
+						 "Flockling",
+                         "Mushroom Ball"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  53,
+		"name":  "Blue Shroom Den",
+		"display":  "Blue Shroom Den",
+		"npcs":  [
+                     "Derek"
+				 ],
+		"enemies":  [
+                        "Mushroom Ball"
+					],
+		"fish":  [
+					 "Swerm",
+					 "Shroomer",
+					 "Mufungi",
+					 "Mushroom Coy",
+                     "Shroom Serpent"
+				 ],
+		"previous":  {
+						 "number":  52,
+						 "name":  "Fungus Lane"
+					 },
+		"next":  {
+					 "number":  54,
+					 "name":  "Fungi Woods"
+				 },
+		"monsters":  [
+						 "Mufungi",
+						 "Mushroom Coy",
+						 "Shroom Serpent",
+						 "Shroomer",
+						 "Swerm",
+                         "Mushroom Ball"
+					 ],
+		"spawn_cap":  17
+	},
+	{
+		"number":  54,
+		"name":  "Fungi Woods",
+		"display":  "Fungi Woods",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Mushroom Ball"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  53,
+						 "name":  "Blue Shroom Den"
+					 },
+		"next":  {
+					 "number":  55,
+					 "name":  "Mushroom Village"
+				 },
+		"monsters":  [
+                         "Mushroom Ball"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  55,
+		"name":  "Mushroom Village",
+		"display":  "Mushroom Village",
+		"npcs":  [
+					 "Andrew",
+					 "Brody",
+					 "Cleveland",
+					 "Drew",
+                     "Hambone"
+				 ],
+		"enemies":  [
+                        "Mushroom Ball"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  54,
+						 "name":  "Fungi Woods"
+					 },
+		"next":  {
+					 "number":  56,
+					 "name":  "Mushroom Trading District"
+				 },
+		"monsters":  [
+                         "Mushroom Ball"
+					 ],
+		"spawn_cap":  20
+	},
+	{
+		"number":  56,
+		"name":  "Mushroom Trading District",
+		"display":  "Mushroom Trading District",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  55,
+						 "name":  "Mushroom Village"
+					 },
+		"next":  {
+					 "number":  57,
+					 "name":  "Shroom Slide"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  57,
+		"name":  "Shroom Slide",
+		"display":  "Shroom Slide",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Bouncing Mushroom"
+					],
+		"fish":  [
+					 "Swerm",
+					 "Shroomer",
+					 "Mufungi",
+					 "Mushroom Coy",
+                     "Shroom Serpent"
+				 ],
+		"previous":  {
+						 "number":  56,
+						 "name":  "Mushroom Trading District"
+					 },
+		"next":  {
+					 "number":  58,
+					 "name":  "Tropical Beach"
+				 },
+		"monsters":  [
+                         "Bouncing Mushroom"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  58,
+		"name":  "Tropical Beach",
+		"display":  "Tropical Beach",
+		"npcs":  [
+					 "Arny",
+					 "Butch",
+                     "Sam Shoe"
+				 ],
+		"enemies":  [
+                        "Red Bouncer"
+					],
+		"fish":  [
+					 "Spud",
+					 "Flipper",
+					 "Coconut Fish",
+					 "Pootnick",
+					 "Clipper",
+                     "Sliver"
+				 ],
+		"previous":  {
+						 "number":  57,
+						 "name":  "Shroom Slide"
+					 },
+		"next":  {
+					 "number":  59,
+					 "name":  "Chillin\u0027 Beach"
+				 },
+		"monsters":  [
+						 "Coconut Fish",
+						 "Flipper",
+						 "Sliver",
+						 "Spud",
+                         "Red Bouncer"
+					 ],
+		"spawn_cap":  15
+	},
+	{
+		"number":  59,
+		"name":  "Chillin\u0027 Beach",
+		"display":  "Chillin\u0027 Beach",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Red Bouncer"
+					],
+		"fish":  [
+					 "Spud",
+					 "Flipper",
+					 "Coconut Fish",
+					 "Pootnick",
+					 "Clipper",
+                     "Sliver"
+				 ],
+		"previous":  {
+						 "number":  58,
+						 "name":  "Tropical Beach"
+					 },
+		"next":  {
+					 "number":  60,
+					 "name":  "Seaside Zone"
+				 },
+		"monsters":  [
+                         "Red Bouncer"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  60,
+		"name":  "Seaside Zone",
+		"display":  "Seaside Zone",
+		"npcs":  [
+                     "Clark"
+				 ],
+		"enemies":  [
+						"Red Bouncer",
+                        "Crab"
+					],
+		"fish":  [
+					 "Spud",
+					 "Flipper",
+					 "Coconut Fish",
+					 "Pootnick",
+					 "Clipper",
+                     "Sliver"
+				 ],
+		"previous":  {
+						 "number":  59,
+						 "name":  "Chillin\u0027 Beach"
+					 },
+		"next":  {
+					 "number":  61,
+					 "name":  "Cool Shore"
+				 },
+		"monsters":  [
+						 "Red Bouncer",
+                         "Crab"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  61,
+		"name":  "Cool Shore",
+		"display":  "Cool Shore",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Crab"
+					],
+		"fish":  [
+					 "Spud",
+					 "Flipper",
+					 "Coconut Fish",
+					 "Pootnick",
+					 "Clipper",
+                     "Sliver"
+				 ],
+		"previous":  {
+						 "number":  60,
+						 "name":  "Seaside Zone"
+					 },
+		"next":  {
+					 "number":  62,
+					 "name":  "Coast Slide"
+				 },
+		"monsters":  [
+						 "Chirplet",
+                         "Crab"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  62,
+		"name":  "Coast Slide",
+		"display":  "Coast Slide",
+		"npcs":  [
+                     "Clark"
+				 ],
+		"enemies":  [
+                        "Crab"
+					],
+		"fish":  [
+					 "Spud",
+					 "Flipper",
+					 "Coconut Fish",
+					 "Pootnick",
+					 "Clipper",
+                     "Sliver"
+				 ],
+		"previous":  {
+						 "number":  61,
+						 "name":  "Cool Shore"
+					 },
+		"next":  {
+					 "number":  63,
+					 "name":  "Haunted Estate"
+				 },
+		"monsters":  [
+                         "Crab"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  63,
+		"name":  "Haunted Estate",
+		"display":  "Haunted Estate",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Horned Monster"
+					],
+		"fish":  [
+					 "Root Fish",
+					 "Pumpkin Shell Fish",
+                     "Pumphin"
+				 ],
+		"previous":  {
+						 "number":  62,
+						 "name":  "Coast Slide"
+					 },
+		"next":  {
+					 "number":  65,
+					 "name":  "Death Valley"
+				 },
+		"monsters":  [
+                         "Horned Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  65,
+		"name":  "Death Valley",
+		"display":  "Death Valley",
+		"npcs":  [
+                     "Alpipa"
+				 ],
+		"enemies":  [
+						"Horned Monster",
+                        "Pumpkin Creeper"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  63,
+						 "name":  "Haunted Estate"
+					 },
+		"next":  {
+					 "number":  66,
+					 "name":  "Haunted Woods"
+				 },
+		"monsters":  [
+						 "Horned Monster",
+                         "Pumpkin Creeper"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  66,
+		"name":  "Haunted Woods",
+		"display":  "Haunted Woods",
+		"npcs":  [
+					 "Chucky",
+					 "Fredward",
+					 "Keith",
+                     "Mystic"
+				 ],
+		"enemies":  [
+                        "Pumpkin Creeper"
+					],
+		"fish":  [
+					 "Root Fish",
+					 "Pumpkin Shell Fish",
+                     "Pumphin"
+				 ],
+		"previous":  {
+						 "number":  65,
+						 "name":  "Death Valley"
+					 },
+		"next":  {
+					 "number":  67,
+					 "name":  "Plant Swamp"
+				 },
+		"monsters":  [
+						 "Pumphin",
+						 "Pumpkin Shell Fish",
+						 "Root Fish",
+                         "Pumpkin Creeper"
+					 ],
+		"spawn_cap":  17
+	},
+	{
+		"number":  67,
+		"name":  "Plant Swamp",
+		"display":  "Plant Swamp",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Plant Monster"
+					],
+		"fish":  [
+					 "Plant Bacteria",
+					 "Root Fish",
+					 "Mud Fish",
+					 "Omate",
+                     "Glopper"
+				 ],
+		"previous":  {
+						 "number":  66,
+						 "name":  "Haunted Woods"
+					 },
+		"next":  {
+					 "number":  68,
+					 "name":  "Wet Bog"
+				 },
+		"monsters":  [
+						 "Clipper",
+						 "Glopper",
+						 "Pootnick",
+						 "Root Fish",
+                         "Plant Monster"
+					 ],
+		"spawn_cap":  15
+	},
+	{
+		"number":  68,
+		"name":  "Wet Bog",
+		"display":  "Wet Bog",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Plant Monster"
+					],
+		"fish":  [
+					 "Plant Bacteria",
+					 "Root Fish",
+					 "Mud Fish",
+					 "Omate",
+					 "Glopper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  67,
+						 "name":  "Plant Swamp"
+					 },
+		"next":  {
+					 "number":  69,
+					 "name":  "Diseased Forest"
+				 },
+		"monsters":  [
+						 "Glopper",
+                         "Plant Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  69,
+		"name":  "Diseased Forest",
+		"display":  "Diseased Forest",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Plant Monster"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  68,
+						 "name":  "Wet Bog"
+					 },
+		"next":  {
+					 "number":  70,
+					 "name":  "Deep Water Safari"
+				 },
+		"monsters":  [
+						 "Glopper",
+                         "Plant Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  70,
+		"name":  "Deep Water Safari",
+		"display":  "Deep Water Safari",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Lotus Eye"
+					],
+		"fish":  [
+					 "Plant Bacteria",
+					 "Root Fish",
+					 "Mud Fish",
+					 "Omate",
+					 "Glopper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  69,
+						 "name":  "Diseased Forest"
+					 },
+		"next":  {
+					 "number":  71,
+					 "name":  "Lotus Eye Bog"
+				 },
+		"monsters":  [
+                         "Lotus Eye"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  71,
+		"name":  "Lotus Eye Bog",
+		"display":  "Lotus Eye Bog",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Lotus Eye"
+					],
+		"fish":  [
+					 "Plant Bacteria",
+					 "Root Fish",
+					 "Mud Fish",
+					 "Omate",
+					 "Glopper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  70,
+						 "name":  "Deep Water Safari"
+					 },
+		"next":  {
+					 "number":  72,
+					 "name":  "Carnelia\u0027s Woods"
+				 },
+		"monsters":  [
+						 "Clipper",
+						 "Glopper",
+						 "Pootnick",
+						 "Root Fish",
+                         "Lotus Eye"
+					 ],
+		"spawn_cap":  19
+	},
+	{
+		"number":  72,
+		"name":  "Carnelia\u0027s Woods",
+		"display":  "Carnelia\u0027s Woods",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Carnelia",
+						"Plant Monster",
+						"Purple Goo",
+						"Green Walker",
+                        "Green Bouncer"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  71,
+						 "name":  "Lotus Eye Bog"
+					 },
+		"next":  {
+					 "number":  73,
+					 "name":  "Egg Den"
+				 },
+		"monsters":  [
+						 "Carnelia",
+						 "Plant Monster",
+						 "Purple Goo",
+						 "Green Walker",
+                         "Green Bouncer"
+					 ],
+		"spawn_cap":  10
+	},
+	{
+		"number":  73,
+		"name":  "Egg Den",
+		"display":  "Egg Den",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Lotus Eye"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  72,
+						 "name":  "Carnelia\u0027s Woods"
+					 },
+		"next":  {
+					 "number":  74,
+					 "name":  "Geraldo\u0027s Food"
+				 },
+		"monsters":  [
+                         "Lotus Eye"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  74,
+		"name":  "Geraldo\u0027s Food",
+		"display":  "Geraldo\u0027s Food",
+		"npcs":  [
+					 "Billbert",
+                     "Geraldo"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  73,
+						 "name":  "Egg Den"
+					 },
+		"next":  {
+					 "number":  75,
+					 "name":  "Pine Forest"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  75,
+		"name":  "Pine Forest",
+		"display":  "Pine Forest",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Great Frog"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Pootnick",
+					 "Clipper",
+					 "Plant Bacteria",
+                     "Omate"
+				 ],
+		"previous":  {
+						 "number":  74,
+						 "name":  "Geraldo\u0027s Food"
+					 },
+		"next":  {
+					 "number":  76,
+					 "name":  "Deep Forest"
+				 },
+		"monsters":  [
+                         "Great Frog"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  76,
+		"name":  "Deep Forest",
+		"display":  "Deep Forest",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Great Frog"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Pootnick",
+					 "Clipper",
+					 "Plant Bacteria",
+                     "Omate"
+				 ],
+		"previous":  {
+						 "number":  75,
+						 "name":  "Pine Forest"
+					 },
+		"next":  {
+					 "number":  77,
+					 "name":  "Frog Country"
+				 },
+		"monsters":  [
+						 "Clipper",
+						 "Flipper",
+						 "Mud Fish",
+						 "Plant Bacteria",
+						 "Pootnick",
+						 "Root Fish",
+						 "Sliver",
+                         "Great Frog"
+					 ],
+		"spawn_cap":  13
+	},
+	{
+		"number":  77,
+		"name":  "Frog Country",
+		"display":  "Frog Country",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Great Frog npcs=",
+                        "Wood Man Steve"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  76,
+						 "name":  "Deep Forest"
+					 },
+		"next":  {
+					 "number":  78,
+					 "name":  "Craftman Falls"
+				 },
+		"monsters":  [
+                         "Great Frog"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  78,
+		"name":  "Craftman Falls",
+		"display":  "Craftman Falls",
+		"npcs":  [
+					 "Bert",
+					 "Craftman",
+                     "Ned"
+				 ],
+		"enemies":  [
+                        "Great Frog"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Pootnick",
+					 "Clipper",
+					 "Plant Bacteria",
+                     "Omate"
+				 ],
+		"previous":  {
+						 "number":  77,
+						 "name":  "Frog Country"
+					 },
+		"next":  {
+					 "number":  79,
+					 "name":  "Pablo\u0027s House"
+				 },
+		"monsters":  [
+						 "Kraw",
+                         "Great Frog"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  79,
+		"name":  "Pablo\u0027s House",
+		"display":  "Pablo\u0027s House",
+		"npcs":  [
+					 "Chance",
+					 "Pablo",
+					 "Tanya",
+                     "Wallace"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  78,
+						 "name":  "Craftman Falls"
+					 },
+		"next":  {
+					 "number":  80,
+					 "name":  "Pine Timberland"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  80,
+		"name":  "Pine Timberland",
+		"display":  "Pine Timberland",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Great Frog"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Pootnick",
+					 "Clipper",
+					 "Plant Bacteria",
+                     "Omate"
+				 ],
+		"previous":  {
+						 "number":  79,
+						 "name":  "Pablo\u0027s House"
+					 },
+		"next":  {
+					 "number":  81,
+					 "name":  "Cold Front"
+				 },
+		"monsters":  [
+                         "Great Frog"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  81,
+		"name":  "Cold Front",
+		"display":  "Cold Front",
+		"npcs":  [
+                     "Jimmy"
+				 ],
+		"enemies":  [
+                        "Penguin"
+					],
+		"fish":  [
+					 "Snow Fish",
+                     "Ice Fish"
+				 ],
+		"previous":  {
+						 "number":  80,
+						 "name":  "Pine Timberland"
+					 },
+		"next":  {
+					 "number":  82,
+					 "name":  "Freezing Mountain"
+				 },
+		"monsters":  [
+						 "Ice Fish",
+						 "Snow Fish",
+                         "Penguin"
+					 ],
+		"spawn_cap":  17
+	},
+	{
+		"number":  82,
+		"name":  "Freezing Mountain",
+		"display":  "Freezing Mountain",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Penguin"
+					],
+		"fish":  [
+					 "Snow Fish",
+                     "Ice Fish"
+				 ],
+		"previous":  {
+						 "number":  81,
+						 "name":  "Cold Front"
+					 },
+		"next":  {
+					 "number":  83,
+					 "name":  "Snowy Flats"
+				 },
+		"monsters":  [
+                         "Penguin"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  83,
+		"name":  "Snowy Flats",
+		"display":  "Snowy Flats",
+		"npcs":  [
+					 "Margret",
+					 "Mitchell",
+                     "Travis"
+				 ],
+		"enemies":  [
+						"Penguin",
+                        "Sasquatch"
+					],
+		"fish":  [
+					 "Snow Fish",
+                     "Ice Fish"
+				 ],
+		"previous":  {
+						 "number":  82,
+						 "name":  "Freezing Mountain"
+					 },
+		"next":  {
+					 "number":  84,
+					 "name":  "Yeti Barracks"
+				 },
+		"monsters":  [
+						 "Ice Fish",
+						 "Snow Fish",
+						 "Penguin",
+                         "Sasquatch"
+					 ],
+		"spawn_cap":  17
+	},
+	{
+		"number":  84,
+		"name":  "Yeti Barracks",
+		"display":  "Yeti Barracks",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Sasquatch"
+					],
+		"fish":  [
+					 "Snow Fish",
+                     "Ice Fish"
+				 ],
+		"previous":  {
+						 "number":  83,
+						 "name":  "Snowy Flats"
+					 },
+		"next":  {
+					 "number":  85,
+					 "name":  "Ice Lake"
+				 },
+		"monsters":  [
+                         "Sasquatch"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  85,
+		"name":  "Ice Lake",
+		"display":  "Ice Lake",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Sasquatch"
+					],
+		"fish":  [
+					 "Snow Fish",
+                     "Ice Fish"
+				 ],
+		"previous":  {
+						 "number":  84,
+						 "name":  "Yeti Barracks"
+					 },
+		"next":  {
+					 "number":  86,
+					 "name":  "Deep Ocean"
+				 },
+		"monsters":  [
+                         "Sasquatch"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  86,
+		"name":  "Deep Ocean",
+		"display":  "Deep Ocean",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Proteum"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Flipper",
+					 "Clipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  85,
+						 "name":  "Ice Lake"
+					 },
+		"next":  {
+					 "number":  87,
+					 "name":  "Proteum Bottom"
+				 },
+		"monsters":  [
+						 "Clipper",
+						 "Flipper",
+						 "Greenspot",
+						 "Sliver",
+                         "Proteum"
+					 ],
+		"spawn_cap":  6
+	},
+	{
+		"number":  87,
+		"name":  "Proteum Bottom",
+		"display":  "Proteum Bottom",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Proteum"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Flipper",
+					 "Clipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  86,
+						 "name":  "Deep Ocean"
+					 },
+		"next":  {
+					 "number":  88,
+					 "name":  "Aqualantis"
+				 },
+		"monsters":  [
+						 "Clipper",
+						 "Flipper",
+						 "Greenspot",
+						 "Sliver",
+                         "Proteum"
+					 ],
+		"spawn_cap":  3
+	},
+	{
+		"number":  88,
+		"name":  "Aqualantis",
+		"display":  "Aqualantis",
+		"npcs":  [
+					 "Donald",
+					 "Lamar",
+                     "Train Shack Man"
+				 ],
+		"enemies":  [
+                        "Fishurn"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Flipper",
+                     "Clipper"
+				 ],
+		"previous":  {
+						 "number":  87,
+						 "name":  "Proteum Bottom"
+					 },
+		"next":  {
+					 "number":  89,
+					 "name":  "Coral Reef"
+				 },
+		"monsters":  [
+						 "Clipper",
+						 "Flipper",
+						 "Greenspot",
+						 "Sliver",
+                         "Fishurn"
+					 ],
+		"spawn_cap":  12
+	},
+	{
+		"number":  89,
+		"name":  "Coral Reef",
+		"display":  "Coral Reef",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Fishurn"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Flipper",
+                     "Clipper"
+				 ],
+		"previous":  {
+						 "number":  88,
+						 "name":  "Aqualantis"
+					 },
+		"next":  {
+					 "number":  90,
+					 "name":  "Bay Side"
+				 },
+		"monsters":  [
+                         "Fishurn"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  90,
+		"name":  "Bay Side",
+		"display":  "Bay Side",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Fishurn"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Flipper",
+                     "Clipper"
+				 ],
+		"previous":  {
+						 "number":  89,
+						 "name":  "Coral Reef"
+					 },
+		"next":  {
+					 "number":  91,
+					 "name":  "Drowning Pool"
+				 },
+		"monsters":  [
+                         "Fishurn"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  91,
+		"name":  "Drowning Pool",
+		"display":  "Drowning Pool",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Fishurn"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Flipper",
+                     "Clipper"
+				 ],
+		"previous":  {
+						 "number":  90,
+						 "name":  "Bay Side"
+					 },
+		"next":  {
+					 "number":  92,
+					 "name":  "Fishing Fort"
+				 },
+		"monsters":  [
+                         "Fishurn"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  92,
+		"name":  "Fishing Fort",
+		"display":  "Fishing Fort",
+		"npcs":  [
+					 "Betty",
+                     "Milton"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  91,
+						 "name":  "Drowning Pool"
+					 },
+		"next":  {
+					 "number":  93,
+					 "name":  "Skymill Floor 1"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  93,
+		"name":  "Skymill Floor 1",
+		"display":  "Skymill Floor 1",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Orange Crazy"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  92,
+						 "name":  "Fishing Fort"
+					 },
+		"next":  {
+					 "number":  94,
+					 "name":  "Skymill Floor 2"
+				 },
+		"monsters":  [
+                         "Orange Crazy"
+					 ],
+		"spawn_cap":  20
+	},
+	{
+		"number":  94,
+		"name":  "Skymill Floor 2",
+		"display":  "Skymill Floor 2",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Orange Crazy"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  93,
+						 "name":  "Skymill Floor 1"
+					 },
+		"next":  {
+					 "number":  95,
+					 "name":  "Tropical Island"
+				 },
+		"monsters":  [
+                         "Orange Crazy"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  95,
+		"name":  "Tropical Island",
+		"display":  "Tropical Island",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Leaflet"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Pootnick",
+					 "Clipper",
+					 "Swerm",
+					 "Spud",
+					 "Flipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  94,
+						 "name":  "Skymill Floor 2"
+					 },
+		"next":  {
+					 "number":  96,
+					 "name":  "Tranquil Paradise"
+				 },
+		"monsters":  [
+                         "Leaflet"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  96,
+		"name":  "Tranquil Paradise",
+		"display":  "Tranquil Paradise",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Leaflet"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Pootnick",
+					 "Clipper",
+					 "Swerm",
+					 "Spud",
+					 "Flipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  95,
+						 "name":  "Tropical Island"
+					 },
+		"next":  {
+					 "number":  97,
+					 "name":  "Petropolis"
+				 },
+		"monsters":  [
+                         "Leaflet"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  97,
+		"name":  "Petropolis",
+		"display":  "Petropolis",
+		"npcs":  [
+					 "Patrick",
+					 "Samuel",
+					 "Tristan",
+					 "Vince",
+                     "Walter"
+				 ],
+		"enemies":  [
+						"Leaflet",
+                        "Leafling"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Pootnick",
+					 "Clipper",
+					 "Swerm",
+					 "Spud",
+					 "Flipper",
+                     "Greenspot"
+				 ],
+		"previous":  {
+						 "number":  96,
+						 "name":  "Tranquil Paradise"
+					 },
+		"next":  {
+					 "number":  98,
+					 "name":  "Pet Adoption District"
+				 },
+		"monsters":  [
+						 "Greenspot",
+						 "Mud Fish",
+						 "Omate",
+						 "Plant Bacteria",
+						 "Leaflet",
+                         "Leafling"
+					 ],
+		"spawn_cap":  10
+	},
+	{
+		"number":  98,
+		"name":  "Pet Adoption District",
+		"display":  "Pet Adoption District",
+		"npcs":  [
+                     "Christy"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  97,
+						 "name":  "Petropolis"
+					 },
+		"next":  {
+					 "number":  100,
+					 "name":  "Elandra Peak"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  100,
+		"name":  "Elandra Peak",
+		"display":  "Elandra Peak",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Glord"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  98,
+						 "name":  "Pet Adoption District"
+					 },
+		"next":  {
+					 "number":  101,
+					 "name":  "Elandra Island"
+				 },
+		"monsters":  [
+                         "Glord"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  101,
+		"name":  "Elandra Island",
+		"display":  "Elandra Island",
+		"npcs":  [
+                     "Wilson"
+				 ],
+		"enemies":  [
+                        "Leafling"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  100,
+						 "name":  "Elandra Peak"
+					 },
+		"next":  {
+					 "number":  102,
+					 "name":  "Peaceful Seaside"
+				 },
+		"monsters":  [
+                         "Leafling"
+					 ],
+		"spawn_cap":  13
+	},
+	{
+		"number":  102,
+		"name":  "Peaceful Seaside",
+		"display":  "Peaceful Seaside",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  101,
+						 "name":  "Elandra Island"
+					 },
+		"next":  {
+					 "number":  103,
+					 "name":  "Beauty Hiside"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  103,
+		"name":  "Beauty Hiside",
+		"display":  "Beauty Hiside",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Glord"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  102,
+						 "name":  "Peaceful Seaside"
+					 },
+		"next":  {
+					 "number":  104,
+					 "name":  "Lavastone Trench"
+				 },
+		"monsters":  [
+                         "Glord"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  104,
+		"name":  "Lavastone Trench",
+		"display":  "Lavastone Trench",
+		"npcs":  [
+                     "Philbert"
+				 ],
+		"enemies":  [
+                        "Magmagon"
+					],
+		"fish":  [
+					 "Lava Spud",
+					 "Lava Reef Fish",
+					 "Flame Coy",
+                     "Evil Pupe"
+				 ],
+		"previous":  {
+						 "number":  103,
+						 "name":  "Beauty Hiside"
+					 },
+		"next":  {
+					 "number":  105,
+					 "name":  "Heated Stones"
+				 },
+		"monsters":  [
+						 "Flame Coy",
+						 "Lava Reef Fish",
+						 "Lava Spud",
+                         "Magmagon"
+					 ],
+		"spawn_cap":  5
+	},
+	{
+		"number":  105,
+		"name":  "Heated Stones",
+		"display":  "Heated Stones",
+		"npcs":  [
+					 "Dan",
+					 "Hubert",
+                     "Jenkins"
+				 ],
+		"enemies":  [
+                        "Magmagon"
+					],
+		"fish":  [
+					 "Lava Spud",
+					 "Lava Reef Fish",
+					 "Flame Coy",
+                     "Evil Pupe"
+				 ],
+		"previous":  {
+						 "number":  104,
+						 "name":  "Lavastone Trench"
+					 },
+		"next":  {
+					 "number":  106,
+					 "name":  "Flaming Reef"
+				 },
+		"monsters":  [
+						 "Flame Coy",
+						 "Lava Reef Fish",
+						 "Lava Spud",
+                         "Magmagon"
+					 ],
+		"spawn_cap":  6
+	},
+	{
+		"number":  106,
+		"name":  "Flaming Reef",
+		"display":  "Flaming Reef",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Magmagon",
+                        "Mongrel"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  105,
+						 "name":  "Heated Stones"
+					 },
+		"next":  {
+					 "number":  107,
+					 "name":  "Molten Lava Mountain"
+				 },
+		"monsters":  [
+						 "Mongrel",
+                         "Magmagon"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  107,
+		"name":  "Molten Lava Mountain",
+		"display":  "Molten Lava Mountain",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Mongrel"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  106,
+						 "name":  "Flaming Reef"
+					 },
+		"next":  {
+					 "number":  108,
+					 "name":  "Lava Plains"
+				 },
+		"monsters":  [
+                         "Mongrel"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  108,
+		"name":  "Lava Plains",
+		"display":  "Lava Plains",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Mongrel"
+					],
+		"fish":  [
+					 "Lava Spud",
+					 "Lava Reef Fish",
+					 "Flame Coy",
+                     "Evil Pupe"
+				 ],
+		"previous":  {
+						 "number":  107,
+						 "name":  "Molten Lava Mountain"
+					 },
+		"next":  {
+					 "number":  109,
+					 "name":  "Electric Walkway"
+				 },
+		"monsters":  [
+                         "Mongrel"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  109,
+		"name":  "Electric Walkway",
+		"display":  "Electric Walkway",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Block Bot"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  108,
+						 "name":  "Lava Plains"
+					 },
+		"next":  {
+					 "number":  111,
+					 "name":  "Arena Entrance"
+				 },
+		"monsters":  [
+						 "Peep Fish",
+                         "Block Bot"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  111,
+		"name":  "Arena Entrance",
+		"display":  "Arena Entrance",
+		"npcs":  [
+					 "Barbara",
+					 "Chipper",
+					 "Daniel",
+					 "Howard",
+                     "Tiberius"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  109,
+						 "name":  "Electric Walkway"
+					 },
+		"next":  {
+					 "number":  112,
+					 "name":  "PVP Forest"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  112,
+		"name":  "PVP Forest",
+		"display":  "PVP Forest",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  111,
+						 "name":  "Arena Entrance"
+					 },
+		"next":  {
+					 "number":  113,
+					 "name":  "Sparring Ground"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  113,
+		"name":  "Sparring Ground",
+		"display":  "Sparring Ground",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  112,
+						 "name":  "PVP Forest"
+					 },
+		"next":  {
+					 "number":  114,
+					 "name":  "GVG Woodlands"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  114,
+		"name":  "GVG Woodlands",
+		"display":  "GVG Woodlands",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  113,
+						 "name":  "Sparring Ground"
+					 },
+		"next":  {
+					 "number":  115,
+					 "name":  "Ghostly Cemetery"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  115,
+		"name":  "Ghostly Cemetery",
+		"display":  "Ghostly Cemetery",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Horned Monster"
+					],
+		"fish":  [
+					 "Root Fish",
+					 "Pumpkin Shell Fish",
+                     "Pumphin"
+				 ],
+		"previous":  {
+						 "number":  114,
+						 "name":  "GVG Woodlands"
+					 },
+		"next":  {
+					 "number":  116,
+					 "name":  "Kreetus\u0027s Lair"
+				 },
+		"monsters":  [
+                         "Horned Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  116,
+		"name":  "Kreetus\u0027s Lair",
+		"display":  "Kreetus\u0027s Lair",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+						"Night Stalker",
+                        "Kreetus"
+					],
+		"fish":  [
+					 "Dark Tadpole",
+					 "Evil Pupe",
+					 "Dark Toad",
+                     "Dark Reaper"
+				 ],
+		"previous":  {
+						 "number":  115,
+						 "name":  "Ghostly Cemetery"
+					 },
+		"next":  {
+					 "number":  117,
+					 "name":  "Viper\u0027s Shop"
+				 },
+		"monsters":  [
+						 "Dark Reaper",
+						 "Dark Tadpole",
+						 "Dark Toad",
+						 "Evil Pupe",
+						 "Night Stalker",
+                         "Kreetus"
+					 ],
+		"spawn_cap":  12
+	},
+	{
+		"number":  117,
+		"name":  "Viper\u0027s Shop",
+		"display":  "Viper\u0027s Shop",
+		"npcs":  [
+					 "Rebecca",
+                     "Viper"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  116,
+						 "name":  "Kreetus\u0027s Lair"
+					 },
+		"next":  {
+					 "number":  118,
+					 "name":  "Robo Lover\u0027s Home"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  118,
+		"name":  "Robo Lover\u0027s Home",
+		"display":  "Robo Lover\u0027s Home",
+		"npcs":  [
+                     "Cassie"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  117,
+						 "name":  "Viper\u0027s Shop"
+					 },
+		"next":  {
+					 "number":  119,
+					 "name":  "The Guild House"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  119,
+		"name":  "The Guild House",
+		"display":  "The Guild House",
+		"npcs":  [
+                     "Gellius"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  118,
+						 "name":  "Robo Lover\u0027s Home"
+					 },
+		"next":  {
+					 "number":  120,
+					 "name":  "Carter\u0027s Coconuts"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  120,
+		"name":  "Carter\u0027s Coconuts",
+		"display":  "Carter\u0027s Coconuts",
+		"npcs":  [
+					 "Carter",
+                     "Gary"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  119,
+						 "name":  "The Guild House"
+					 },
+		"next":  {
+					 "number":  121,
+					 "name":  "Shane Shield\u0027s House"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  121,
+		"name":  "Shane Shield\u0027s House",
+		"display":  "Shane Shield\u0027s House",
+		"npcs":  [
+                     "Shane Shield"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  120,
+						 "name":  "Carter\u0027s Coconuts"
+					 },
+		"next":  {
+					 "number":  122,
+					 "name":  "Mushroom Village Hotel"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  122,
+		"name":  "Mushroom Village Hotel",
+		"display":  "Mushroom Village Hotel",
+		"npcs":  [
+					 "Charles",
+					 "Chris",
+                     "Ted"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  121,
+						 "name":  "Shane Shield\u0027s House"
+					 },
+		"next":  {
+					 "number":  123,
+					 "name":  "Mushroom Library"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  123,
+		"name":  "Mushroom Library",
+		"display":  "Mushroom Library",
+		"npcs":  [
+                     "Lewis"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  122,
+						 "name":  "Mushroom Village Hotel"
+					 },
+		"next":  {
+					 "number":  124,
+					 "name":  "Larry\u0027s House"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  124,
+		"name":  "Larry\u0027s House",
+		"display":  "Larry\u0027s House",
+		"npcs":  [
+                     "Larry"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  123,
+						 "name":  "Mushroom Library"
+					 },
+		"next":  {
+					 "number":  125,
+					 "name":  "Deep Chamber"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  125,
+		"name":  "Deep Chamber",
+		"display":  "Deep Chamber",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Brick Monster"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  124,
+						 "name":  "Larry\u0027s House"
+					 },
+		"next":  {
+					 "number":  126,
+					 "name":  "Mushroom Train Station"
+				 },
+		"monsters":  [
+                         "Brick Monster"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  126,
+		"name":  "Mushroom Train Station",
+		"display":  "Mushroom Train Station",
+		"npcs":  [
+                     "Train Shack Man"
+				 ],
+		"enemies":  [
+						"Mushroom Ball",
+                        "Bouncing Mushroom"
+					],
+		"fish":  [
+					 "Swerm",
+					 "Shroomer",
+					 "Mufungi",
+					 "Mushroom Coy",
+                     "Shroom Serpent"
+				 ],
+		"previous":  {
+						 "number":  125,
+						 "name":  "Deep Chamber"
+					 },
+		"next":  {
+					 "number":  127,
+					 "name":  "Shroom Fields"
+				 },
+		"monsters":  [
+						 "Mufungi",
+						 "Mushroom Coy",
+						 "Shroom Serpent",
+						 "Shroomer",
+						 "Swerm",
+						 "Mushroom Ball",
+                         "Bouncing Mushroom"
+					 ],
+		"spawn_cap":  14
+	},
+	{
+		"number":  127,
+		"name":  "Shroom Fields",
+		"display":  "Shroom Fields",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Bouncing Mushroom"
+					],
+		"fish":  [
+					 "Swerm",
+					 "Shroomer",
+					 "Mufungi",
+					 "Mushroom Coy",
+                     "Shroom Serpent"
+				 ],
+		"previous":  {
+						 "number":  126,
+						 "name":  "Mushroom Train Station"
+					 },
+		"next":  {
+					 "number":  128,
+					 "name":  "Ricardo\u0027s House Floor 1"
+				 },
+		"monsters":  [
+                         "Bouncing Mushroom"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  128,
+		"name":  "Ricardo\u0027s House Floor 1",
+		"display":  "Ricardo\u0027s House Floor 1",
+		"npcs":  [
+                     "Ricardo"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  127,
+						 "name":  "Shroom Fields"
+					 },
+		"next":  {
+					 "number":  129,
+					 "name":  "Ricardo\u0027s House Floor 2"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  129,
+		"name":  "Ricardo\u0027s House Floor 2",
+		"display":  "Ricardo\u0027s House Floor 2",
+		"npcs":  [
+					 "Martin",
+                     "Val"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  128,
+						 "name":  "Ricardo\u0027s House Floor 1"
+					 },
+		"next":  {
+					 "number":  130,
+					 "name":  "Pet Building lvl 1"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  130,
+		"name":  "Pet Building lvl 1",
+		"display":  "Pet Building lvl 1",
+		"npcs":  [
+                     "Tanner"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  129,
+						 "name":  "Ricardo\u0027s House Floor 2"
+					 },
+		"next":  {
+					 "number":  131,
+					 "name":  "Pet Building lvl 2"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  131,
+		"name":  "Pet Building lvl 2",
+		"display":  "Pet Building lvl 2",
+		"npcs":  [
+					 "Markus",
+                     "Nicolas"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  130,
+						 "name":  "Pet Building lvl 1"
+					 },
+		"next":  {
+					 "number":  132,
+					 "name":  "Pet Building lvl 3"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  132,
+		"name":  "Pet Building lvl 3",
+		"display":  "Pet Building lvl 3",
+		"npcs":  [
+                     "Ted"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  131,
+						 "name":  "Pet Building lvl 2"
+					 },
+		"next":  {
+					 "number":  134,
+					 "name":  "Acid Flatts"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  134,
+		"name":  "Acid Flatts",
+		"display":  "Acid Flatts",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Kraken"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  132,
+						 "name":  "Pet Building lvl 3"
+					 },
+		"next":  {
+					 "number":  135,
+					 "name":  "Acidic Waters"
+				 },
+		"monsters":  [
+                         "Kraken"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  135,
+		"name":  "Acidic Waters",
+		"display":  "Acidic Waters",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Kraken"
+					],
+		"fish":  [
+					 "Sliver",
+					 "Plant Bacteria",
+                     "Clipper"
+				 ],
+		"previous":  {
+						 "number":  134,
+						 "name":  "Acid Flatts"
+					 },
+		"next":  {
+					 "number":  136,
+					 "name":  "Toxic Jungle"
+				 },
+		"monsters":  [
+						 "Clipper",
+                         "Kraken"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  136,
+		"name":  "Toxic Jungle",
+		"display":  "Toxic Jungle",
+		"npcs":  [
+                     "Hamlet"
+				 ],
+		"enemies":  [
+                        "Kraken"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  135,
+						 "name":  "Acidic Waters"
+					 },
+		"next":  {
+					 "number":  137,
+					 "name":  "Kraken Undergrowth"
+				 },
+		"monsters":  [
+						 "Bullopede",
+                         "Kraken"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  137,
+		"name":  "Kraken Undergrowth",
+		"display":  "Kraken Undergrowth",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Kraken"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  136,
+						 "name":  "Toxic Jungle"
+					 },
+		"next":  {
+					 "number":  138,
+					 "name":  "Acid Village"
+				 },
+		"monsters":  [
+                         "Kraken"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  138,
+		"name":  "Acid Village",
+		"display":  "Acid Village",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  137,
+						 "name":  "Kraken Undergrowth"
+					 },
+		"next":  {
+					 "number":  139,
+					 "name":  "Zander\u0027s House"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  139,
+		"name":  "Zander\u0027s House",
+		"display":  "Zander\u0027s House",
+		"npcs":  [
+                     "Zander"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  138,
+						 "name":  "Acid Village"
+					 },
+		"next":  {
+					 "number":  140,
+					 "name":  "Acid Healer\u0027s"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  140,
+		"name":  "Acid Healer\u0027s",
+		"display":  "Acid Healer\u0027s",
+		"npcs":  [
+                     "Tanya"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  139,
+						 "name":  "Zander\u0027s House"
+					 },
+		"next":  {
+					 "number":  141,
+					 "name":  "Isaac\u0027s Equipment Shop"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  141,
+		"name":  "Isaac\u0027s Equipment Shop",
+		"display":  "Isaac\u0027s Equipment Shop",
+		"npcs":  [
+					 "Isaac Sr",
+                     "Isaac Jr"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  140,
+						 "name":  "Acid Healer\u0027s"
+					 },
+		"next":  {
+					 "number":  142,
+					 "name":  "Clouds of Destiny"
+				 },
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  142,
+		"name":  "Clouds of Destiny",
+		"display":  "Clouds of Destiny",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Omega Fluff"
+					],
+		"fish":  [
+                     "Updating"
+				 ],
+		"previous":  {
+						 "number":  141,
+						 "name":  "Isaac\u0027s Equipment Shop"
+					 },
+		"next":  {
+					 "number":  143,
+					 "name":  "Almighty Heavens"
+				 },
+		"monsters":  [
+						 "Omega Fluff",
+						 "Furry Feen",
+						 "Puffer",
+						 "Sliver",
+                         "Swerm"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  143,
+		"name":  "Almighty Heavens",
+		"display":  "Almighty Heavens",
+		"npcs":  [
+
+				 ],
+		"enemies":  [
+                        "Omega Fluff"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  142,
+						 "name":  "Clouds of Destiny"
+					 },
+		"next":  {
+					 "number":  144,
+					 "name":  "Sky Kingdom"
+				 },
+		"monsters":  [
+                         "Omega Fluff"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  144,
+		"name":  "Sky Kingdom",
+		"display":  "Sky Kingdom",
+		"npcs":  [
+                     "Kris"
+				 ],
+		"enemies":  [
+                        "Omega Fluff"
+					],
+		"fish":  [
+
+				 ],
+		"previous":  {
+						 "number":  143,
+						 "name":  "Almighty Heavens"
+					 },
+		"next":  {
+					 "number":  145,
+					 "name":  "Cloud Fort"
+				 },
+		"monsters":  [
+						 "Yellow Hairy Monster",
+                         "Omega Fluff"
+					 ],
+		"spawn_cap":  0
+	},
+	{
+		"number":  145,
+		"name":  "Cloud Fort",
+		"display":  "Cloud Fort",
+		"npcs":  [
+					 "Todwell",
+                     "Ethan"
+				 ],
+		"enemies":  [
+
+					],
+		"fish":  [
+                     "No Fishes"
+				 ],
+		"previous":  {
+						 "number":  144,
+						 "name":  "Sky Kingdom"
+					 },
+		"next":  null,
+		"monsters":  [
+
+					 ],
+		"spawn_cap":  0
+	}
+]
