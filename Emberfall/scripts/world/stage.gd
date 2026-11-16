@@ -9,6 +9,8 @@ const MONSTER_SCENE := preload("res://Emberfall/scenes/entities/monster.tscn")
 const LOOT_SCENE := preload("res://Emberfall/scenes/entities/loot.tscn")
 const NPC_SCENE := preload("res://Emberfall/scenes/world/npc.tscn")
 const PORTAL_SCENE := preload("res://Emberfall/scenes/world/portal.tscn")
+const TRADE_PANEL_SCRIPT := preload("res://Emberfall/scripts/ui/trade_panel.gd")
+const STALL_PANEL_SCRIPT := preload("res://Emberfall/scripts/ui/stall_panel.gd")
 
 const GROUND_Y := 480.0
 const SPAWN_X := 200.0
@@ -36,6 +38,8 @@ var world_width := 4200.0
 var spawn_point := Vector2(SPAWN_X, GROUND_Y - 4.0)
 ## Container for networked remote player nodes.
 var remote_players_container: Node2D = null
+var trade_panel = null
+var stall_panel = null
 
 var _platform_rects: Array[Rect2] = []
 var _ramp_polys: Array = []
@@ -244,12 +248,22 @@ func _remote_players_setup() -> void:
 	remote_players_container.name = "RemotePlayers"
 	add_child(remote_players_container)
 
+	trade_panel = TRADE_PANEL_SCRIPT.new()
+	add_child(trade_panel)
+
+	stall_panel = STALL_PANEL_SCRIPT.new()
+	add_child(stall_panel)
+
 	if Network.online_mode:
 		Network.stage_players_received.connect(_on_stage_players_received)
 		Network.remote_player_joined.connect(_on_remote_player_joined)
 		Network.remote_player_moved.connect(_on_remote_player_moved)
 		Network.remote_player_left.connect(_on_remote_player_left)
+		Network.player_stall_changed.connect(_on_player_stall_changed)
+		Network.trade_requested.connect(_on_incoming_trade_request)
+		Network.trade_responded.connect(_on_trade_responded)
 		Network.join_stage(stage_number, spawn_point)
+		_setup_stall_hud_button()
 
 	if multiplayer.multiplayer_peer != null and not (multiplayer.multiplayer_peer is OfflineMultiplayerPeer):
 		multiplayer.peer_connected.connect(_spawn_remote_player)
@@ -279,6 +293,7 @@ func _spawn_remote_ws_player(pdata: Dictionary) -> void:
 	var rplayer: Player = PLAYER_SCENE.instantiate()
 	rplayer.name = "RemotePlayer_%d" % id
 	rplayer.remote_data = pdata
+	rplayer.add_to_group("remote_players")
 	var pos_arr: Array = pdata.get("pos", [spawn_point.x, spawn_point.y])
 	rplayer.position = Vector2(float(pos_arr[0]), float(pos_arr[1]))
 	remote_players_container.add_child(rplayer)
@@ -294,6 +309,143 @@ func _on_remote_player_left(id: int) -> void:
 	var node := remote_players_container.get_node_or_null("RemotePlayer_%d" % id)
 	if is_instance_valid(node):
 		node.queue_free()
+
+
+func _on_player_stall_changed(pid: int, stall: Variant) -> void:
+	var rplayer := remote_players_container.get_node_or_null("RemotePlayer_%d" % pid)
+	if is_instance_valid(rplayer):
+		rplayer.remote_data["stall"] = stall
+		rplayer.queue_redraw()
+
+
+func _setup_stall_hud_button() -> void:
+	var cl := CanvasLayer.new()
+	cl.layer = 80
+	add_child(cl)
+
+	var btn := Button.new()
+	btn.text = "🏪 Setup Shop"
+	btn.custom_minimum_size = Vector2(130, 42)
+	btn.position = Vector2(20, 80)
+	btn.pressed.connect(func():
+		if is_instance_valid(stall_panel):
+			stall_panel.open_for_setup()
+	)
+	cl.add_child(btn)
+
+
+func interact_with_remote_player(rplayer: Player) -> void:
+	var pid: int = int(rplayer.remote_data.get("id", 0))
+	var rname: String = str(rplayer.remote_data.get("name", "Player"))
+	var stall: Variant = rplayer.remote_data.get("stall")
+	if stall != null and typeof(stall) == TYPE_DICTIONARY:
+		if is_instance_valid(stall_panel):
+			stall_panel.open_for_browsing(pid, rname, stall)
+	else:
+		_show_player_trade_prompt(pid, rname)
+
+
+func _show_player_trade_prompt(pid: int, rname: String) -> void:
+	var popup := PanelContainer.new()
+	popup.set_anchors_preset(Control.PRESET_CENTER)
+	popup.custom_minimum_size = Vector2(240, 110)
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.12, 0.15, 0.22, 0.98)
+	style.set_corner_radius_all(8)
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.border_color = Color(0.35, 0.45, 0.65)
+	popup.add_theme_stylebox_override("panel", style)
+	add_child(popup)
+
+	var vbox := VBoxContainer.new()
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_theme_constant_override("separation", 10)
+	popup.add_child(vbox)
+
+	var lbl := Label.new()
+	lbl.text = rname
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.add_theme_font_size_override("font_size", 14)
+	vbox.add_child(lbl)
+
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 12)
+	vbox.add_child(row)
+
+	var trade_btn := Button.new()
+	trade_btn.text = "Trade"
+	trade_btn.custom_minimum_size = Vector2(90, 38)
+	trade_btn.pressed.connect(func():
+		popup.queue_free()
+		Network.request_trade(pid)
+		GameState.message.emit("Sent trade request to %s..." % rname)
+	)
+	row.add_child(trade_btn)
+
+	var close_btn := Button.new()
+	close_btn.text = "Cancel"
+	close_btn.custom_minimum_size = Vector2(80, 38)
+	close_btn.pressed.connect(func(): popup.queue_free())
+	row.add_child(close_btn)
+
+
+func _on_incoming_trade_request(from_id: int, from_name: String) -> void:
+	var banner := PanelContainer.new()
+	banner.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	banner.custom_minimum_size = Vector2(0, 56)
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.12, 0.15, 0.22, 0.96)
+	style.border_width_bottom = 2
+	style.border_color = Color(1.0, 0.75, 0.3)
+	banner.add_theme_stylebox_override("panel", style)
+	add_child(banner)
+
+	var hbox := HBoxContainer.new()
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.add_theme_constant_override("separation", 16)
+	banner.add_child(hbox)
+
+	var lbl := Label.new()
+	lbl.text = "%s wants to trade with you!" % from_name
+	lbl.add_theme_font_size_override("font_size", 14)
+	hbox.add_child(lbl)
+
+	var accept_btn := Button.new()
+	accept_btn.text = "ACCEPT"
+	accept_btn.custom_minimum_size = Vector2(100, 40)
+	accept_btn.pressed.connect(func():
+		banner.queue_free()
+		Network.respond_trade(from_id, true)
+		if is_instance_valid(trade_panel):
+			trade_panel.open(from_id, from_name)
+	)
+	hbox.add_child(accept_btn)
+
+	var decline_btn := Button.new()
+	decline_btn.text = "DECLINE"
+	decline_btn.custom_minimum_size = Vector2(100, 40)
+	decline_btn.pressed.connect(func():
+		banner.queue_free()
+		Network.respond_trade(from_id, false)
+	)
+	hbox.add_child(decline_btn)
+
+	get_tree().create_timer(15.0).timeout.connect(func():
+		if is_instance_valid(banner):
+			banner.queue_free()
+	)
+
+
+func _on_trade_responded(from_id: int, from_name: String, accepted: bool) -> void:
+	if accepted:
+		if is_instance_valid(trade_panel):
+			trade_panel.open(from_id, from_name)
+	else:
+		GameState.message.emit("%s declined your trade request." % from_name)
 
 
 ## Spawns a player representation for a connected remote peer.

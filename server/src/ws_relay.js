@@ -3,17 +3,22 @@ import { WebSocketServer, WebSocket } from "ws";
 /**
  * Stage-based multiplayer WebSocket relay.
  *
- * Players in the same stage receive each other's join, move, swing, and leave events.
+ * Handles stage sync, direct trading, and player street stalls.
  */
 export function setupWsRelay(server) {
   const wss = new WebSocketServer({ server, path: "/ws" });
 
-  // Map of client_id -> client data
   const clients = new Map();
-  // Map of stage_number -> Set of client_id
   const stages = new Map();
 
   let nextId = 1;
+
+  function sendTo(targetId, message) {
+    const target = clients.get(targetId);
+    if (target && target.ws.readyState === WebSocket.OPEN) {
+      target.ws.send(JSON.stringify(message));
+    }
+  }
 
   function broadcastToStage(stageNum, message, excludeId = null) {
     const room = stages.get(stageNum);
@@ -40,9 +45,10 @@ export function setupWsRelay(server) {
       id: client.id,
     });
     client.stage = null;
+    client.stall = null;
   }
 
-  wss.on("connection", (ws, req) => {
+  wss.on("connection", (ws) => {
     const id = nextId++;
     const client = {
       id,
@@ -55,10 +61,10 @@ export function setupWsRelay(server) {
       pos: [0, 0],
       vel: [0, 0],
       facing: 1.0,
+      stall: null, // { title, items: [{name, price, qty}] }
     };
     clients.set(id, client);
 
-    // Tell the client its assigned peer ID
     ws.send(JSON.stringify({ type: "welcome", id }));
 
     ws.on("message", (raw) => {
@@ -87,7 +93,6 @@ export function setupWsRelay(server) {
           }
           stages.get(stageNum).add(id);
 
-          // Collect other players currently in this stage
           const others = [];
           for (const otherId of stages.get(stageNum)) {
             if (otherId === id) continue;
@@ -102,18 +107,17 @@ export function setupWsRelay(server) {
                 pos: other.pos,
                 vel: other.vel,
                 facing: other.facing,
+                stall: other.stall,
               });
             }
           }
 
-          // Send existing players to the joining player
           ws.send(JSON.stringify({
             type: "stage_players",
             stage: stageNum,
             players: others,
           }));
 
-          // Notify existing players in this stage of the new arrival
           broadcastToStage(stageNum, {
             type: "player_joined",
             id: client.id,
@@ -122,6 +126,7 @@ export function setupWsRelay(server) {
             level: client.level,
             equipment: client.equipment,
             pos: client.pos,
+            stall: client.stall,
           }, id);
           break;
         }
@@ -149,14 +154,199 @@ export function setupWsRelay(server) {
         }
 
         case "chat": {
+          // Stage chat — only players in the same stage
           if (client.stage === null) return;
           const text = String(data.text || "").trim().slice(0, 140);
           if (!text) return;
           broadcastToStage(client.stage, {
             type: "chat",
+            channel: "stage",
             id: client.id,
             name: client.name,
             text,
+          });
+          break;
+        }
+
+        case "global_chat": {
+          // Global chat — every connected client
+          const text = String(data.text || "").trim().slice(0, 140);
+          if (!text) return;
+          const msg = JSON.stringify({
+            type: "chat",
+            channel: "global",
+            id: client.id,
+            name: client.name,
+            text,
+          });
+          for (const [, c] of clients) {
+            if (c.ws.readyState === WebSocket.OPEN) {
+              c.ws.send(msg);
+            }
+          }
+          break;
+        }
+
+        case "whisper": {
+          // Whisper — private message to a named player
+          const target = String(data.target || "").trim();
+          const text = String(data.text || "").trim().slice(0, 140);
+          if (!target || !text) return;
+          // Find target by name (case-insensitive)
+          const targetClient = [...clients.values()].find(
+            (c) => c.name.toLowerCase() === target.toLowerCase()
+          );
+          if (!targetClient) {
+            ws.send(JSON.stringify({
+              type: "chat",
+              channel: "whisper",
+              id: client.id,
+              name: "System",
+              text: `Player "${target}" is not online.`,
+              whisper_to: client.name,
+            }));
+            return;
+          }
+          // Send to recipient
+          targetClient.ws.send(JSON.stringify({
+            type: "chat",
+            channel: "whisper",
+            id: client.id,
+            name: client.name,
+            text,
+            whisper_to: targetClient.name,
+          }));
+          // Echo back to sender so they see their own whisper
+          ws.send(JSON.stringify({
+            type: "chat",
+            channel: "whisper",
+            id: client.id,
+            name: client.name,
+            text,
+            whisper_to: targetClient.name,
+          }));
+          break;
+        }
+
+        // --- Direct Player-to-Player Trading ---
+        case "trade_request": {
+          const targetId = Number(data.target_id);
+          sendTo(targetId, {
+            type: "trade_request",
+            from_id: client.id,
+            from_name: client.name,
+          });
+          break;
+        }
+
+        case "trade_response": {
+          const targetId = Number(data.target_id);
+          const accepted = Boolean(data.accepted);
+          sendTo(targetId, {
+            type: "trade_response",
+            from_id: client.id,
+            from_name: client.name,
+            accepted,
+          });
+          break;
+        }
+
+        case "trade_offer": {
+          const targetId = Number(data.target_id);
+          sendTo(targetId, {
+            type: "trade_offer",
+            from_id: client.id,
+            items: Array.isArray(data.items) ? data.items : [],
+            gold: Math.max(0, Number(data.gold) || 0),
+            locked: Boolean(data.locked),
+          });
+          break;
+        }
+
+        case "trade_confirm": {
+          const targetId = Number(data.target_id);
+          sendTo(targetId, {
+            type: "trade_confirm",
+            from_id: client.id,
+          });
+          break;
+        }
+
+        case "trade_cancel": {
+          const targetId = Number(data.target_id);
+          sendTo(targetId, {
+            type: "trade_cancel",
+            from_id: client.id,
+          });
+          break;
+        }
+
+        // --- Street Stalls / Player Shops ---
+        case "stall_open": {
+          if (client.stage === null) return;
+          client.stall = {
+            title: String(data.title || `${client.name}'s Shop`).slice(0, 32),
+            items: Array.isArray(data.items) ? data.items.slice(0, 8) : [],
+          };
+          broadcastToStage(client.stage, {
+            type: "player_stall_updated",
+            id: client.id,
+            stall: client.stall,
+          });
+          break;
+        }
+
+        case "stall_close": {
+          if (client.stage === null) return;
+          client.stall = null;
+          broadcastToStage(client.stage, {
+            type: "player_stall_updated",
+            id: client.id,
+            stall: null,
+          });
+          break;
+        }
+
+        case "stall_buy": {
+          const sellerId = Number(data.seller_id);
+          const seller = clients.get(sellerId);
+          if (!seller || !seller.stall) {
+            ws.send(JSON.stringify({ type: "stall_buy_result", success: false, error: "Stall is no longer open." }));
+            return;
+          }
+          const itemName = String(data.item_name || "");
+          const idx = seller.stall.items.findIndex((it) => it.name === itemName);
+          if (idx === -1) {
+            ws.send(JSON.stringify({ type: "stall_buy_result", success: false, error: "Item sold out." }));
+            return;
+          }
+          const item = seller.stall.items[idx];
+          // Remove from stall
+          seller.stall.items.splice(idx, 1);
+
+          // Tell buyer success
+          ws.send(JSON.stringify({
+            type: "stall_buy_result",
+            success: true,
+            seller_id: sellerId,
+            item: item,
+            price: item.price,
+          }));
+
+          // Tell seller item was purchased
+          seller.ws.send(JSON.stringify({
+            type: "stall_item_sold",
+            buyer_id: client.id,
+            buyer_name: client.name,
+            item: item,
+            price: item.price,
+          }));
+
+          // Broadcast updated stall
+          broadcastToStage(client.stage, {
+            type: "player_stall_updated",
+            id: seller.id,
+            stall: seller.stall,
           });
           break;
         }

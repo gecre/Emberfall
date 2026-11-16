@@ -20,7 +20,18 @@ signal stage_players_received(stage: int, players: Array)
 signal remote_player_joined(player_data: Dictionary)
 signal remote_player_moved(id: int, pos: Vector2, vel: Vector2, facing: float, swing: bool)
 signal remote_player_left(id: int)
-signal chat_message_received(sender_name: String, text: String)
+## Emitted when a chat message arrives. channel = "stage" | "global" | "whisper"
+signal chat_message_received(channel: String, sender_name: String, whisper_to: String, text: String)
+
+# Trading & Street Stalls signals
+signal trade_requested(from_id: int, from_name: String)
+signal trade_responded(from_id: int, from_name: String, accepted: bool)
+signal trade_offer_updated(from_id: int, items: Array, gold: int, locked: bool)
+signal trade_confirmed_by_partner(from_id: int)
+signal trade_cancelled_by_partner(from_id: int)
+signal player_stall_changed(peer_id: int, stall_data: Variant)
+signal stall_buy_completed(success: bool, item: Dictionary, price: int, error: String)
+signal stall_item_sold_notification(buyer_name: String, item: Dictionary, price: int)
 
 const MAX_PLAYERS := 8
 const DEFAULT_PORT := 7576
@@ -124,9 +135,55 @@ func _handle_ws_message(msg: Dictionary) -> void:
 			remote_player_left.emit(id)
 
 		"chat":
+			var channel := str(msg.get("channel", "stage"))
 			var sname := str(msg.get("name", "Someone"))
+			var whisper_to := str(msg.get("whisper_to", ""))
 			var text := str(msg.get("text", ""))
-			chat_message_received.emit(sname, text)
+			chat_message_received.emit(channel, sname, whisper_to, text)
+
+		"trade_request":
+			var from_id := int(msg.get("from_id", 0))
+			var from_name := str(msg.get("from_name", "Player"))
+			trade_requested.emit(from_id, from_name)
+
+		"trade_response":
+			var from_id := int(msg.get("from_id", 0))
+			var from_name := str(msg.get("from_name", "Player"))
+			var accepted := bool(msg.get("accepted", false))
+			trade_responded.emit(from_id, from_name, accepted)
+
+		"trade_offer":
+			var from_id := int(msg.get("from_id", 0))
+			var items: Array = msg.get("items", [])
+			var gold := int(msg.get("gold", 0))
+			var locked := bool(msg.get("locked", false))
+			trade_offer_updated.emit(from_id, items, gold, locked)
+
+		"trade_confirm":
+			var from_id := int(msg.get("from_id", 0))
+			trade_confirmed_by_partner.emit(from_id)
+
+		"trade_cancel":
+			var from_id := int(msg.get("from_id", 0))
+			trade_cancelled_by_partner.emit(from_id)
+
+		"player_stall_updated":
+			var pid := int(msg.get("id", 0))
+			var stall: Variant = msg.get("stall")
+			player_stall_changed.emit(pid, stall)
+
+		"stall_buy_result":
+			var success := bool(msg.get("success", false))
+			var it: Dictionary = msg.get("item", {})
+			var pr := int(msg.get("price", 0))
+			var err := str(msg.get("error", ""))
+			stall_buy_completed.emit(success, it, pr, err)
+
+		"stall_item_sold":
+			var bname := str(msg.get("buyer_name", "Someone"))
+			var it: Dictionary = msg.get("item", {})
+			var pr := int(msg.get("price", 0))
+			stall_item_sold_notification.emit(bname, it, pr)
 
 
 func _send_json(data: Dictionary) -> void:
@@ -201,6 +258,91 @@ func send_chat(text: String) -> void:
 	_send_json({
 		"type": "chat",
 		"text": text
+	})
+
+
+## Broadcasts a chat message to all players on the server.
+func send_global_chat(text: String) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({
+		"type": "global_chat",
+		"text": text
+	})
+
+
+## Sends a private whisper to a player by name.
+func send_whisper(target_name: String, text: String) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({
+		"type": "whisper",
+		"target": target_name,
+		"text": text
+	})
+
+
+# --- Trading ---
+func request_trade(target_id: int) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({"type": "trade_request", "target_id": target_id})
+
+
+func respond_trade(target_id: int, accept: bool) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({"type": "trade_response", "target_id": target_id, "accepted": accept})
+
+
+func send_trade_offer(target_id: int, items: Array, gold: int, locked: bool) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({
+		"type": "trade_offer",
+		"target_id": target_id,
+		"items": items,
+		"gold": gold,
+		"locked": locked
+	})
+
+
+func confirm_trade(target_id: int) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({"type": "trade_confirm", "target_id": target_id})
+
+
+func cancel_trade(target_id: int) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({"type": "trade_cancel", "target_id": target_id})
+
+
+# --- Street Stalls (Player Shops) ---
+func open_stall(title: String, items: Array) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({
+		"type": "stall_open",
+		"title": title,
+		"items": items
+	})
+
+
+func close_stall() -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({"type": "stall_close"})
+
+
+func buy_from_stall(seller_id: int, item_name: String) -> void:
+	if not online_mode or _ws.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		return
+	_send_json({
+		"type": "stall_buy",
+		"seller_id": seller_id,
+		"item_name": item_name
 	})
 
 

@@ -557,8 +557,24 @@ func _unhandled_input(event: InputEvent) -> void:
 			and mouse_world.distance_to(best.global_position) < NPC_CLICK_RANGE:
 			best.interact(self)
 
+		# Left-click a remote player to trade or open their stall
+		for rplayer in get_tree().get_nodes_in_group("remote_players"):
+			if is_instance_valid(rplayer) and mouse_world.distance_to(rplayer.global_position) < 80.0:
+				var st := get_tree().get_first_node_in_group("stage")
+				if st != null and st.has_method("interact_with_remote_player"):
+					st.interact_with_remote_player(rplayer)
+					return
+
 		# Left-click a portal to travel (when standing near it). Portals are no
 		# longer activated with T — click them like NPCs.
+		# Touch tap a remote player to trade or open their stall
+		for rplayer in get_tree().get_nodes_in_group("remote_players"):
+			if is_instance_valid(rplayer) and touch_world.distance_to(rplayer.global_position) < 80.0:
+				var st := get_tree().get_first_node_in_group("stage")
+				if st != null and st.has_method("interact_with_remote_player"):
+					st.interact_with_remote_player(rplayer)
+					return
+
 		var best_portal: Portal = null
 		var best_portal_dist := 1.0e20
 		for p in get_tree().get_nodes_in_group("portals"):
@@ -592,6 +608,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			and touch_world.distance_to(best.global_position) < NPC_CLICK_RANGE:
 			best.interact(self)
 			return
+		# Touch tap a remote player to trade or open their stall
+		for rplayer in get_tree().get_nodes_in_group("remote_players"):
+			if is_instance_valid(rplayer) and touch_world.distance_to(rplayer.global_position) < 80.0:
+				var st := get_tree().get_first_node_in_group("stage")
+				if st != null and st.has_method("interact_with_remote_player"):
+					st.interact_with_remote_player(rplayer)
+					return
+
 		var best_portal: Portal = null
 		var best_portal_dist: float = 1.0e20
 		for p in get_tree().get_nodes_in_group("portals"):
@@ -696,7 +720,7 @@ func _draw() -> void:
 		draw_circle(Vector2(-facing * 12.0, -38 + y), 8.0, Color(0.62, 0.68, 0.78))
 		draw_circle(Vector2(-facing * 12.0, -38 + y), 5.0, Color(0.85, 0.72, 0.35))
 
-	# Remote player nameplate
+	# Remote player nameplate & street stall
 	if _is_remote:
 		var rname: String = str(remote_data.get("name", "Player"))
 		var rlevel: int = int(remote_data.get("level", 1))
@@ -707,6 +731,21 @@ func _draw() -> void:
 		var text_pos := Vector2(-text_w * 0.5, -92.0 + y)
 		draw_string(font, text_pos + Vector2(1, 1), label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(0, 0, 0, 0.8))
 		draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(1.0, 0.92, 0.45))
+
+		# Street Stall awning if active
+		var stall: Variant = remote_data.get("stall")
+		if stall != null and typeof(stall) == TYPE_DICTIONARY:
+			var st: Dictionary = stall
+			var st_title: String = str(st.get("title", "Shop"))
+			# Striped canopy awning
+			draw_rect(Rect2(-24, -114 + y, 48, 14), Color(0.85, 0.22, 0.2))
+			draw_rect(Rect2(-12, -114 + y, 12, 14), Color(0.96, 0.96, 0.96))
+			draw_rect(Rect2(12, -114 + y, 12, 14), Color(0.96, 0.96, 0.96))
+			# Stall sign
+			var sign_w := font.get_string_size(st_title, HORIZONTAL_ALIGNMENT_CENTER, -1, 10).x
+			var sign_pos := Vector2(-sign_w * 0.5, -120.0 + y)
+			draw_string(font, sign_pos + Vector2(1, 1), st_title, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(0, 0, 0, 0.9))
+			draw_string(font, sign_pos, st_title, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(1.0, 0.85, 0.35))
 
 	# Weapon / swing
 	var hand := Vector2(facing * 11.0, -38 + y)
