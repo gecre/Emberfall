@@ -2231,7 +2231,7 @@ func _go_to_menu() -> void:
 # Panels / input / toasts
 # ---------------------------------------------------------------------------
 func _open_panel(panel: PanelContainer) -> void:
-	for other in [inventory_panel, shop_panel, pause_panel, stage_panel, dialogue_panel, character_panel, skills_panel, monsterpedia_panel, settings_panel]:
+	for other in [inventory_panel, shop_panel, pause_panel, stage_panel, dialogue_panel, character_panel, skills_panel, monsterpedia_panel, settings_panel, friends_panel]:
 		if other != null and other != panel:
 			other.visible = false
 	panel.visible = true
@@ -2239,7 +2239,7 @@ func _open_panel(panel: PanelContainer) -> void:
 
 
 func _close_panels() -> void:
-	for panel in [inventory_panel, shop_panel, pause_panel, stage_panel, dialogue_panel, character_panel, skills_panel, monsterpedia_panel, settings_panel]:
+	for panel in [inventory_panel, shop_panel, pause_panel, stage_panel, dialogue_panel, character_panel, skills_panel, monsterpedia_panel, settings_panel, friends_panel]:
 		if panel != null:
 			panel.visible = false
 	_close_item_context()
@@ -2368,7 +2368,8 @@ func _any_panel_visible() -> bool:
 	return inventory_panel.visible or shop_panel.visible or pause_panel.visible \
 		or stage_panel.visible or dialogue_panel.visible \
 		or character_panel.visible or skills_panel.visible \
-		or monsterpedia_panel.visible or settings_panel.visible
+		or monsterpedia_panel.visible or settings_panel.visible \
+		or (friends_panel != null and friends_panel.visible)
 
 
 func show_toast(text: String) -> void:
