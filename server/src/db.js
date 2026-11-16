@@ -86,6 +86,17 @@ function openDatabase() {
       created_by TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
+
+    CREATE TABLE IF NOT EXISTS friends (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      requester_id INTEGER NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
+      addressee_id INTEGER NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+      UNIQUE(requester_id, addressee_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_friends_addressee ON friends (addressee_id);
   `);
   return handle;
 }
@@ -347,4 +358,59 @@ export function updateCharacter(accountId, characterId, summary) {
     accountId,
   );
   return findCharacter(accountId, characterId);
+}
+
+// ---------------------------------------------------------------------------
+// Friends
+// ---------------------------------------------------------------------------
+
+export function sendFriendRequest(requesterId, addresseeId) {
+  db.prepare(
+    `INSERT OR IGNORE INTO friends (requester_id, addressee_id, status) VALUES (?, ?, 'pending')`
+  ).run(requesterId, addresseeId);
+  return db.prepare(`SELECT * FROM friends WHERE requester_id = ? AND addressee_id = ?`).get(requesterId, addresseeId);
+}
+
+export function respondFriendRequest(requesterId, addresseeId, accept) {
+  const status = accept ? 'accepted' : 'declined';
+  db.prepare(
+    `UPDATE friends SET status = ?, updated_at = datetime('now') WHERE requester_id = ? AND addressee_id = ?`
+  ).run(status, requesterId, addresseeId);
+  return db.prepare(`SELECT * FROM friends WHERE requester_id = ? AND addressee_id = ?`).get(requesterId, addresseeId);
+}
+
+export function listFriends(accountId) {
+  return db.prepare(`
+    SELECT a.id, a.username,
+      CASE WHEN f.requester_id = ? THEN 'sent' ELSE 'received' END as direction,
+      f.status
+    FROM friends f
+    JOIN accounts a ON a.id = CASE WHEN f.requester_id = ? THEN f.addressee_id ELSE f.requester_id END
+    WHERE (f.requester_id = ? OR f.addressee_id = ?) AND f.status = 'accepted'
+  `).all(accountId, accountId, accountId, accountId);
+}
+
+export function listPendingRequests(accountId) {
+  return db.prepare(`
+    SELECT a.id, a.username, f.created_at
+    FROM friends f
+    JOIN accounts a ON a.id = f.requester_id
+    WHERE f.addressee_id = ? AND f.status = 'pending'
+  `).all(accountId);
+}
+
+export function listSentRequests(accountId) {
+  return db.prepare(`
+    SELECT a.id, a.username, f.created_at
+    FROM friends f
+    JOIN accounts a ON a.id = f.addressee_id
+    WHERE f.requester_id = ? AND f.status = 'pending'
+  `).all(accountId);
+}
+
+export function removeFriend(accountId, otherAccountId) {
+  db.prepare(`
+    DELETE FROM friends 
+    WHERE (requester_id = ? AND addressee_id = ?) OR (requester_id = ? AND addressee_id = ?)
+  `).run(accountId, otherAccountId, otherAccountId, accountId);
 }
