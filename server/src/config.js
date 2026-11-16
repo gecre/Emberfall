@@ -12,15 +12,17 @@ export const DATA_DIR =
   process.env.EMBERFALL_DATA_DIR || path.join(SERVER_ROOT, "data");
 export const DB_PATH =
   process.env.EMBERFALL_DB || path.join(DATA_DIR, "emberfall.sqlite");
+export const GAME_DATA_DIR = path.join(SERVER_ROOT, "game_data");
+
 export const ITEMS_PATH =
   process.env.EMBERFALL_ITEMS ||
-  path.join(SERVER_ROOT, "data", "game", "items.json");
+  path.join(GAME_DATA_DIR, "items.json");
 export const MONSTERS_PATH =
   process.env.EMBERFALL_MONSTERS ||
-  path.join(SERVER_ROOT, "data", "game", "monsters.json");
+  path.join(GAME_DATA_DIR, "monsters.json");
 export const SKILLS_PATH =
   process.env.EMBERFALL_SKILLS ||
-  path.join(SERVER_ROOT, "data", "game", "skills.json");
+  path.join(GAME_DATA_DIR, "skills.json");
 
 /** Directory that database snapshots are written to. */
 export const BACKUP_DIR =

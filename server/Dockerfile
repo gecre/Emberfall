@@ -8,7 +8,7 @@ RUN npm ci --omit=dev
 # Source and bundled game data
 COPY src/ ./src/
 COPY public/ ./public/
-COPY data/game/ ./data/game/
+COPY game_data/ ./game_data/
 
 EXPOSE 8080
 ENV PORT=8080

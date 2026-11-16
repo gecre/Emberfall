@@ -1,0 +1,2346 @@
+{
+	"Carnelia":  {
+					 "name":  "Carnelia",
+					 "health":  50000000,
+					 "defense":  4000,
+					 "power":  5000,
+					 "xp":  9000,
+					 "speed":  0,
+					 "height":  28.7,
+					 "worth":  5000,
+					 "boss":  true,
+					 "drops":  [
+								   "Ancient Helmet",
+								   "Book of Power",
+								   "Book of Range",
+								   "Dino Shield",
+								   "Earth Helmet",
+								   "Earth Armor",
+								   "Earth Legs",
+								   "Flak Jacket",
+								   "Jester Pants",
+								   "Legs of Hatred",
+								   "Mystic Tribal Bow",
+								   "Natures Bow",
+								   "Ocean Staff",
+								   "Repguana Helmet",
+								   "Repguana Armor",
+								   "Repguana Legs",
+								   "Shaman Staff",
+                                   "Shaman Wand"
+							   ],
+					 "locations":  [
+                                       "Stages"
+								   ],
+					 "tier":  60
+				 },
+	"Giant Goo Cube":  {
+						   "name":  "Giant Goo Cube",
+						   "health":  35000000,
+						   "defense":  2000,
+						   "power":  10000,
+						   "xp":  10800,
+						   "speed":  3.9,
+						   "height":  18.5,
+						   "worth":  4500,
+						   "boss":  true,
+						   "drops":  [
+										 "Acidic Helmet",
+										 "Acidic Armor",
+										 "Acidic Legs",
+										 "Book of Defense",
+										 "Book of Health",
+										 "Death Bringer",
+										 "Dino Blade",
+										 "Dino Scale Helmet",
+										 "Dino Scale Armor",
+										 "Dino Scale Legs",
+										 "Divine Bow",
+										 "Divine Armor",
+										 "Divine Legs",
+										 "Mummified Axe",
+										 "Watermelon",
+										 "Snout Zinc Helmet",
+										 "Zinc Armor",
+                                         "Zinc Legs"
+									 ],
+						   "locations":  [
+                                             "Stages"
+										 ],
+						   "tier":  58
+					   },
+	"Kreetus":  {
+					"name":  "Kreetus",
+					"health":  40000000,
+					"defense":  2500,
+					"power":  15000,
+					"xp":  12600,
+					"speed":  0,
+					"height":  32.1,
+					"worth":  6000,
+					"boss":  true,
+					"drops":  [
+								  "Acid Shield",
+								  "Analytic Wand",
+								  "Ancient Battle Axe",
+								  "Barbarian Axe of Fire",
+								  "Beholder Gun",
+								  "Blade of Hatred",
+								  "Reptile Wand",
+								  "Reapers Scythe",
+								  "Cowboy Belt Hat",
+								  "Pirate Hat",
+								  "Samurai Helmet",
+								  "Skull Crusher Helmet",
+								  "Acidic Armor",
+								  "Skull Crusher",
+								  "Sniper Rifle",
+								  "Kreeton Gun",
+								  "Bladed Legs",
+								  "Bladed Armor",
+								  "Kreeton Legs",
+								  "Kreeton Armor",
+								  "Beholder Armor",
+								  "Beholder Legs",
+								  "Beholder Staff",
+								  "Bladed Boot",
+								  "Phantom Robe",
+                                  "Phantom Pants"
+							  ],
+					"locations":  [
+                                      "Stages"
+								  ],
+					"tier":  59
+				},
+	"Titanium Vulture":  {
+							 "name":  "Titanium Vulture",
+							 "health":  10000000,
+							 "defense":  6500,
+							 "power":  6250,
+							 "xp":  60000,
+							 "speed":  8,
+							 "height":  27,
+							 "worth":  20000,
+							 "boss":  true,
+							 "drops":  [
+										   "AK47",
+										   "Bazooka",
+										   "Captains Rapier",
+										   "Future Armor",
+										   "Future Legs",
+										   "Helmet of Hatred",
+										   "Hybrid Helmet",
+										   "Hydro Tech Staff",
+										   "Hydro Tech Suit",
+										   "Hydro Tech Legs",
+										   "Robot Helmet",
+										   "Robot Armor",
+										   "Robot Legs",
+                                           "Samurai Helmet"
+									   ],
+							 "locations":  [
+                                               "Stages"
+										   ],
+							 "tier":  54
+						 },
+	"Aipster":  {
+					"name":  "Aipster",
+					"health":  3500,
+					"defense":  155,
+					"power":  230,
+					"xp":  105,
+					"speed":  6.4,
+					"height":  8.5,
+					"worth":  35,
+					"boss":  false,
+					"drops":  [
+								  "Book of Artillery",
+								  "Book of Power",
+								  "Big Stick",
+								  "Bone",
+								  "Bronze Plate Legs",
+								  "Crumby Wizard Hat",
+								  "Detective Hat",
+								  "Fireman Hatchet",
+								  "Koon Hat",
+								  "Koon Pants",
+								  "Paper Bag",
+								  "Slingshot",
+								  "Stick",
+								  "Wooden Bat",
+								  "Yellow Pants",
+								  "Pirate Boot",
+								  "Roman Helmet",
+								  "Teardrop Blade",
+								  "Pirate Pants",
+								  "Pirate Vest",
+								  "Mac10",
+								  "Pointed Pirate Hat",
+								  "Mega Sword",
+								  "AK47",
+                                  "Mexican Shirt"
+							  ],
+					"locations":  [
+
+								  ],
+					"tier":  28
+				},
+	"Bionic Bird":  {
+						"name":  "Bionic Bird",
+						"health":  2000,
+						"defense":  175,
+						"power":  250,
+						"xp":  90,
+						"speed":  4.8,
+						"height":  6.1,
+						"worth":  30,
+						"boss":  false,
+						"drops":  [
+									  "Basic Wand",
+									  "Captains Rapier",
+									  "Eagle Staff",
+									  "Future Armor",
+									  "Future Legs",
+									  "Robot Helmet",
+									  "Robot Armor",
+									  "Robot Legs",
+                                      "Slingshot"
+								  ],
+						"locations":  [
+                                          "Stages"
+									  ],
+						"tier":  26
+					},
+	"Block Bot":  {
+					  "name":  "Block Bot",
+					  "health":  1600,
+					  "defense":  185,
+					  "power":  186,
+					  "xp":  78,
+					  "speed":  4.2,
+					  "height":  8.8,
+					  "worth":  26,
+					  "boss":  false,
+					  "drops":  [
+									"Apple",
+									"Mocap Suit",
+									"Rusty Scimitar",
+									"Metal Ballerina Outfit",
+									"Protector Shield",
+									"Blue Shirt",
+									"Halberd",
+									"Chunk Mace",
+									"Steel Helmet Hat",
+									"Night Glow Wand",
+									"Steel Boot",
+									"Future Boots",
+									"Mocap Pants",
+									"Adamantium Armor",
+									"Smiley Tin Shield",
+									"Metal Ballerina Legs",
+									"Shotgun",
+									"Metal Cat Helmet",
+									"Royal Armor",
+									"Magnesium Armor",
+									"Future Shield",
+									"Future Legs",
+                                    "Future Armor"
+								],
+					  "locations":  [
+										"Robo City",
+										"Robotic Structures",
+                                        "Mechanical Drop"
+									],
+					  "tier":  25
+				  },
+	"Bouncing Mushroom":  {
+							  "name":  "Bouncing Mushroom",
+							  "health":  600,
+							  "defense":  88,
+							  "power":  86,
+							  "xp":  42,
+							  "speed":  4,
+							  "height":  8.3,
+							  "worth":  14,
+							  "boss":  false,
+							  "drops":  [
+											"Banana",
+											"Plastic Saber",
+											"Red Shirt",
+											"Watermelon",
+											"Apple",
+											"Star Wand",
+											"Blue Wizard Hat",
+											"Blue Magic Shoe",
+											"Night Glow Wand",
+											"Book of Magic",
+											"Blue Wizard Robe",
+											"Basic Magic Staff",
+											"Blue Shirt",
+                                            "Blue Wizard Pants"
+										],
+							  "locations":  [
+                                                "Stages"
+											],
+							  "tier":  22
+						  },
+	"Brick Monster":  {
+						  "name":  "Brick Monster",
+						  "health":  6500,
+						  "defense":  240,
+						  "power":  330,
+						  "xp":  180,
+						  "speed":  4.8,
+						  "height":  12.6,
+						  "worth":  60,
+						  "boss":  false,
+						  "drops":  [
+										"Bronze Shield",
+										"Stone Helmet",
+										"Book of Range",
+										"Book of Defense",
+										"Magnesium Armor",
+										"Ancient Helmet",
+										"Ancient Armor",
+										"Ancient Legs",
+										"Ancient Shield",
+										"Demons Fury",
+										"Axe of Minions",
+										"Ancient Battle Axe",
+										"Cowboy Knight Legs",
+										"Cowboy Knight Armor",
+                                        "Steel Masked Helmet"
+									],
+						  "locations":  [
+											"Brick Dungeon",
+                                            "Deep Chamber"
+										],
+						  "tier":  30
+					  },
+	"Bullopede":  {
+					  "name":  "Bullopede",
+					  "health":  2200000,
+					  "defense":  2800,
+					  "power":  7500,
+					  "xp":  2910,
+					  "speed":  12,
+					  "height":  18.4,
+					  "worth":  970,
+					  "boss":  false,
+					  "drops":  [
+									"Achilles Helmet",
+									"Acid Shield",
+									"Acidic Sword",
+									"Book of Defense",
+									"Book of Power",
+									"Book of Range",
+									"Dino Scale Legs",
+									"Earth Helmet",
+									"Earth Armor",
+									"Earth Legs",
+									"Es c90",
+									"Flak Jacket",
+									"Halberd",
+									"Harpoon Bow",
+									"Mac10",
+									"Ocean Staff",
+									"Repguana Armor",
+									"Reptile Wand",
+									"Revolver",
+									"Serpent Helmet",
+									"Shaman Staff",
+									"Small Skull Crusher",
+									"Strong Legs",
+									"Two Hand Acid Blade",
+                                    "Bladed Helmet"
+								],
+					  "locations":  [
+										"Bullopede Lair",
+                                        "Toxic Jungle"
+									],
+					  "tier":  49
+				  },
+	"Chirplet":  {
+					 "name":  "Chirplet",
+					 "health":  215,
+					 "defense":  41,
+					 "power":  46,
+					 "xp":  21,
+					 "speed":  4,
+					 "height":  6.9,
+					 "worth":  7,
+					 "boss":  false,
+					 "drops":  [
+								   "Apple",
+								   "Banana",
+								   "Stick",
+								   "Blue Plastic Sword",
+								   "Airsoft Gun",
+								   "Archer Hat",
+								   "Pet Archer Hat",
+								   "Cowboy Hat",
+								   "Cowboy Shirt",
+								   "Cowboy Pants",
+								   "Koon Hat",
+								   "Book of Artillery",
+                                   "Single Sphere Wand"
+							   ],
+					 "locations":  [
+									   "Stages",
+                                       "Cool Shore"
+								   ],
+					 "tier":  18
+				 },
+	"Crab":  {
+				 "name":  "Crab",
+				 "health":  255,
+				 "defense":  56,
+				 "power":  52,
+				 "xp":  27,
+				 "speed":  13.6,
+				 "height":  8,
+				 "worth":  9,
+				 "boss":  false,
+				 "drops":  [
+							   "Apple",
+							   "Banana",
+							   "Red Plastic Sword",
+							   "Eye Patch",
+							   "Fireman Hatchet",
+							   "Meat Cleaver",
+							   "Coconut Leaves Helmet",
+							   "Potato Gun",
+							   "Spartan Helmet",
+							   "Gold Plate Armor",
+							   "Book of Health",
+                               "Book of Artillery"
+						   ],
+				 "locations":  [
+
+							   ],
+				 "tier":  19
+			 },
+	"Dark Beholder":  {
+						  "name":  "Dark Beholder",
+						  "health":  24000,
+						  "defense":  280,
+						  "power":  700,
+						  "xp":  321,
+						  "speed":  4.5,
+						  "height":  24.9,
+						  "worth":  107,
+						  "boss":  false,
+						  "drops":  [
+										"Full Ski Mask",
+										"Flak Jacket",
+										"Cat Hat",
+										"Charm Hat",
+										"Suit",
+										"Shades",
+										"Cursed Robe",
+										"Army Helmet",
+										"Chain Armor",
+                                        "Leather Armor"
+									],
+						  "locations":  [
+											"Wasted Plains",
+											"Forbidden Huts",
+                                            "Beholder Lookout"
+										],
+						  "tier":  34
+					  },
+	"Drill Bot":  {
+					  "name":  "Drill Bot",
+					  "health":  8100,
+					  "defense":  240,
+					  "power":  385,
+					  "xp":  201,
+					  "speed":  6.8,
+					  "height":  12.3,
+					  "worth":  67,
+					  "boss":  false,
+					  "drops":  [
+									"Eagle Staff",
+									"Machete",
+									"Garbage Can Lid",
+									"Bronze Plate Armor",
+									"Apollos Armor",
+									"Horned Helmet",
+									"Future Helmet",
+									"Turkey",
+									"Adamantium Helmet",
+									"Adamantium Armor",
+									"Adamantium Legs",
+                                    "Mechanic Wing Bow"
+								],
+					  "locations":  [
+										"Light Highway",
+                                        "Future Water Trench"
+									],
+					  "tier":  30
+				  },
+	"Fishurn":  {
+					"name":  "Fishurn",
+					"health":  200,
+					"defense":  60,
+					"power":  45,
+					"xp":  24,
+					"speed":  4.8,
+					"height":  4.3,
+					"worth":  8,
+					"boss":  false,
+					"drops":  [
+								  "Apple",
+								  "Fishing Pole",
+								  "Green Beanie",
+								  "Blue Beanie",
+								  "Paintball Gun",
+								  "Blue Shirt",
+								  "Blue Plastic Sword",
+								  "Wooden Bat",
+								  "Single Sphere Wand",
+                                  "Fish Scale Legs"
+							  ],
+					"locations":  [
+                                      "Stages"
+								  ],
+					"tier":  18
+				},
+	"Flockling":  {
+					  "name":  "Flockling",
+					  "health":  95,
+					  "defense":  35,
+					  "power":  48,
+					  "xp":  15,
+					  "speed":  5.2,
+					  "height":  6.3,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+									"Stick",
+									"Big Stick",
+									"Green Beanie",
+									"Green Pants",
+									"BB Gun",
+									"Green Shirt",
+									"Watermelon",
+									"Machete",
+									"Triple Leaf Bow",
+                                    "Pet Melon Helmet"
+								],
+					  "locations":  [
+										"Heath\u0027s Training Ground",
+										"Mushroom Alley",
+										"Mush Front",
+										"High Greens",
+                                        "Fungus Lane"
+									],
+					  "tier":  16
+				  },
+	"Glord":  {
+				  "name":  "Glord",
+				  "health":  11000,
+				  "defense":  246,
+				  "power":  466,
+				  "xp":  225,
+				  "speed":  7.6,
+				  "height":  16.1,
+				  "worth":  75,
+				  "boss":  false,
+				  "drops":  [
+								"Turkey",
+								"Apollos Armor Legs",
+								"Apollos Armor",
+								"Apollos Helmet",
+								"Archer Hat",
+								"Archer Leather Legs",
+								"Assault Helmet",
+								"Deep Sea Helmet",
+								"Fallen Queens Spectre",
+								"Nightingale Wand",
+								"Ocean Staff",
+								"Pet Cone Helmet",
+								"Pet Horned Helmet",
+								"Sai",
+								"Samurai Armor",
+								"Samurai Helmet",
+								"Samurai Legs",
+								"Sickle",
+								"Small Bow",
+								"Tropical Staff",
+                                "Winged Diamond Wand"
+							],
+				  "locations":  [
+                                    "Stages"
+								],
+				  "tier":  32
+			  },
+	"Goo Cube":  {
+					 "name":  "Goo Cube",
+					 "health":  10000,
+					 "defense":  125,
+					 "power":  200,
+					 "xp":  135,
+					 "speed":  3.6,
+					 "height":  10.6,
+					 "worth":  45,
+					 "boss":  false,
+					 "drops":  [
+								   "Watermelon",
+								   "Chainmail",
+								   "Archer Patches Hat",
+								   "Knight Armor Legs",
+								   "Magician Armor",
+								   "Enchanted Legs",
+								   "Sombrero",
+								   "Guardians Warhammer",
+								   "Enchanted Armor",
+								   "Enchanted Helmet",
+								   "Blue Wizard Hat",
+								   "Knight Armor",
+								   "Leather Archer Armor",
+								   "Archer Leather Legs",
+								   "Knight Helmet",
+                                   "Magician Armor Legs"
+							   ],
+					 "locations":  [
+									   "Dungeon Entrance",
+									   "Deadly Dungeon",
+									   "Goo Dungeon",
+									   "Deep Dungeon",
+									   "Long Dungeon",
+                                       "Giant Goo Cube Den"
+								   ],
+					 "tier":  31
+				 },
+	"Great Frog":  {
+					   "name":  "Great Frog",
+					   "health":  1800,
+					   "defense":  140,
+					   "power":  220,
+					   "xp":  75,
+					   "speed":  2.1,
+					   "height":  6.5,
+					   "worth":  25,
+					   "boss":  false,
+					   "drops":  [
+									 "Apple",
+									 "Watermelon",
+									 "Big Stick",
+									 "Green Shirt",
+									 "Elf Bell Shoe",
+									 "Log Splitting Axe",
+									 "Leather Helmet",
+									 "Leaf Pad Bow",
+									 "Natures Staff",
+									 "Thorn Bow",
+									 "Leaf Bow",
+									 "Umbrella",
+									 "Machete",
+									 "Archer Patches Hat",
+									 "Reptile Wand",
+									 "Fish Scale Legs",
+									 "Fish Scale Armor",
+									 "Ocean Staff",
+									 "Tropical Staff",
+									 "Strong Basket Helmet",
+									 "Book of Range",
+                                     "Book of MP"
+								 ],
+					   "locations":  [
+                                         "Stages"
+									 ],
+					   "tier":  25
+				   },
+	"Green Bouncer":  {
+						  "name":  "Green Bouncer",
+						  "health":  18,
+						  "defense":  2,
+						  "power":  6,
+						  "xp":  6,
+						  "speed":  3.2,
+						  "height":  2.6,
+						  "worth":  2,
+						  "boss":  false,
+						  "drops":  [
+										"Apple",
+										"Slingshot",
+										"Stick",
+										"Blue Plastic Sword",
+										"Green Shirt",
+										"Green Beanie",
+                                        "Green Pants"
+									],
+						  "locations":  [
+											"Wooden Plains",
+											"Green Peak",
+											"Tiki Flatts",
+											"Palm Forest",
+											"Coconut Stretch",
+											"High Greens",
+                                            "Heath\u0027s Training Ground"
+										],
+						  "tier":  10
+					  },
+	"Green Walker":  {
+						 "name":  "Green Walker",
+						 "health":  63,
+						 "defense":  8,
+						 "power":  16,
+						 "xp":  12,
+						 "speed":  2.3,
+						 "height":  2.6,
+						 "worth":  4,
+						 "boss":  false,
+						 "drops":  [
+									   "Banana",
+									   "Bone",
+									   "Slingshot",
+									   "Small Bow",
+									   "Stick",
+									   "Paintball Gun",
+									   "Full Ski Mask",
+                                       "Log Splitting Axe"
+								   ],
+						 "locations":  [
+                                           "Stages"
+									   ],
+						 "tier":  14
+					 },
+	"Horned Monster":  {
+						   "name":  "Horned Monster",
+						   "health":  240,
+						   "defense":  52,
+						   "power":  50,
+						   "xp":  24,
+						   "speed":  2.3,
+						   "height":  5,
+						   "worth":  8,
+						   "boss":  false,
+						   "drops":  [
+										 "Half Coconut",
+										 "Wooden Spear",
+										 "Archer Pants",
+										 "Hockey Mask",
+										 "Book of Magic",
+										 "Apple",
+                                         "Bone"
+									 ],
+						   "locations":  [
+                                             "Stages"
+										 ],
+						   "tier":  19
+					   },
+	"Kraken":  {
+				   "name":  "Kraken",
+				   "health":  1500000,
+				   "defense":  2200,
+				   "power":  6050,
+				   "xp":  2580,
+				   "speed":  7.7,
+				   "height":  28.9,
+				   "worth":  860,
+				   "boss":  false,
+				   "drops":  [
+								 "Acidic Helmet",
+								 "Acidic Armor",
+								 "Acidic Legs",
+								 "Acid Boot",
+								 "Acid Shield",
+								 "Acidic Sword",
+								 "Book of Health",
+								 "Dino Scale Helmet",
+								 "Dino Shield",
+								 "Natures Bow",
+								 "Natures Staff",
+								 "Potato Gun",
+								 "Reptile Wand",
+								 "Shaman Staff",
+								 "Shaman Wand",
+								 "Short Sword",
+								 "Sledgehammer",
+                                 "Triple Leaf Bow"
+							 ],
+				   "locations":  [
+									 "Acid Flatts",
+                                     "Acidfic Waters"
+								 ],
+				   "tier":  48
+			   },
+	"Kraw":  {
+				 "name":  "Kraw",
+				 "health":  635,
+				 "defense":  113,
+				 "power":  135,
+				 "xp":  60,
+				 "speed":  6,
+				 "height":  7.6,
+				 "worth":  18,
+				 "boss":  false,
+				 "drops":  [
+							   "Basic Magic Staff",
+							   "Brown Wizard Robe",
+							   "Brown Wizard Pants",
+							   "Crumby Wizard Hat",
+							   "Cursed Robe",
+							   "Watermelon",
+							   "Stick",
+							   "Witch Hat",
+							   "Bronze Dagger",
+							   "Big Stick",
+							   "Meat Cleaver",
+							   "Skull Spear",
+							   "Book of MP",
+							   "Bone",
+							   "Pumpkin Helmet",
+							   "Reptile Wand",
+							   "Bat Wing Staff",
+                               "Weeping Willow Log"
+						   ],
+				 "locations":  [
+								   "Stages",
+                                   "Craftman Falls"
+							   ],
+				 "tier":  22
+			 },
+	"Kreeton":  {
+					"name":  "Kreeton",
+					"health":  30000,
+					"defense":  540,
+					"power":  692,
+					"xp":  450,
+					"speed":  4.8,
+					"height":  17.1,
+					"worth":  125,
+					"boss":  false,
+					"drops":  [
+								  "Ancient Battle Axe",
+								  "Ancient Shield",
+								  "Axe of Minions",
+								  "Chunk Mace",
+								  "Cursed Shoe",
+								  "Guardians Warhammer",
+								  "Halberd",
+								  "Indian Wand",
+								  "Stone Armor",
+								  "Stone Armor Legs",
+								  "Stone Helmet",
+								  "M16",
+								  "Captains Rapier",
+								  "Reapers Scythe",
+								  "Knight Armor Legs",
+								  "Knight Armor",
+								  "Knight Helmet",
+								  "Protector Legs",
+								  "Protector Suit",
+                                  "Protector Helmet"
+							  ],
+					"locations":  [
+									  "Beholder Lookout",
+                                      "Indian Burial Grounds"
+								  ],
+					"tier":  35
+				},
+	"Leaflet":  {
+					"name":  "Leaflet",
+					"health":  34,
+					"defense":  6,
+					"power":  9,
+					"xp":  9,
+					"speed":  1.8,
+					"height":  2.8,
+					"worth":  3,
+					"boss":  false,
+					"drops":  [
+								  "Apple",
+								  "Banana",
+								  "Big Stick",
+								  "Stick",
+								  "Leaf Bow",
+								  "Pet Crumby Hat",
+								  "Pet Melon Helmet",
+								  "Half Coconut",
+                                  "Sickle"
+							  ],
+					"locations":  [
+                                      "Stages"
+								  ],
+					"tier":  12
+				},
+	"Leafling":  {
+					 "name":  "Leafling",
+					 "health":  1650,
+					 "defense":  200,
+					 "power":  200,
+					 "xp":  81,
+					 "speed":  3,
+					 "height":  8.8,
+					 "worth":  27,
+					 "boss":  false,
+					 "drops":  [
+								   "Big Stick",
+								   "Coconut Leaves Helmet",
+								   "Double Bell Shoe",
+								   "Eagle Slingshot",
+								   "Flak Jacket",
+								   "Hammer",
+								   "Medium Bow",
+								   "Natures Bow",
+								   "Natures Staff",
+								   "Pickaxe",
+								   "Stick",
+								   "Coconut Knee Pads",
+								   "Coconut Armor",
+								   "Log Splitting Axe",
+								   "Reinforced Bush Legs",
+								   "Reinforced Bush Armor",
+								   "Tropical Staff",
+								   "Book of Defense",
+								   "Pet Cowboy Hat",
+                                   "Pet Strong Helmet"
+							   ],
+					 "locations":  [
+                                       "Stages"
+								   ],
+					 "tier":  25
+				 },
+	"Lotus Eye":  {
+					  "name":  "Lotus Eye",
+					  "health":  16000,
+					  "defense":  250,
+					  "power":  540,
+					  "xp":  255,
+					  "speed":  7.6,
+					  "height":  23.8,
+					  "worth":  1230,
+					  "boss":  false,
+					  "drops":  [
+									"Single Battle Axe",
+									"Reptile Wand",
+									"Triple Leaf Bow",
+									"Wood Metal Shield",
+									"Thorn Bow",
+									"Strong Full Helmet",
+									"Spherical Staff",
+									"Strong Armor",
+									"Skull Spear",
+									"Watermelon",
+									"Umbrella",
+									"Two Handed Mace",
+									"Strong Legs",
+									"Eagle Staff",
+									"Pointed Pirate Hat",
+									"Sythe",
+									"Fallen Queens Spectre",
+									"Magnesium Armor",
+									"Indian Wand",
+									"Astro Suit",
+									"Ancient Legs",
+                                    "Ancient Armor"
+								],
+					  "locations":  [
+                                        "Stages"
+									],
+					  "tier":  33
+				  },
+	"Magmagon":  {
+					 "name":  "Magmagon",
+					 "health":  500000,
+					 "defense":  850,
+					 "power":  3300,
+					 "xp":  1635,
+					 "speed":  7.6,
+					 "height":  34.2,
+					 "worth":  545,
+					 "boss":  false,
+					 "drops":  [
+								   "AK47",
+								   "Alloy Wolf Helmet",
+								   "Ancient Helmet",
+								   "Barbarian Axe of Fire",
+								   "Blue Crystal Armor",
+								   "Blue Crystal Helmet",
+								   "Blue Crystal Legs",
+								   "Book of Artillery",
+								   "Book of Health",
+								   "Book of Power",
+								   "Chemical Legs",
+								   "Crypt Bow of Fire",
+								   "Demons Fury",
+								   "Fireman Hatchet",
+								   "Flaming Needle Bow",
+								   "Guardians Warhammer",
+								   "Halberd",
+								   "Magnesium Legs",
+								   "Pink Crystal Armor",
+								   "Pink Crystal Helmet",
+                                   "Pink Crystal Legs"
+							   ],
+					 "locations":  [
+                                       "Stages"
+								   ],
+					 "tier":  44
+				 },
+	"Mongrel":  {
+					"name":  "Mongrel",
+					"health":  775000,
+					"defense":  1500,
+					"power":  4350,
+					"xp":  2016,
+					"speed":  11.2,
+					"height":  29.3,
+					"worth":  672,
+					"boss":  false,
+					"drops":  [
+								  "Apple",
+								  "Assault Legs",
+								  "Atomic Boot",
+								  "Bazooka",
+								  "Book of Defense",
+								  "Book of Power",
+								  "Brooding Fire Axe",
+								  "Chemical Mask",
+								  "Chemical Armor",
+								  "Chemical Legs",
+								  "Crypt Bow of Fire",
+								  "Cyborg Helmet",
+								  "Halberd",
+								  "Heated Staff",
+								  "Helmet of Hatred",
+								  "Armor of Hatred",
+								  "Legs of Hatred",
+								  "Imperial Armor",
+								  "Mac10",
+								  "mp5",
+								  "Samurai Helmet",
+								  "Samurai Armor",
+								  "Samurai Legs",
+								  "Small Skull Crusher",
+								  "Wand of Blessings",
+                                  "XM8 Rifle"
+							  ],
+					"locations":  [
+									  "Flaming Reef",
+									  "Molten Lava Mountains",
+                                      "Lava Plains"
+								  ],
+					"tier":  46
+				},
+	"Monsters":  {
+					 "name":  "Monsters",
+					 "health":  100,
+					 "defense":  0,
+					 "power":  10,
+					 "xp":  10,
+					 "speed":  3,
+					 "height":  2,
+					 "worth":  5,
+					 "boss":  false,
+					 "drops":  [
+
+							   ],
+					 "locations":  [
+
+								   ],
+					 "tier":  16
+				 },
+	"Mushroom Ball":  {
+						  "name":  "Mushroom Ball",
+						  "health":  130,
+						  "defense":  36,
+						  "power":  42,
+						  "xp":  48,
+						  "speed":  4.1,
+						  "height":  4.2,
+						  "worth":  16,
+						  "boss":  false,
+						  "drops":  [
+										"Apple",
+										"Banana",
+										"Stick",
+										"Bronze Dagger",
+										"Plastic Saber",
+										"Paper Hat",
+										"Leaf Bow",
+										"Coconut Helmet",
+										"Garbage Can Lid",
+										"Stop Sign",
+                                        "Army Helmet"
+									],
+						  "locations":  [
+                                            "Stages"
+										],
+						  "tier":  17
+					  },
+	"Mushroom Bird":  {
+						  "name":  "Mushroom Bird",
+						  "health":  1500,
+						  "defense":  140,
+						  "power":  100,
+						  "xp":  60,
+						  "speed":  6.4,
+						  "height":  8.7,
+						  "worth":  40,
+						  "boss":  false,
+						  "drops":  [
+										"Apple",
+										"Banana",
+										"Blue Beanie",
+										"Blue Plastic Sword",
+										"Mushroom Helmet",
+										"Captains Rapier",
+										"Night Glow Wand",
+										"Thorn Bow",
+                                        "Stop Sign"
+									],
+						  "locations":  [
+
+										],
+						  "tier":  25
+					  },
+	"Mushroom Squish":  {
+							"name":  "Mushroom Squish",
+							"health":  28,
+							"defense":  6,
+							"power":  36,
+							"xp":  6,
+							"speed":  1.5,
+							"height":  2.3,
+							"worth":  2,
+							"boss":  false,
+							"drops":  [
+										  "Apple",
+										  "Banana",
+										  "Red Beanie",
+                                          "Red Pants"
+									  ],
+							"locations":  [
+                                              "Stages"
+										  ],
+							"tier":  12
+						},
+	"Night Stalker":  {
+						  "name":  "Night Stalker",
+						  "health":  2700,
+						  "defense":  180,
+						  "power":  222,
+						  "xp":  96,
+						  "speed":  5.6,
+						  "height":  9.8,
+						  "worth":  32,
+						  "boss":  false,
+						  "drops":  [
+										"Chunk Mace",
+										"Mega Sword",
+										"Bat Wing Staff",
+										"Horned Helmet",
+										"Monster Skull",
+										"Wood Metal Shield",
+										"Thorn Bow",
+										"Book of Dexterity",
+										"Watermelon",
+										"Rusty Scimitar",
+										"Cursed Shoe",
+										"Witch Hat",
+										"Sorcerer Hat and Glasses",
+										"Sorcerer Robe",
+										"Cursed Robe",
+										"Indian Wand",
+                                        "Ghost Mask"
+									],
+						  "locations":  [
+                                            "Stages"
+										],
+						  "tier":  27
+					  },
+	"Omega Fluff":  {
+						"name":  "Omega Fluff",
+						"health":  4300000,
+						"defense":  4500,
+						"power":  9000,
+						"xp":  3600,
+						"speed":  11.2,
+						"height":  32.3,
+						"worth":  1100,
+						"boss":  false,
+						"drops":  [
+									  "Analytic Armor",
+									  "Analytic Legs",
+									  "Analytic Helmet",
+									  "Chemical Armor",
+									  "Chemical Legs",
+									  "Chemical Mask",
+									  "Cowboy Knight Armor",
+									  "Cowboy Knight Legs",
+									  "Darkane Armor",
+									  "Darkane Hood Helmet",
+									  "Darkane Legs",
+									  "Electric Infuriator",
+									  "Electric Katana",
+									  "Enchanted Helmet",
+									  "Gold Helmet",
+									  "Gold Plate Armor",
+									  "Gold Plate Legs",
+									  "Imperial Armor",
+									  "Imperial Legs",
+									  "Imperial Helmet",
+									  "Mushroom Helmet",
+									  "Serpent Armor",
+									  "Serpent Legs",
+									  "Serpent Helmet",
+									  "Thors Hammer",
+                                      "Turkey"
+								  ],
+						"locations":  [
+										  "Clouds of Destiny",
+                                          "Almighty Heavens"
+									  ],
+						"tier":  51
+					},
+	"Orange Crazy":  {
+						 "name":  "Orange Crazy",
+						 "health":  210,
+						 "defense":  46,
+						 "power":  46,
+						 "xp":  21,
+						 "speed":  2.3,
+						 "height":  3.7,
+						 "worth":  7,
+						 "boss":  false,
+						 "drops":  [
+									   "Watermelon",
+									   "Sai",
+									   "Koon Hat",
+									   "BB Gun",
+									   "Banana",
+									   "Monster Skull",
+									   "Bone",
+									   "Apple",
+									   "Sickle",
+									   "Oriental Hat",
+									   "Sythe",
+                                       "Handgun"
+								   ],
+						 "locations":  [
+										   "Windmill Top",
+										   "Stages",
+										   "Barren Flatts",
+                                           "Windy Ridge"
+									   ],
+						 "tier":  18
+					 },
+	"Penguin":  {
+					"name":  "Penguin",
+					"health":  610,
+					"defense":  114,
+					"power":  122,
+					"xp":  48,
+					"speed":  2.2,
+					"height":  5.7,
+					"worth":  16,
+					"boss":  false,
+					"drops":  [
+								  "Pet Striped Beanie",
+								  "Pet Stone Helmet",
+								  "Blue Plastic Sword",
+								  "Blue Beanie",
+								  "Half Ski Mask",
+								  "Knight Helmet",
+								  "Steel Boot",
+								  "Full Ski Mask",
+								  "Plastic Saber",
+								  "Short Sword",
+								  "Teardrop Blade",
+                                  "Protector Shield"
+							  ],
+					"locations":  [
+                                      "Stages"
+								  ],
+					"tier":  22
+				},
+	"Plant Monster":  {
+						  "name":  "Plant Monster",
+						  "health":  800,
+						  "defense":  110,
+						  "power":  147,
+						  "xp":  54,
+						  "speed":  2.2,
+						  "height":  7.3,
+						  "worth":  18,
+						  "boss":  false,
+						  "drops":  [
+										"Apple",
+										"Watermelon",
+										"Green Beanie",
+										"Green Shirt",
+										"Green Pants",
+										"Archer Hat",
+										"Wooden Spear",
+										"Monster Skull",
+										"Book of Power",
+										"Bone",
+										"Pet Oriental Hat",
+										"Elf Shoe",
+										"Oriental Hat",
+										"Umbrella",
+										"Leaf Pad Bow",
+										"Reptile Wand",
+										"Skull Spear",
+                                        "Indian Wand"
+									],
+						  "locations":  [
+                                            "Stages"
+										],
+						  "tier":  23
+					  },
+	"Proteum":  {
+					"name":  "Proteum",
+					"health":  270000,
+					"defense":  460,
+					"power":  1800,
+					"xp":  960,
+					"speed":  9.6,
+					"height":  22.4,
+					"worth":  320,
+					"boss":  false,
+					"drops":  [
+								  "Angel Wings Bow",
+								  "Astro Suit",
+								  "Blue Crystal Armor",
+								  "Blue Crystal Legs",
+								  "Electric Infuriator",
+								  "Electric Katana",
+								  "Element Armor",
+								  "Element Helmet",
+								  "Element Legs",
+								  "ES C90",
+								  "Frosting Trident",
+								  "Future Shield",
+								  "Ice Blade of Gods",
+								  "Ice Hammer",
+								  "Light Sword",
+								  "Mega Sword",
+								  "Neon Magic Suit",
+								  "Night Glow Wand",
+								  "Nightingale Staff",
+								  "Pointed Pirate Hat",
+                                  "Wizard Hat Mask"
+							  ],
+					"locations":  [
+                                      "Stages"
+								  ],
+					"tier":  42
+				},
+	"Pumpkin Creeper":  {
+							"name":  "Pumpkin Creeper",
+							"health":  696,
+							"defense":  92,
+							"power":  81,
+							"xp":  45,
+							"speed":  1.8,
+							"height":  4.8,
+							"worth":  15,
+							"boss":  false,
+							"drops":  [
+										  "Red Pants",
+										  "Red Plastic Sword",
+										  "Suit Pants",
+										  "Basic Magic Staff",
+										  "Garbage Can Lid",
+										  "Hammer",
+										  "Leather Armor",
+										  "Red Wizard Hat",
+										  "Thorn Bow",
+										  "Book of Dexterity",
+										  "Pumpkin Helmet",
+										  "Paper Bag",
+                                          "Full Ski Mask"
+									  ],
+							"locations":  [
+
+										  ],
+							"tier":  22
+						},
+	"Purple Goo":  {
+					   "name":  "Purple Goo",
+					   "health":  36,
+					   "defense":  6,
+					   "power":  14,
+					   "xp":  9,
+					   "speed":  2,
+					   "height":  2.1,
+					   "worth":  3,
+					   "boss":  false,
+					   "drops":  [
+									 "Apple",
+									 "Blue Beanie",
+									 "Hockey Mask",
+									 "Slingshot",
+									 "Stick",
+									 "White Shoe",
+									 "Hair Flower",
+									 "Eye Patch",
+									 "Basic Wand",
+									 "Blue Shirt",
+                                     "Wooden Bat"
+								 ],
+					   "locations":  [
+										 "Tiki Flatts",
+										 "Heath\u0027s Training Ground",
+                                         "Stages"
+									 ],
+					   "tier":  12
+				   },
+	"Red Bouncer":  {
+						"name":  "Red Bouncer",
+						"health":  80,
+						"defense":  18,
+						"power":  31,
+						"xp":  15,
+						"speed":  2.1,
+						"height":  2.5,
+						"worth":  5,
+						"boss":  false,
+						"drops":  [
+									  "Apple",
+									  "Clover Hat",
+									  "Red Beanie",
+									  "Red Shirt",
+									  "White Shirt",
+									  "White Shoe",
+									  "Green Shorts",
+									  "Shades",
+									  "Half Coconut",
+									  "Coconut Knee Pads",
+									  "Coconut Armor",
+                                      "Coconut Helmet"
+								  ],
+						"locations":  [
+                                          "Stages"
+									  ],
+						"tier":  15
+					},
+	"Repguana":  {
+					 "name":  "Repguana",
+					 "health":  155000,
+					 "defense":  380,
+					 "power":  1180,
+					 "xp":  705,
+					 "speed":  9.6,
+					 "height":  22.4,
+					 "worth":  235,
+					 "boss":  false,
+					 "drops":  [
+								   "Clover Hat",
+								   "Repguana Legs",
+								   "Repguana Bow",
+								   "Repguana Armor",
+								   "Apollos Armor",
+								   "Snout Zinc Helmet",
+								   "Zinc Legs",
+								   "Dino Shield",
+								   "Army Helmet",
+								   "Roman Helmet",
+								   "Cone Helmet",
+								   "Natures Bow",
+								   "Bone",
+								   "Halberd",
+								   "Fish Scale Armor",
+                                   "Machete"
+							   ],
+					 "locations":  [
+                                       "Stages"
+								   ],
+					 "tier":  40
+				 },
+	"Sasquatch":  {
+					  "name":  "Sasquatch",
+					  "health":  4200,
+					  "defense":  160,
+					  "power":  273,
+					  "xp":  114,
+					  "speed":  5,
+					  "height":  11.6,
+					  "worth":  38,
+					  "boss":  false,
+					  "drops":  [
+									"Apple",
+									"Big Stick",
+									"Watermelon",
+									"Hammer",
+									"Blue Beanie",
+									"Super Hero Shirt",
+									"Eagle Staff",
+									"Mechanic Wing Bow",
+									"Book of Power",
+									"Diamond Studded Bow",
+									"Magnesium Boot",
+									"Ice Hammer",
+									"Santa Claus Hat",
+                                    "Ice Blade of Gods"
+								],
+					  "locations":  [
+                                        "Stages"
+									],
+					  "tier":  28
+				  },
+	"Yellow Hairy Monster":  {
+								 "name":  "Yellow Hairy Monster",
+								 "health":  55,
+								 "defense":  8,
+								 "power":  11,
+								 "xp":  9,
+								 "speed":  3.3,
+								 "height":  3,
+								 "worth":  3,
+								 "boss":  false,
+								 "drops":  [
+											   "Slingshot",
+											   "Oriental Hat",
+											   "Clover Hat",
+											   "Banana",
+											   "Apple",
+											   "Yellow Pants",
+											   "Short Sword",
+                                               "Basic Wand"
+										   ],
+								 "locations":  [
+												   "Stages",
+												   "Candy Lane",
+												   "Sugarcane Slopes",
+                                                   "Sky Kingdom"
+											   ],
+								 "tier":  14
+							 },
+	"Yellow Puff Monster":  {
+								"name":  "Yellow Puff Monster",
+								"health":  670,
+								"defense":  114,
+								"power":  135,
+								"xp":  51,
+								"speed":  4.6,
+								"height":  7.7,
+								"worth":  17,
+								"boss":  false,
+								"drops":  [
+											  "Apple",
+											  "Banana",
+											  "Bronze Dagger",
+											  "Brown Wizard Pants",
+											  "Coconut Knee Pads",
+											  "Half Coconut",
+											  "Hockey Mask",
+											  "Monster Skull",
+											  "Oriental Hat",
+											  "Witch Hat",
+                                              "Book of Range"
+										  ],
+								"locations":  [
+												  "Stages",
+                                                  "Lollipop Flatts"
+											  ],
+								"tier":  22
+							},
+	"Clipper":  {
+					"name":  "Clipper",
+					"health":  100,
+					"defense":  0,
+					"power":  10,
+					"xp":  10,
+					"speed":  3,
+					"height":  2,
+					"worth":  5,
+					"boss":  false,
+					"drops":  [
+
+							  ],
+					"locations":  [
+									  "Plant Swamp",
+									  "Deep Forest",
+									  "Lotus Eye Bog",
+									  "Repguana Sanction",
+									  "Aqualantis",
+									  "Deep Ocean",
+									  "Proteum Bottom",
+                                      "Acidic Waters"
+								  ],
+					"tier":  16
+				},
+	"Coconut Fish":  {
+						 "name":  "Coconut Fish",
+						 "health":  100,
+						 "defense":  0,
+						 "power":  10,
+						 "xp":  10,
+						 "speed":  3,
+						 "height":  2,
+						 "worth":  5,
+						 "boss":  false,
+						 "drops":  [
+
+								   ],
+						 "locations":  [
+										   "Tropical Beach",
+                                           "Beach Stretch"
+									   ],
+						 "tier":  16
+					 },
+	"Dark Reaper":  {
+						"name":  "Dark Reaper",
+						"health":  100,
+						"defense":  0,
+						"power":  10,
+						"xp":  10,
+						"speed":  3,
+						"height":  2,
+						"worth":  5,
+						"boss":  false,
+						"drops":  [
+
+								  ],
+						"locations":  [
+										  "Wastelands Entrance",
+                                          "Kreetus\u0027s Lair"
+									  ],
+						"tier":  16
+					},
+	"Dark Tadpole":  {
+						 "name":  "Dark Tadpole",
+						 "health":  100,
+						 "defense":  0,
+						 "power":  10,
+						 "xp":  10,
+						 "speed":  3,
+						 "height":  2,
+						 "worth":  5,
+						 "boss":  false,
+						 "drops":  [
+
+								   ],
+						 "locations":  [
+										   "Wastelands Entrance",
+                                           "Kreetus\u0027s Lair"
+									   ],
+						 "tier":  16
+					 },
+	"Dark Toad":  {
+					  "name":  "Dark Toad",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Wastelands Entrance",
+                                        "Kreetus\u0027s Lair"
+									],
+					  "tier":  16
+				  },
+	"Evil Pupe":  {
+					  "name":  "Evil Pupe",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Wastelands Entrance",
+                                        "Kreetus\u0027s Lair"
+									],
+					  "tier":  16
+				  },
+	"Flame Coy":  {
+					  "name":  "Flame Coy",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Lavastone Trench",
+                                        "Heated Stones"
+									],
+					  "tier":  16
+				  },
+	"Flipper":  {
+					"name":  "Flipper",
+					"health":  100,
+					"defense":  0,
+					"power":  10,
+					"xp":  10,
+					"speed":  3,
+					"height":  2,
+					"worth":  5,
+					"boss":  false,
+					"drops":  [
+
+							  ],
+					"locations":  [
+									  "Tropical Beach",
+									  "Beach Stretch",
+									  "Deep Forest",
+									  "Aqualantis",
+									  "Deep Ocean",
+                                      "Proteum Bottom"
+								  ],
+					"tier":  16
+				},
+	"Furry Feen":  {
+					   "name":  "Furry Feen",
+					   "health":  100,
+					   "defense":  0,
+					   "power":  10,
+					   "xp":  10,
+					   "speed":  3,
+					   "height":  2,
+					   "worth":  5,
+					   "boss":  false,
+					   "drops":  [
+
+								 ],
+					   "locations":  [
+										 "Fairytale Woods",
+                                         "Clouds of Destiny"
+									 ],
+					   "tier":  16
+				   },
+	"Glopper":  {
+					"name":  "Glopper",
+					"health":  100,
+					"defense":  0,
+					"power":  10,
+					"xp":  10,
+					"speed":  3,
+					"height":  2,
+					"worth":  5,
+					"boss":  false,
+					"drops":  [
+
+							  ],
+					"locations":  [
+									  "Plant Swamp",
+									  "Wet Bog",
+									  "Diseased Forest",
+									  "Deep Safari Water",
+                                      "Lotus Eye Bog"
+								  ],
+					"tier":  16
+				},
+	"Glowshine":  {
+					  "name":  "Glowshine",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+                                        "Light Highway"
+									],
+					  "tier":  16
+				  },
+	"Greenspot":  {
+					  "name":  "Greenspot",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Petropolis",
+										"Deep Ocean",
+										"Proteum Bottom",
+										"Aqualantis",
+                                        "Repguana Sanction"
+									],
+					  "tier":  16
+				  },
+	"Hairloom":  {
+					 "name":  "Hairloom",
+					 "health":  100,
+					 "defense":  0,
+					 "power":  10,
+					 "xp":  10,
+					 "speed":  3,
+					 "height":  2,
+					 "worth":  5,
+					 "boss":  false,
+					 "drops":  [
+
+							   ],
+					 "locations":  [
+                                       "Fairytale Woods"
+								   ],
+					 "tier":  16
+				 },
+	"Hertle":  {
+				   "name":  "Hertle",
+				   "health":  100,
+				   "defense":  0,
+				   "power":  10,
+				   "xp":  10,
+				   "speed":  3,
+				   "height":  2,
+				   "worth":  5,
+				   "boss":  false,
+				   "drops":  [
+
+							 ],
+				   "locations":  [
+                                     "Fairytale Woods"
+								 ],
+				   "tier":  16
+			   },
+	"Ice Fish":  {
+					 "name":  "Ice Fish",
+					 "health":  100,
+					 "defense":  0,
+					 "power":  10,
+					 "xp":  10,
+					 "speed":  3,
+					 "height":  2,
+					 "worth":  5,
+					 "boss":  false,
+					 "drops":  [
+
+							   ],
+					 "locations":  [
+									   "Cold Front",
+                                       "Snowy Flats"
+								   ],
+					 "tier":  16
+				 },
+	"Iron Minnow":  {
+						"name":  "Iron Minnow",
+						"health":  100,
+						"defense":  0,
+						"power":  10,
+						"xp":  10,
+						"speed":  3,
+						"height":  2,
+						"worth":  5,
+						"boss":  false,
+						"drops":  [
+
+								  ],
+						"locations":  [
+                                          "Light Highway"
+									  ],
+						"tier":  16
+					},
+	"Lava Reef Fish":  {
+						   "name":  "Lava Reef Fish",
+						   "health":  100,
+						   "defense":  0,
+						   "power":  10,
+						   "xp":  10,
+						   "speed":  3,
+						   "height":  2,
+						   "worth":  5,
+						   "boss":  false,
+						   "drops":  [
+
+									 ],
+						   "locations":  [
+											 "Lavastone Trench",
+                                             "Heated Stones"
+										 ],
+						   "tier":  16
+					   },
+	"Lava Spud":  {
+					  "name":  "Lava Spud",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Lavastone Trench",
+                                        "Heated Stones"
+									],
+					  "tier":  16
+				  },
+	"Lion Fish":  {
+					  "name":  "Lion Fish",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+                                        "Fairytale Woods"
+									],
+					  "tier":  16
+				  },
+	"Metal Guppy":  {
+						"name":  "Metal Guppy",
+						"health":  100,
+						"defense":  0,
+						"power":  10,
+						"xp":  10,
+						"speed":  3,
+						"height":  2,
+						"worth":  5,
+						"boss":  false,
+						"drops":  [
+
+								  ],
+						"locations":  [
+                                          "Light Highway"
+									  ],
+						"tier":  16
+					},
+	"Mud Fish":  {
+					 "name":  "Mud Fish",
+					 "health":  100,
+					 "defense":  0,
+					 "power":  10,
+					 "xp":  10,
+					 "speed":  3,
+					 "height":  2,
+					 "worth":  5,
+					 "boss":  false,
+					 "drops":  [
+
+							   ],
+					 "locations":  [
+									   "Deep Forest",
+                                       "Petropolis"
+								   ],
+					 "tier":  16
+				 },
+	"Mufungi":  {
+					"name":  "Mufungi",
+					"health":  100,
+					"defense":  0,
+					"power":  10,
+					"xp":  10,
+					"speed":  3,
+					"height":  2,
+					"worth":  5,
+					"boss":  false,
+					"drops":  [
+
+							  ],
+					"locations":  [
+									  "Blue Shroom Den",
+									  "Shroom Passage",
+                                      "Mushroom Train Station"
+								  ],
+					"tier":  16
+				},
+	"Mushroom Coy":  {
+						 "name":  "Mushroom Coy",
+						 "health":  100,
+						 "defense":  0,
+						 "power":  10,
+						 "xp":  10,
+						 "speed":  3,
+						 "height":  2,
+						 "worth":  5,
+						 "boss":  false,
+						 "drops":  [
+
+								   ],
+						 "locations":  [
+										   "Blue Shroom Den",
+										   "Shroom Passage",
+                                           "Mushroom Train Station"
+									   ],
+						 "tier":  16
+					 },
+	"Omate":  {
+				  "name":  "Omate",
+				  "health":  100,
+				  "defense":  0,
+				  "power":  10,
+				  "xp":  10,
+				  "speed":  3,
+				  "height":  2,
+				  "worth":  5,
+				  "boss":  false,
+				  "drops":  [
+
+							],
+				  "locations":  [
+                                    "Petropolis"
+								],
+				  "tier":  16
+			  },
+	"Peep Fish":  {
+					  "name":  "Peep Fish",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Light Highway",
+										"Electric Walkway",
+                                        "Future Water Trench"
+									],
+					  "tier":  16
+				  },
+	"Plant Bacteria":  {
+						   "name":  "Plant Bacteria",
+						   "health":  100,
+						   "defense":  0,
+						   "power":  10,
+						   "xp":  10,
+						   "speed":  3,
+						   "height":  2,
+						   "worth":  5,
+						   "boss":  false,
+						   "drops":  [
+
+									 ],
+						   "locations":  [
+											 "Deep Forest",
+                                             "Petropolis"
+										 ],
+						   "tier":  16
+					   },
+	"Plant Fungus":  {
+						 "name":  "Plant Fungus",
+						 "health":  100,
+						 "defense":  0,
+						 "power":  10,
+						 "xp":  10,
+						 "speed":  3,
+						 "height":  2,
+						 "worth":  5,
+						 "boss":  false,
+						 "drops":  [
+
+								   ],
+						 "locations":  [
+										   "Fairytale Woods",
+                                           "Repguana Sanction"
+									   ],
+						 "tier":  16
+					 },
+	"Pootnick":  {
+					 "name":  "Pootnick",
+					 "health":  100,
+					 "defense":  0,
+					 "power":  10,
+					 "xp":  10,
+					 "speed":  3,
+					 "height":  2,
+					 "worth":  5,
+					 "boss":  false,
+					 "drops":  [
+
+							   ],
+					 "locations":  [
+									   "Plant Swamp",
+									   "Deep Forest",
+                                       "Lotus Eye Bog"
+								   ],
+					 "tier":  16
+				 },
+	"Puffer":  {
+				   "name":  "Puffer",
+				   "health":  100,
+				   "defense":  0,
+				   "power":  10,
+				   "xp":  10,
+				   "speed":  3,
+				   "height":  2,
+				   "worth":  5,
+				   "boss":  false,
+				   "drops":  [
+
+							 ],
+				   "locations":  [
+									 "High Greens",
+									 "Clouds of Destiny",
+                                     "Wastelands Entrance"
+								 ],
+				   "tier":  16
+			   },
+	"Pumphin":  {
+					"name":  "Pumphin",
+					"health":  100,
+					"defense":  0,
+					"power":  10,
+					"xp":  10,
+					"speed":  3,
+					"height":  2,
+					"worth":  5,
+					"boss":  false,
+					"drops":  [
+
+							  ],
+					"locations":  [
+                                      "Haunted Woods"
+								  ],
+					"tier":  16
+				},
+	"Pumpkin Shell Fish":  {
+							   "name":  "Pumpkin Shell Fish",
+							   "health":  100,
+							   "defense":  0,
+							   "power":  10,
+							   "xp":  10,
+							   "speed":  3,
+							   "height":  2,
+							   "worth":  5,
+							   "boss":  false,
+							   "drops":  [
+
+										 ],
+							   "locations":  [
+                                                 "Haunted Woods"
+											 ],
+							   "tier":  16
+						   },
+	"Root Fish":  {
+					  "name":  "Root Fish",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Haunted Woods",
+										"Plant Swamp",
+										"Deep Forest",
+                                        "Lotus Eye Bog"
+									],
+					  "tier":  16
+				  },
+	"Sharktooth":  {
+					   "name":  "Sharktooth",
+					   "health":  100,
+					   "defense":  0,
+					   "power":  10,
+					   "xp":  10,
+					   "speed":  3,
+					   "height":  2,
+					   "worth":  5,
+					   "boss":  false,
+					   "drops":  [
+
+								 ],
+					   "locations":  [
+                                         "Light Highway"
+									 ],
+					   "tier":  16
+				   },
+	"Shroom Serpent":  {
+						   "name":  "Shroom Serpent",
+						   "health":  100,
+						   "defense":  0,
+						   "power":  10,
+						   "xp":  10,
+						   "speed":  3,
+						   "height":  2,
+						   "worth":  5,
+						   "boss":  false,
+						   "drops":  [
+
+									 ],
+						   "locations":  [
+											 "Blue Shroom Den",
+											 "Shroom Passage",
+                                             "Mushroom Train Station"
+										 ],
+						   "tier":  16
+					   },
+	"Shroomer":  {
+					 "name":  "Shroomer",
+					 "health":  100,
+					 "defense":  0,
+					 "power":  10,
+					 "xp":  10,
+					 "speed":  3,
+					 "height":  2,
+					 "worth":  5,
+					 "boss":  false,
+					 "drops":  [
+
+							   ],
+					 "locations":  [
+									   "Blue Shroom Den",
+									   "Shroom Passage",
+                                       "Mushroom Train Station"
+								   ],
+					 "tier":  16
+				 },
+	"Sliver":  {
+				   "name":  "Sliver",
+				   "health":  100,
+				   "defense":  0,
+				   "power":  10,
+				   "xp":  10,
+				   "speed":  3,
+				   "height":  2,
+				   "worth":  5,
+				   "boss":  false,
+				   "drops":  [
+
+							 ],
+				   "locations":  [
+									 "Wooden Plains",
+									 "High Greens",
+									 "Deep Forest",
+									 "Bouncer\u0027s Cave",
+									 "Aqualantis",
+									 "Deep Ocean",
+									 "Proteum Bottom",
+									 "Tropical Beach",
+									 "Beach Stretch",
+                                     "Clouds of Destiny"
+								 ],
+				   "tier":  16
+			   },
+	"Snow Fish":  {
+					  "name":  "Snow Fish",
+					  "health":  100,
+					  "defense":  0,
+					  "power":  10,
+					  "xp":  10,
+					  "speed":  3,
+					  "height":  2,
+					  "worth":  5,
+					  "boss":  false,
+					  "drops":  [
+
+								],
+					  "locations":  [
+										"Cold Front",
+                                        "Snowy Flats"
+									],
+					  "tier":  16
+				  },
+	"Spud":  {
+				 "name":  "Spud",
+				 "health":  100,
+				 "defense":  0,
+				 "power":  10,
+				 "xp":  10,
+				 "speed":  3,
+				 "height":  2,
+				 "worth":  5,
+				 "boss":  false,
+				 "drops":  [
+
+						   ],
+				 "locations":  [
+								   "Tropical Beach",
+                                   "Beach Stretch"
+							   ],
+				 "tier":  16
+			 },
+	"Stagnant Scum":  {
+						  "name":  "Stagnant Scum",
+						  "health":  100,
+						  "defense":  0,
+						  "power":  10,
+						  "xp":  10,
+						  "speed":  3,
+						  "height":  2,
+						  "worth":  5,
+						  "boss":  false,
+						  "drops":  [
+
+									],
+						  "locations":  [
+                                            "Fairytale Woods"
+										],
+						  "tier":  16
+					  },
+	"Subordinate":  {
+						"name":  "Subordinate",
+						"health":  100,
+						"defense":  0,
+						"power":  10,
+						"xp":  10,
+						"speed":  3,
+						"height":  2,
+						"worth":  5,
+						"boss":  false,
+						"drops":  [
+
+								  ],
+						"locations":  [
+                                          "Light Highway"
+									  ],
+						"tier":  16
+					},
+	"Swerm":  {
+				  "name":  "Swerm",
+				  "health":  100,
+				  "defense":  0,
+				  "power":  10,
+				  "xp":  10,
+				  "speed":  3,
+				  "height":  2,
+				  "worth":  5,
+				  "boss":  false,
+				  "drops":  [
+
+							],
+				  "locations":  [
+									"Blue Shroom Den",
+									"Shroom Passage",
+									"Mushroom Train Station",
+                                    "Clouds of Destiny"
+								],
+				  "tier":  16
+			  }
+}
