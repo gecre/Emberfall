@@ -25,7 +25,7 @@ signal server_discovered(base_url: String)
 ## Emitted when the search for a server on the local network found nothing.
 signal discovery_failed()
 
-const DEFAULT_BASE_URL := "http://127.0.0.1:7575/api"
+const DEFAULT_BASE_URL := "https://emberfall-production-4a8bfbd3.up.railway.app/api"
 const CONFIG_PATH := "user://emberfall_server.json"
 const REQUEST_TIMEOUT := 15.0
 
@@ -93,7 +93,7 @@ func _load_config() -> void:
 		var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONFIG_PATH))
 		if typeof(parsed) == TYPE_DICTIONARY:
 			var configured := str(parsed.get("base_url", "")).strip_edges()
-			if not configured.is_empty():
+			if not configured.is_empty() and not configured.contains("127.0.0.1") and not configured.contains("localhost"):
 				base_url = configured
 	var override := OS.get_environment("EMBERFALL_API_URL").strip_edges()
 	if not override.is_empty():
