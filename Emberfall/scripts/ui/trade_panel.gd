@@ -387,8 +387,8 @@ func _refresh_ui() -> void:
 		else:
 			btn.text = "Empty"
 
-	_my_gold_label.text = "Gold: %s" % Number(my_gold).toLocaleString()
-	_their_gold_label.text = "Gold: %s" % Number(their_gold).toLocaleString()
+	_my_gold_label.text = "Gold: %s" % str(int(my_gold))
+	_their_gold_label.text = "Gold: %s" % str(int(their_gold))
 
 	if my_locked:
 		_lock_button.text = "UNLOCK"
