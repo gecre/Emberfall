@@ -22,6 +22,8 @@ import { db, reopenDatabase, itemCatalog } from "./db.js";
 
 export const admin = express.Router();
 
+const ALLOW_REMOTE = process.env.EMBERFALL_ADMIN_REMOTE !== "0";
+
 /** True when the request came from this machine. */
 function isLoopback(req) {
   const address = req.socket.remoteAddress || "";
@@ -33,9 +35,9 @@ function isLoopback(req) {
   );
 }
 
-/** Rejects anything that is not coming from this machine. */
+/** Rejects unallowed remote access if remote admin is explicitly turned off. */
 admin.use((req, res, next) => {
-  if (!isLoopback(req)) {
+  if (!isLoopback(req) && !ALLOW_REMOTE) {
     return res
       .status(403)
       .json({ error: "The admin dashboard is only available from localhost." });
@@ -45,7 +47,8 @@ admin.use((req, res, next) => {
 
 /** Requires the admin key on every data route. */
 function requireKey(req, res, next) {
-  if (req.get("x-admin-key") !== ADMIN_KEY) {
+  const provided = req.get("x-admin-key") || req.query.key;
+  if (!provided || provided !== ADMIN_KEY) {
     return res.status(401).json({ error: "Bad or missing admin key." });
   }
   next();
@@ -55,15 +58,16 @@ function requireKey(req, res, next) {
 // Page
 // ---------------------------------------------------------------------------
 
-admin.get("/", (_req, res) => {
+admin.get("/", (req, res) => {
   if (!fs.existsSync(ADMIN_HTML_PATH)) {
     return res
       .status(404)
       .send("The admin dashboard page is missing from server/public/admin.html");
   }
+  const canEmbed = isLoopback(req) || (req.query.key && req.query.key === ADMIN_KEY);
   const html = fs
     .readFileSync(ADMIN_HTML_PATH, "utf8")
-    .replace("__ADMIN_KEY__", ADMIN_KEY);
+    .replace("__ADMIN_KEY__", canEmbed ? ADMIN_KEY : "");
   res.type("html").send(html);
 });
 
