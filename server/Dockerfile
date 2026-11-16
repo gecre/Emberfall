@@ -3,7 +3,7 @@ WORKDIR /app
 
 # Dependencies
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 
 # Source and bundled game data
 COPY src/ ./src/
