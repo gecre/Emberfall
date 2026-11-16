@@ -14,3 +14,11 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Godot editor executable
+*.exe
+server/node_modules/
+server/data/emberfall.sqlite
+server/data/backups/
+server/data/jwt_secret.txt
+server/data/admin_key.txt
