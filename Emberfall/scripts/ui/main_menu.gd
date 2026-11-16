@@ -475,9 +475,7 @@ func _on_discovery_failed() -> void:
 
 ## Explains which address has to be typed.
 func _server_help_text() -> String:
-	if OS.get_name() == "Android" or OS.get_name() == "iOS":
-		return "On a phone use the address of the computer running the server, for example http://192.168.1.10:7575/api"
-	return "The address of the computer running the server, for example http://192.168.1.10:7575/api"
+	return "Official server: https://emberfall-production-4a8bfbd3.up.railway.app/api"
 
 
 func _on_login_success(_token: String, _account: Dictionary) -> void:
