@@ -244,13 +244,56 @@ func _remote_players_setup() -> void:
 	remote_players_container.name = "RemotePlayers"
 	add_child(remote_players_container)
 
-	if multiplayer.multiplayer_peer == null or multiplayer.multiplayer_peer is OfflineMultiplayerPeer:
-		return
+	if Network.online_mode:
+		Network.stage_players_received.connect(_on_stage_players_received)
+		Network.remote_player_joined.connect(_on_remote_player_joined)
+		Network.remote_player_moved.connect(_on_remote_player_moved)
+		Network.remote_player_left.connect(_on_remote_player_left)
+		Network.join_stage(stage_number, spawn_point)
 
-	multiplayer.peer_connected.connect(_spawn_remote_player)
-	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-	for pid in Network.connected_peers:
-		_spawn_remote_player(pid)
+	if multiplayer.multiplayer_peer != null and not (multiplayer.multiplayer_peer is OfflineMultiplayerPeer):
+		multiplayer.peer_connected.connect(_spawn_remote_player)
+		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+		for pid in Network.connected_peers:
+			_spawn_remote_player(pid)
+
+
+func _on_stage_players_received(stage: int, players: Array) -> void:
+	if stage != stage_number:
+		return
+	for pdata in players:
+		_spawn_remote_ws_player(pdata)
+
+
+func _on_remote_player_joined(pdata: Dictionary) -> void:
+	_spawn_remote_ws_player(pdata)
+
+
+func _spawn_remote_ws_player(pdata: Dictionary) -> void:
+	var id: int = int(pdata.get("id", 0))
+	if id <= 0 or id == Network.our_id:
+		return
+	var existing := remote_players_container.get_node_or_null("RemotePlayer_%d" % id)
+	if is_instance_valid(existing):
+		return
+	var rplayer: Player = PLAYER_SCENE.instantiate()
+	rplayer.name = "RemotePlayer_%d" % id
+	rplayer.remote_data = pdata
+	var pos_arr: Array = pdata.get("pos", [spawn_point.x, spawn_point.y])
+	rplayer.position = Vector2(float(pos_arr[0]), float(pos_arr[1]))
+	remote_players_container.add_child(rplayer)
+
+
+func _on_remote_player_moved(id: int, pos: Vector2, vel: Vector2, facing: float, swing: bool) -> void:
+	var rplayer := remote_players_container.get_node_or_null("RemotePlayer_%d" % id)
+	if is_instance_valid(rplayer) and rplayer.has_method("apply_remote_move"):
+		rplayer.apply_remote_move(pos, vel, facing, swing)
+
+
+func _on_remote_player_left(id: int) -> void:
+	var node := remote_players_container.get_node_or_null("RemotePlayer_%d" % id)
+	if is_instance_valid(node):
+		node.queue_free()
 
 
 ## Spawns a player representation for a connected remote peer.

@@ -44,6 +44,7 @@ const INTERP_DELAY := 0.1  # 100ms interpolation buffer for lag compensation
 var _network_timer := 0.0
 var _position_history: Array = []  # [{time, position, velocity, facing}]
 var _is_remote := false
+var remote_data: Dictionary = {}
 
 @onready var attack_area: Area2D = $AttackArea
 @onready var attack_shape: CollisionShape2D = $AttackArea/CollisionShape2D
@@ -56,7 +57,7 @@ func _ready() -> void:
 	attack_shape.shape = RectangleShape2D.new()
 	interact_area.area_entered.connect(_on_interact_area_entered)
 	interact_area.area_exited.connect(_on_interact_area_exited)
-	if camera != null:
+	if camera != null and not _is_remote:
 		camera.zoom = Vector2(GameState.camera_zoom, GameState.camera_zoom)
 		GameState.camera_zoom_changed.connect(func(z: float) -> void:
 			if is_instance_valid(camera):
@@ -68,17 +69,29 @@ func _ready() -> void:
 
 
 func _multiplayer_setup() -> void:
-	var my_id := multiplayer.get_unique_id()
-	_is_remote = get_multiplayer_authority() != my_id
+	if not remote_data.is_empty():
+		_is_remote = true
+	else:
+		var my_id := multiplayer.get_unique_id()
+		_is_remote = get_multiplayer_authority() != my_id
 	if _is_remote:
-		# Remote players don't process local input or camera
-		pass
+		collision_layer = 0
+		collision_mask = 1  # only collide with ground
+		if is_instance_valid(camera):
+			camera.enabled = false
 
 
 func _physics_process(delta: float) -> void:
 	if _is_remote:
 		_network_interpolate(delta)
 		return
+
+	if Network.online_mode:
+		_network_timer += delta
+		if _network_timer >= NETWORK_SEND_INTERVAL:
+			_network_timer = 0.0
+			Network.send_movement(global_position, velocity, facing, swing_timer > 0.0)
+
 	var was_swinging := swing_timer > 0.0
 	var was_invuln := invuln_timer > 0.0
 	attack_cooldown = maxf(0.0, attack_cooldown - delta)
@@ -612,7 +625,12 @@ func _nearest_portal() -> Portal:
 # Drawing
 # ---------------------------------------------------------------------------
 func _gear_color(slot: String, fallback: Color) -> Color:
-	var item_name := str(GameState.equipment.get(slot, ""))
+	var item_name := ""
+	if _is_remote and not remote_data.is_empty():
+		var eq: Dictionary = remote_data.get("equipment", {})
+		item_name = str(eq.get(slot, ""))
+	else:
+		item_name = str(GameState.equipment.get(slot, ""))
 	if item_name == "":
 		return fallback
 	var data := GameData.item(item_name)
@@ -669,9 +687,26 @@ func _draw() -> void:
 	draw_circle(Vector2(facing * 3.0, -55 + y), 1.7, Color(0.08, 0.09, 0.12))
 
 	# Shield
-	if str(GameState.equipment.get("shield", "")) != "":
+	var has_shield := false
+	if _is_remote and not remote_data.is_empty():
+		has_shield = str(remote_data.get("equipment", {}).get("shield", "")) != ""
+	else:
+		has_shield = str(GameState.equipment.get("shield", "")) != ""
+	if has_shield:
 		draw_circle(Vector2(-facing * 12.0, -38 + y), 8.0, Color(0.62, 0.68, 0.78))
 		draw_circle(Vector2(-facing * 12.0, -38 + y), 5.0, Color(0.85, 0.72, 0.35))
+
+	# Remote player nameplate
+	if _is_remote:
+		var rname: String = str(remote_data.get("name", "Player"))
+		var rlevel: int = int(remote_data.get("level", 1))
+		var label := "%s (Lv. %d)" % [rname, rlevel]
+		var font := ThemeDB.fallback_font
+		var font_size := 11
+		var text_w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_CENTER, -1, font_size).x
+		var text_pos := Vector2(-text_w * 0.5, -92.0 + y)
+		draw_string(font, text_pos + Vector2(1, 1), label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(0, 0, 0, 0.8))
+		draw_string(font, text_pos, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(1.0, 0.92, 0.45))
 
 	# Weapon / swing
 	var hand := Vector2(facing * 11.0, -38 + y)
@@ -717,6 +752,24 @@ func _network_interpolate(delta: float) -> void:
 	facing = p0["facing"]
 	_update_attack_shape()
 	queue_redraw()
+
+
+## Applies a movement update from the WebSocket stage relay.
+func apply_remote_move(target_pos: Vector2, new_vel: Vector2, new_facing: float, is_swinging: bool) -> void:
+	var now := Time.get_ticks_msec() / 1000.0
+	_position_history.append({
+		"time": now,
+		"position": target_pos,
+		"velocity": new_vel,
+		"facing": new_facing,
+	})
+	while _position_history.size() > INTERP_BUFFER_SIZE:
+		_position_history.pop_front()
+
+	if is_swinging and swing_timer <= 0.0:
+		swing_timer = 0.2
+	facing = new_facing
+	velocity = new_vel
 
 
 ## Receives position/velocity/facing from the authority player. Called ~20/sec.

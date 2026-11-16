@@ -6,6 +6,7 @@ import { db } from "./db.js";
 import { startDiscovery } from "./discovery.js";
 import { requestLogger } from "./middleware.js";
 import { admin } from "./admin_web.js";
+import { setupWsRelay } from "./ws_relay.js";
 
 export function createApp() {
   const app = express();
@@ -64,6 +65,8 @@ if (isMain) {
       console.log(`[server] Admin key:       ${ADMIN_KEY}`);
     }
   });
+
+  setupWsRelay(server);
 
   // Lets phones and emulators find the server without typing an address.
   let discovery = null;
