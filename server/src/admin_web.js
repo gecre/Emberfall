@@ -457,6 +457,34 @@ admin.delete("/api/characters/:id", requireKey, (req, res) => {
   res.json({ ok: true, deleted: character.name });
 });
 
+admin.post("/api/characters/:id/rename", requireKey, (req, res) => {
+  const id = Number(req.params.id);
+  const newName = String(req.body?.name || "").trim();
+  if (!newName) {
+    return res.status(400).json({ error: "New character name is required." });
+  }
+  const character = db.prepare("SELECT id, name, data FROM characters WHERE id = ?").get(id);
+  if (!character) {
+    return res.status(404).json({ error: "Character not found." });
+  }
+  const existing = db
+    .prepare("SELECT id FROM characters WHERE name = ? COLLATE NOCASE AND id != ?")
+    .get(newName, id);
+  if (existing) {
+    return res.status(409).json({ error: "A character with that name already exists." });
+  }
+
+  db.prepare("UPDATE characters SET name = ? WHERE id = ?").run(newName, id);
+
+  try {
+    const dataObj = JSON.parse(character.data || "{}");
+    dataObj.player_name = newName;
+    db.prepare("UPDATE characters SET data = ? WHERE id = ?").run(JSON.stringify(dataObj), id);
+  } catch {}
+
+  res.json({ ok: true, id, oldName: character.name, name: newName });
+});
+
 // Edit a character's gold, level, current_stage, and/or unlocked_stage.
 admin.patch("/api/character/:id", requireKey, (req, res) => {
   const id = Number(req.params.id);

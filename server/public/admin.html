@@ -546,6 +546,7 @@
             <td class="muted">${esc(c.updated_at)}</td>
             <td><div class="row-actions">
               <button class="act" onclick="viewCharacter(${c.id})">View</button>
+              <button class="act" onclick="renameCharacter(${c.id}, '${esc(c.name)}')">Rename</button>
               <button class="act danger" onclick="delCharacter(${c.id})">Delete</button>
             </div></td>`,
         });
@@ -817,6 +818,16 @@
         if (!confirm(`Delete the character "${character.name}"?`)) return;
         act("/api/characters/" + id, undefined, "DELETE")
           .then(() => { toast("Character deleted.", "good"); reload(); })
+          .catch((e) => toast(e.message, "bad"));
+      }
+      function renameCharacter(id, currentName) {
+        const newName = prompt(`Enter new name for character "${currentName}":`, currentName);
+        if (!newName || newName.trim() === "" || newName.trim() === currentName) return;
+        act(`/api/characters/${id}/rename`, { name: newName.trim() })
+          .then((d) => {
+            toast(`Character renamed to "${d.name}".`, "good");
+            reload();
+          })
           .catch((e) => toast(e.message, "bad"));
       }
       function makeBackup() {
