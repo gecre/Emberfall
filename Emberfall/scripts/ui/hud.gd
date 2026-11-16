@@ -122,6 +122,7 @@ var dialogue_panel: PanelContainer
 var dialogue_name_label: Label
 var dialogue_text_label: Label
 var chat_box = null
+var friends_panel: PanelContainer
 
 var _hotbar_assignments: Dictionary = {}
 
@@ -503,6 +504,11 @@ func _build_ui() -> void:
 	options_button.add_theme_font_size_override("font_size", 13)
 	options_button.pressed.connect(_toggle_settings)
 	top_right.add_child(options_button)
+
+	var friends_button := _make_button("👥 Friends", Vector2(100, 32))
+	friends_button.add_theme_font_size_override("font_size", 13)
+	friends_button.pressed.connect(_toggle_friends)
+	top_right.add_child(friends_button)
 
 	# Mobile-only Pause entry point; Esc remains the desktop shortcut.
 	var pause_button := _make_button("Pause", Vector2(76, 32))
