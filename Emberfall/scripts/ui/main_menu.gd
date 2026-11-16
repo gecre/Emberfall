@@ -500,7 +500,8 @@ func _on_characters_loaded(characters: Array) -> void:
 	if _entering_world:
 		return
 	if characters.is_empty():
-		_create_first_character()
+		_show_character_select(characters)
+		_show_new_character_form(true)
 		return
 	_show_character_select(characters)
 
