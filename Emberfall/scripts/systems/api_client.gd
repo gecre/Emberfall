@@ -20,6 +20,12 @@ signal character_deleted(character_id: int)
 signal character_saved(saved_at: String)
 signal save_failed(error: String)
 signal request_failed(error: String)
+signal friends_loaded(friends: Array)
+signal friend_requests_loaded(requests: Array, sent: Array)
+signal friend_request_sent(to_name: String)
+signal friend_request_failed(error: String)
+signal friend_responded(ok: bool)
+signal friend_removed(ok: bool)
 ## Emitted when a server was found on the local network.
 signal server_discovered(base_url: String)
 ## Emitted when the search for a server on the local network found nothing.
@@ -318,6 +324,26 @@ func delete_character(id: int) -> void:
 	_enqueue(HTTPClient.METHOD_DELETE, "/characters/%d" % id, null, "delete")
 
 
+func list_friends() -> void:
+	_enqueue(HTTPClient.METHOD_GET, "/friends", null, "friends_list")
+
+
+func list_friend_requests() -> void:
+	_enqueue(HTTPClient.METHOD_GET, "/friends/requests", null, "friends_requests")
+
+
+func send_friend_request(username: String) -> void:
+	_enqueue(HTTPClient.METHOD_POST, "/friends/request", {"username": username}, "friends_send")
+
+
+func respond_friend_request(requester_id: int, accept: bool) -> void:
+	_enqueue(HTTPClient.METHOD_POST, "/friends/respond", {"requester_id": requester_id, "accept": accept}, "friends_respond")
+
+
+func remove_friend(account_id: int) -> void:
+	_enqueue(HTTPClient.METHOD_DELETE, "/friends/%d" % account_id, null, "friends_remove")
+
+
 func logout() -> void:
 	token = ""
 	username = ""
@@ -401,6 +427,8 @@ func _on_request_completed(result: int, response_code: int, _headers: PackedStri
 			save_failed.emit(message)
 		elif kind == "create":
 			character_create_failed.emit(message)
+		elif kind == "friends_send":
+			friend_request_failed.emit(message)
 		else:
 			request_failed.emit(message)
 	_pump()
@@ -433,6 +461,16 @@ func _handle_success(kind: String, payload: Dictionary) -> void:
 			if character_id == removed:
 				character_id = 0
 			character_deleted.emit(removed)
+		"friends_list":
+			friends_loaded.emit(payload.get("friends", []))
+		"friends_requests":
+			friend_requests_loaded.emit(payload.get("requests", []), payload.get("sent", []))
+		"friends_send":
+			friend_request_sent.emit(str(payload.get("to", "")))
+		"friends_respond":
+			friend_responded.emit(true)
+		"friends_remove":
+			friend_removed.emit(true)
 		_:
 			pass
 
