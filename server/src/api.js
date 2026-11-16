@@ -1,4 +1,6 @@
 import express from "express";
+import fs from "node:fs";
+import path from "node:path";
 import { signToken, hashPassword, verifyPassword } from "./auth.js";
 import { MAX_CHARACTERS, dbFingerprint } from "./config.js";
 import {
@@ -56,6 +58,31 @@ api.get("/health", (_req, res) => {
     // avoid restoring over a database that is still in use.
     db_id: dbFingerprint(),
   });
+});
+
+api.get("/version", (_req, res) => {
+  const versionFile = path.resolve("public/version.json");
+  if (fs.existsSync(versionFile)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(versionFile, "utf-8"));
+      return res.json(data);
+    } catch {
+      // fallback
+    }
+  }
+  res.json({
+    version: "1.0.0",
+    pck_url: "/api/updates/patch.pck",
+    notes: "Latest release",
+  });
+});
+
+api.get("/updates/patch.pck", (_req, res) => {
+  const pckPath = path.resolve("public/patch.pck");
+  if (fs.existsSync(pckPath)) {
+    return res.download(pckPath, "patch.pck");
+  }
+  res.status(404).json({ error: "No patch file found on server." });
 });
 
 // ---------------------------------------------------------------------------
