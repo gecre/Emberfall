@@ -123,6 +123,9 @@ var dialogue_name_label: Label
 var dialogue_text_label: Label
 var chat_box = null
 var friends_panel: PanelContainer
+var friends_list: VBoxContainer
+var friend_requests_list: VBoxContainer
+var friend_name_input: LineEdit
 
 var _hotbar_assignments: Dictionary = {}
 
@@ -613,6 +616,199 @@ func _build_ui() -> void:
 	_build_settings_panel()
 	_build_chat_box()
 	_build_friends_panel()
+
+
+func _build_friends_panel() -> void:
+	friends_panel = _centered_panel(Vector2(620, 560))
+	var outer := VBoxContainer.new()
+	outer.add_theme_constant_override("separation", 10)
+	friends_panel.add_child(outer)
+
+	var header := HBoxContainer.new()
+	outer.add_child(header)
+	var title := _make_label("Friends", 22, Color(1.0, 0.5, 0.2))
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header.add_child(title)
+	var refresh_btn := _make_button("Refresh", Vector2(90, 34))
+	refresh_btn.add_theme_font_size_override("font_size", 13)
+	refresh_btn.pressed.connect(_refresh_friends)
+	header.add_child(refresh_btn)
+	var close_btn := _make_button("X", Vector2(40, 34))
+	close_btn.pressed.connect(_close_panels)
+	header.add_child(close_btn)
+	_make_draggable(friends_panel, header)
+
+	var add_row := HBoxContainer.new()
+	add_row.add_theme_constant_override("separation", 8)
+	outer.add_child(add_row)
+	friend_name_input = LineEdit.new()
+	friend_name_input.placeholder_text = "Username"
+	friend_name_input.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	friend_name_input.text_submitted.connect(func(_text: String) -> void: _send_friend_request())
+	add_row.add_child(friend_name_input)
+	var add_btn := _make_button("Add Friend", Vector2(120, 36))
+	add_btn.pressed.connect(_send_friend_request)
+	add_row.add_child(add_btn)
+
+	outer.add_child(_section_label("Friends"))
+	var friends_scroll := ScrollContainer.new()
+	friends_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	outer.add_child(friends_scroll)
+	friends_list = VBoxContainer.new()
+	friends_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	friends_list.add_theme_constant_override("separation", 4)
+	friends_scroll.add_child(friends_list)
+
+	outer.add_child(_section_label("Requests"))
+	var requests_scroll := ScrollContainer.new()
+	requests_scroll.custom_minimum_size = Vector2(0, 140)
+	requests_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	outer.add_child(requests_scroll)
+	friend_requests_list = VBoxContainer.new()
+	friend_requests_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	friend_requests_list.add_theme_constant_override("separation", 4)
+	requests_scroll.add_child(friend_requests_list)
+
+	if not Api.friends_loaded.is_connected(_on_friends_loaded):
+		Api.friends_loaded.connect(_on_friends_loaded)
+	if not Api.friend_requests_loaded.is_connected(_on_friend_requests_loaded):
+		Api.friend_requests_loaded.connect(_on_friend_requests_loaded)
+	if not Api.friend_request_sent.is_connected(_on_friend_request_sent):
+		Api.friend_request_sent.connect(_on_friend_request_sent)
+	if not Api.friend_request_failed.is_connected(_on_friend_request_failed):
+		Api.friend_request_failed.connect(_on_friend_request_failed)
+	if not Api.friend_responded.is_connected(_on_friend_responded):
+		Api.friend_responded.connect(_on_friend_responded)
+	if not Api.friend_removed.is_connected(_on_friend_removed):
+		Api.friend_removed.connect(_on_friend_removed)
+
+
+func _toggle_friends() -> void:
+	if friends_panel.visible:
+		_close_panels()
+	else:
+		_refresh_friends()
+		_open_panel(friends_panel)
+
+
+func _refresh_friends() -> void:
+	_clear(friends_list)
+	_clear(friend_requests_list)
+	friends_list.add_child(_make_label("Loading...", 14, Color(0.7, 0.75, 0.7)))
+	friend_requests_list.add_child(_make_label("Loading...", 14, Color(0.7, 0.75, 0.7)))
+	Api.list_friends()
+	Api.list_friend_requests()
+
+
+func _send_friend_request() -> void:
+	var username := friend_name_input.text.strip_edges()
+	if username.is_empty():
+		return
+	Api.send_friend_request(username)
+	friend_name_input.text = ""
+
+
+func _friend_row(parent: Control) -> HBoxContainer:
+	var card := PanelContainer.new()
+	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	card.add_theme_stylebox_override("panel", _card_style())
+	parent.add_child(card)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 8)
+	card.add_child(row)
+	return row
+
+
+func _on_friends_loaded(friends: Array) -> void:
+	_clear(friends_list)
+	if friends.is_empty():
+		friends_list.add_child(_make_label("No friends yet.", 14, Color(0.7, 0.75, 0.7)))
+		return
+	for f in friends:
+		if typeof(f) != TYPE_DICTIONARY:
+			continue
+		var account_id := int(f.get("id", 0))
+		var username := str(f.get("username", "?"))
+		var row := _friend_row(friends_list)
+		var name_lbl := _make_label(username, 15, Color(0.95, 0.9, 0.7))
+		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(name_lbl)
+		var whisper_btn := _make_button("Whisper", Vector2(90, 30))
+		whisper_btn.add_theme_font_size_override("font_size", 12)
+		whisper_btn.pressed.connect(_whisper_friend.bind(username))
+		row.add_child(whisper_btn)
+		var remove_btn := _make_button("Remove", Vector2(90, 30))
+		remove_btn.add_theme_font_size_override("font_size", 12)
+		remove_btn.pressed.connect(_remove_friend.bind(account_id))
+		row.add_child(remove_btn)
+
+
+func _on_friend_requests_loaded(requests: Array, sent: Array) -> void:
+	_clear(friend_requests_list)
+	if requests.is_empty() and sent.is_empty():
+		friend_requests_list.add_child(_make_label("No pending requests.", 14, Color(0.7, 0.75, 0.7)))
+		return
+	for req in requests:
+		if typeof(req) != TYPE_DICTIONARY:
+			continue
+		var requester_id := int(req.get("id", 0))
+		var username := str(req.get("username", "?"))
+		var row := _friend_row(friend_requests_list)
+		var name_lbl := _make_label(username, 15, Color(0.95, 0.9, 0.7))
+		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(name_lbl)
+		var accept_btn := _make_button("Accept", Vector2(80, 30))
+		accept_btn.add_theme_font_size_override("font_size", 12)
+		accept_btn.pressed.connect(_respond_friend.bind(requester_id, true))
+		row.add_child(accept_btn)
+		var decline_btn := _make_button("Decline", Vector2(80, 30))
+		decline_btn.add_theme_font_size_override("font_size", 12)
+		decline_btn.pressed.connect(_respond_friend.bind(requester_id, false))
+		row.add_child(decline_btn)
+	for req in sent:
+		if typeof(req) != TYPE_DICTIONARY:
+			continue
+		var account_id := int(req.get("id", 0))
+		var row := _friend_row(friend_requests_list)
+		var name_lbl := _make_label("%s (sent)" % str(req.get("username", "?")), 15, Color(0.75, 0.75, 0.8))
+		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(name_lbl)
+		var cancel_btn := _make_button("Cancel", Vector2(80, 30))
+		cancel_btn.add_theme_font_size_override("font_size", 12)
+		cancel_btn.pressed.connect(_remove_friend.bind(account_id))
+		row.add_child(cancel_btn)
+
+
+func _respond_friend(requester_id: int, accept: bool) -> void:
+	Api.respond_friend_request(requester_id, accept)
+
+
+func _remove_friend(account_id: int) -> void:
+	if account_id > 0:
+		Api.remove_friend(account_id)
+
+
+func _whisper_friend(username: String) -> void:
+	if chat_box != null and is_instance_valid(chat_box):
+		_close_panels()
+		chat_box.start_whisper(username)
+
+
+func _on_friend_request_sent(to_name: String) -> void:
+	GameState.message.emit("Friend request sent to %s." % to_name)
+	Api.list_friend_requests()
+
+
+func _on_friend_request_failed(error: String) -> void:
+	GameState.message.emit(error)
+
+
+func _on_friend_responded(_ok: bool) -> void:
+	_refresh_friends()
+
+
+func _on_friend_removed(_ok: bool) -> void:
+	_refresh_friends()
 
 
 func _build_chat_box() -> void:
