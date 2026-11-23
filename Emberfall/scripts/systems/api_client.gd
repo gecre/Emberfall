@@ -491,5 +491,7 @@ func _fail(job: Dictionary, message: String) -> void:
 			save_failed.emit(message)
 		"create":
 			character_create_failed.emit(message)
+		"friends_send":
+			friend_request_failed.emit(message)
 		_:
 			request_failed.emit(message)
