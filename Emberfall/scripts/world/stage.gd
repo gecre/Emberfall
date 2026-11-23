@@ -60,6 +60,9 @@ var _ug_entrance_x := 0.0
 var _ug_entrance_w := 150.0
 var _ug_exit_x := 0.0
 var _ug_exit_w := 150.0
+var _ug_floor1_y := 0.0
+var _ug_floor2_y := 0.0
+var _ug_floor3_y := 0.0
 var _ug_floor_y := 0.0
 var _summit_x := 0.0
 var _summit_y := 0.0
@@ -132,33 +135,43 @@ func _init_layout_params() -> void:
 	_ug_entrance_w = 150.0
 	_ug_exit_w = 150.0
 
+	# 3 subterranean levels for an expansive, multi-tier underground dungeon network:
+	# Level 1: Upper Crypt / Mezzanine Walkways (generous 114px headroom below roof)
+	# Level 2: Mid Catacomb Vaults (generous 170px headroom below Level 1)
+	# Level 3: Deep Sunken Abyss / Bottom Cavern (generous 170-190px headroom below Level 2)
+	_ug_floor1_y = ENEMY_ZONE_Y + 150.0
+	_ug_floor2_y = ENEMY_ZONE_Y + 320.0
+	_ug_floor3_y = ENEMY_ZONE_Y + 490.0
+
 	match _layout_archetype:
 		0:
-			# Archetype 0: "The Catacomb Network" — Deep, long underground cavern
+			# Archetype 0: "The Catacomb Network" — Deep, expansive underground cavern network
 			_ug_entrance_x = start_x + 90.0
 			_ug_exit_x = _summit_x - 240.0
-			_ug_floor_y = ENEMY_ZONE_Y + 190.0
+			_ug_floor3_y = ENEMY_ZONE_Y + 520.0
 		1:
 			# Archetype 1: "The Grand Colonnade" — Central sunken crypt beneath grand pillars
 			_ug_entrance_x = start_x + playable_width * 0.26
 			_ug_exit_x = start_x + playable_width * 0.74
-			_ug_floor_y = ENEMY_ZONE_Y + 175.0
+			_ug_floor3_y = ENEMY_ZONE_Y + 480.0
 		2:
 			# Archetype 2: "The Ruined High Spire" — Left deep well with steep vertical ascent
 			_ug_entrance_x = start_x + 120.0
 			_ug_exit_x = start_x + playable_width * 0.55
-			_ug_floor_y = ENEMY_ZONE_Y + 210.0
+			_ug_floor3_y = ENEMY_ZONE_Y + 540.0
 		_:
 			# Archetype 3: "The Fortress Bastion" — Gatehouse fortress with fortified subterranean crypt
 			_ug_entrance_x = start_x + playable_width * 0.18
 			_ug_exit_x = _summit_x - 200.0
-			_ug_floor_y = ENEMY_ZONE_Y + 185.0
+			_ug_floor3_y = ENEMY_ZONE_Y + 500.0
+
+	_ug_floor_y = _ug_floor3_y
 
 
 func _build_bounds() -> void:
-	# Side walls
-	_add_static_rect(Rect2(-70.0, GROUND_Y - 2200.0, 50.0, 2200.0))
-	_add_static_rect(Rect2(world_width + 20.0, GROUND_Y - 2200.0, 50.0, 2200.0))
+	# Side walls extending down to accommodate deep subterranean levels
+	_add_static_rect(Rect2(-70.0, GROUND_Y - 2200.0, 50.0, 4200.0))
+	_add_static_rect(Rect2(world_width + 20.0, GROUND_Y - 2200.0, 50.0, 4200.0))
 
 	# Continuous surface ridge line for sample points and town area
 	var seg := 40.0
@@ -182,8 +195,8 @@ func _build_bounds() -> void:
 	for pt in _ground_pts:
 		if pt.x <= _ug_entrance_x:
 			poly_a.append(pt)
-	poly_a.append(Vector2(_ug_entrance_x, GROUND_Y + 500.0))
-	poly_a.append(Vector2(-500.0, GROUND_Y + 500.0))
+	poly_a.append(Vector2(_ug_entrance_x, GROUND_Y + 1200.0))
+	poly_a.append(Vector2(-500.0, GROUND_Y + 1200.0))
 	var body_a := StaticBody2D.new()
 	body_a.collision_layer = 1
 	body_a.collision_mask = 0
@@ -214,8 +227,8 @@ func _build_bounds() -> void:
 	for pt in _ground_pts:
 		if pt.x >= exit_end:
 			poly_c.append(pt)
-	poly_c.append(Vector2(world_width + 600.0, GROUND_Y + 500.0))
-	poly_c.append(Vector2(exit_end, GROUND_Y + 500.0))
+	poly_c.append(Vector2(world_width + 600.0, GROUND_Y + 1200.0))
+	poly_c.append(Vector2(exit_end, GROUND_Y + 1200.0))
 	var body_c := StaticBody2D.new()
 	body_c.collision_layer = 1
 	body_c.collision_mask = 0
@@ -311,20 +324,29 @@ func _build_platforms() -> void:
 			var pillar_h := _rng.randf_range(280.0, 390.0)
 			var pillar_y := ENEMY_ZONE_Y - pillar_h
 
-			var p_rect := Rect2(pillar_x, pillar_y, pillar_w, pillar_h)
+			# Leave an open 80px archway at ground level so players and monsters walk freely between chambers
+			var p_rect := Rect2(pillar_x, pillar_y, pillar_w, pillar_h - 80.0)
 			_pillar_rects.append(p_rect)
-			_add_static_rect(p_rect, false) # Solid wall
+			_add_static_rect(p_rect, false) # Solid arch above, walk-through below
 
 			# Stepping stone platforms on and around the partition pillar
-			var step_up := Rect2(pillar_x - 110.0, pillar_y + 115.0, 85.0, 20.0)
+			var step_up := Rect2(pillar_x - 110.0, ENEMY_ZONE_Y - 80.0, 85.0, 20.0)
 			_platform_rects.append(step_up)
 			_add_static_rect(step_up, true)
+
+			var step_mid := Rect2(pillar_x - 70.0, ENEMY_ZONE_Y - 160.0, 85.0, 20.0)
+			_platform_rects.append(step_mid)
+			_add_static_rect(step_mid, true)
 
 			var step_top := Rect2(pillar_x - 14.0, pillar_y - 20.0, pillar_w + 28.0, 20.0)
 			_platform_rects.append(step_top)
 			_add_static_rect(step_top, true)
 
-			var step_down := Rect2(pillar_x + pillar_w + 25.0, pillar_y + 115.0, 85.0, 20.0)
+			var step_down_mid := Rect2(pillar_x + pillar_w - 15.0, ENEMY_ZONE_Y - 160.0, 85.0, 20.0)
+			_platform_rects.append(step_down_mid)
+			_add_static_rect(step_down_mid, true)
+
+			var step_down := Rect2(pillar_x + pillar_w + 25.0, ENEMY_ZONE_Y - 80.0, 85.0, 20.0)
 			_platform_rects.append(step_down)
 			_add_static_rect(step_down, true)
 
@@ -337,7 +359,7 @@ func _build_platforms() -> void:
 		var c_start: float = ch["start_x"] + 60.0
 		var c_end: float = ch["end_x"] - 60.0
 
-		# Small intermediate pillars within this chamber (puzzle obstacles with jumpable caps)
+		# Small decorative obelisk pillars within this chamber with jumpable platform caps
 		var small_count := 1 + (_rng.randi() % 2)
 		for sp in range(small_count):
 			var sp_x := c_start + float(sp + 1) * ((c_end - c_start) / float(small_count + 1)) - 15.0
@@ -346,12 +368,10 @@ func _build_platforms() -> void:
 			   (sp_x >= _ug_exit_x - 20.0 and sp_x <= _ug_exit_x + _ug_exit_w + 20.0):
 				continue
 			var sp_w := _rng.randf_range(28.0, 38.0)
-			var sp_h := _rng.randf_range(70.0, 115.0)
+			var sp_h := _rng.randf_range(70.0, 110.0)
 			var sp_rect := Rect2(sp_x, ENEMY_ZONE_Y - sp_h, sp_w, sp_h)
 			_pillar_rects.append(sp_rect)
-			_add_static_rect(sp_rect, false)
-
-			# Jumpable top cap
+			# Only add jumpable top cap, not solid body, so monsters/players never get stuck on ground
 			var sp_cap := Rect2(sp_x - 4.0, ENEMY_ZONE_Y - sp_h - 10.0, sp_w + 8.0, 14.0)
 			_platform_rects.append(sp_cap)
 			_add_static_rect(sp_cap, true)
@@ -359,47 +379,70 @@ func _build_platforms() -> void:
 			# Small torch on the pillar
 			_torch_positions.append(Vector2(sp_x + sp_w * 0.5, ENEMY_ZONE_Y - sp_h * 0.5))
 
-		# Elevation tiers for platforms based on archetype & chamber index
-		var base_elevations: Array[float] = []
-		match _layout_archetype:
-			0:
-				# Catacomb Crypts: Lower hanging dungeon stone platforms
-				base_elevations = [ENEMY_ZONE_Y - 80.0, ENEMY_ZONE_Y - 160.0, ENEMY_ZONE_Y - 240.0, ENEMY_ZONE_Y - 150.0]
-			1:
-				# Grand Colonnade: Multi-tier high platforms & suspension bridges
-				base_elevations = [ENEMY_ZONE_Y - 110.0, ENEMY_ZONE_Y - 220.0, ENEMY_ZONE_Y - 330.0, ENEMY_ZONE_Y - 210.0, ENEMY_ZONE_Y - 120.0]
-			2:
-				# High Spire: Progressively steeper ascent per chamber
-				var rise := float(c_idx) * 60.0
-				base_elevations = [ENEMY_ZONE_Y - 90.0 - rise, ENEMY_ZONE_Y - 180.0 - rise, ENEMY_ZONE_Y - 270.0 - rise]
-			_:
-				# Fortress Bastion: Alternating battlements and sunken levels
-				if c_idx % 2 == 0:
-					base_elevations = [ENEMY_ZONE_Y - 140.0, ENEMY_ZONE_Y - 250.0, ENEMY_ZONE_Y - 120.0]
-				else:
-					base_elevations = [ENEMY_ZONE_Y - 80.0, ENEMY_ZONE_Y - 180.0, ENEMY_ZONE_Y - 280.0]
+		# Multi-tier vertical platform levels reaching high up into the sky
+		# 5 distinct elevation tiers per chamber, each with multiple staggered platforms
+		var tier_elevations: Array[float] = [
+			ENEMY_ZONE_Y - 80.0,   # Tier 1: Low walkways, easily jumpable from ground
+			ENEMY_ZONE_Y - 165.0,  # Tier 2: Mid-low platforms
+			ENEMY_ZONE_Y - 250.0,  # Tier 3: Central battlements
+			ENEMY_ZONE_Y - 335.0,  # Tier 4: High ramparts
+			ENEMY_ZONE_Y - 420.0   # Tier 5: Sky bridges / Spire tops
+		]
+		if _layout_archetype == 2:
+			# High Spire: Steeper vertical ascent reaching up to ENEMY_ZONE_Y - 465
+			var rise := float(c_idx) * 40.0
+			tier_elevations = [
+				ENEMY_ZONE_Y - 85.0 - rise,
+				ENEMY_ZONE_Y - 170.0 - rise,
+				ENEMY_ZONE_Y - 255.0 - rise,
+				ENEMY_ZONE_Y - 340.0 - rise,
+				ENEMY_ZONE_Y - 425.0 - rise
+			]
 
-		var current_x := c_start + 20.0
-		var elev_idx := 0
-		while current_x < c_end - 60.0:
-			var plat_w := _rng.randf_range(160.0, 280.0)
-			# Do not place platforms obstructing the open entrance or exit shafts from above
-			if current_x + plat_w >= _ug_entrance_x - 15.0 and current_x <= _ug_entrance_x + _ug_entrance_w + 15.0:
-				current_x = _ug_entrance_x + _ug_entrance_w + 30.0
-				continue
-			if current_x + plat_w >= _ug_exit_x - 15.0 and current_x <= _ug_exit_x + _ug_exit_w + 15.0:
-				current_x = _ug_exit_x + _ug_exit_w + 30.0
+		for t_idx in range(tier_elevations.size()):
+			var t_y: float = tier_elevations[t_idx]
+			if t_y < ENEMY_ZONE_Y - 500.0:
 				continue
 
-			var target_y: float = base_elevations[elev_idx % base_elevations.size()] + _rng.randf_range(-20.0, 20.0)
-			target_y = clampf(target_y, ENEMY_ZONE_Y - 480.0, ENEMY_ZONE_Y - 50.0)
+			# Stagger each tier horizontally so platforms create natural jumping paths
+			var t_start: float = c_start + 20.0 + float((t_idx * 75) % 150)
+			var cur_x := t_start
+			while cur_x < c_end - 50.0:
+				var p_w := _rng.randf_range(160.0, 260.0)
+				if cur_x + p_w > c_end - 15.0:
+					p_w = (c_end - 15.0) - cur_x
+				if p_w < 80.0:
+					break
 
-			var rect := Rect2(current_x, target_y, plat_w, 22.0)
-			_platform_rects.append(rect)
-			_add_static_rect(rect, true)
+				# Keep entrance and exit shafts unobstructed from directly above
+				var overlaps_entrance := (cur_x + p_w >= _ug_entrance_x - 15.0 and cur_x <= _ug_entrance_x + _ug_entrance_w + 15.0)
+				var overlaps_exit := (cur_x + p_w >= _ug_exit_x - 15.0 and cur_x <= _ug_exit_x + _ug_exit_w + 15.0)
 
-			current_x += plat_w + _rng.randf_range(40.0, 80.0)
-			elev_idx += 1
+				if overlaps_entrance:
+					cur_x = _ug_entrance_x + _ug_entrance_w + 25.0
+					continue
+				if overlaps_exit:
+					cur_x = _ug_exit_x + _ug_exit_w + 25.0
+					continue
+
+				var p_rect := Rect2(cur_x, t_y, p_w, 22.0)
+				_platform_rects.append(p_rect)
+				_add_static_rect(p_rect, true)
+
+				# Intermediate stepping stone platform connecting to the tier above
+				if t_idx < tier_elevations.size() - 1 and _rng.randf() < 0.6:
+					var step_x := cur_x + p_w + 12.0
+					var next_y: float = tier_elevations[t_idx + 1]
+					var step_y := (t_y + next_y) * 0.5
+					var step_w := _rng.randf_range(65.0, 85.0)
+					if step_x + step_w < c_end - 25.0 and \
+					   not (step_x + step_w >= _ug_entrance_x - 15.0 and step_x <= _ug_entrance_x + _ug_entrance_w + 15.0) and \
+					   not (step_x + step_w >= _ug_exit_x - 15.0 and step_x <= _ug_exit_x + _ug_exit_w + 15.0):
+						var step_r := Rect2(step_x, step_y, step_w, 18.0)
+						_platform_rects.append(step_r)
+						_add_static_rect(step_r, true)
+
+				cur_x += p_w + _rng.randf_range(65.0, 120.0)
 
 	# 3. Final Summit Platform for the Forward Portal
 	var summit_rect := Rect2(_summit_x, _summit_y, _summit_w, 26.0)
@@ -414,43 +457,101 @@ func _build_platforms() -> void:
 	_add_static_rect(step_app1, true)
 	_add_static_rect(step_app2, true)
 
-	# 4. Underground Cavern Path with working physical entrances
-	var ug_floor := Rect2(_ug_entrance_x, _ug_floor_y, (_ug_exit_x + _ug_exit_w) - _ug_entrance_x, 26.0)
+	# 4. Multi-Level Underground Cavern Dungeon Network (Level 1, Level 2, Level 3)
+	# Solid Deep Bottom Cavern Floor (Level 3)
+	var ug_floor := Rect2(_ug_entrance_x, _ug_floor3_y, (_ug_exit_x + _ug_exit_w) - _ug_entrance_x, 36.0)
 	_underground_rects.append(ug_floor)
-	_add_static_rect(ug_floor, false) # Solid cavern floor
+	_add_static_rect(ug_floor, false) # Solid bottom floor
 
-	# Entrance descent steps (inside entrance shaft)
-	var step_d1 := Rect2(_ug_entrance_x + 12.0, ENEMY_ZONE_Y + 55.0, 95.0, 18.0)
-	var step_d2 := Rect2(_ug_entrance_x + 50.0, ENEMY_ZONE_Y + 115.0, 95.0, 18.0)
-	_platform_rects.append(step_d1)
-	_platform_rects.append(step_d2)
-	_add_static_rect(step_d1, true)
-	_add_static_rect(step_d2, true)
+	# Surface Entrance Shaft steps: Descend smoothly from surface (420) into Level 1 (_ug_floor1_y)
+	var e_step1 := Rect2(_ug_entrance_x + 15.0, ENEMY_ZONE_Y + 52.0, 90.0, 18.0)
+	var e_step2 := Rect2(_ug_entrance_x + 45.0, ENEMY_ZONE_Y + 105.0, 90.0, 18.0)
+	_platform_rects.append(e_step1)
+	_platform_rects.append(e_step2)
+	_add_static_rect(e_step1, true)
+	_add_static_rect(e_step2, true)
 
-	# Exit ascent steps (inside exit shaft)
-	var step_u1 := Rect2(_ug_exit_x + 10.0, ENEMY_ZONE_Y + 115.0, 95.0, 18.0)
-	var step_u2 := Rect2(_ug_exit_x + 45.0, ENEMY_ZONE_Y + 55.0, 95.0, 18.0)
-	_platform_rects.append(step_u1)
-	_platform_rects.append(step_u2)
-	_add_static_rect(step_u1, true)
-	_add_static_rect(step_u2, true)
+	# Surface Exit Shaft steps: Ascend smoothly from subterranean levels out to surface
+	var x_step1 := Rect2(_ug_exit_x - 10.0, _ug_floor2_y + 65.0, 90.0, 18.0)
+	var x_step2 := Rect2(_ug_exit_x + 15.0, _ug_floor2_y, 90.0, 18.0)
+	var x_step3 := Rect2(_ug_exit_x + 15.0, _ug_floor1_y + 75.0, 90.0, 18.0)
+	var x_step4 := Rect2(_ug_exit_x + 35.0, _ug_floor1_y, 90.0, 18.0)
+	var x_step5 := Rect2(_ug_exit_x + 55.0, ENEMY_ZONE_Y + 70.0, 90.0, 18.0)
+	_platform_rects.append(x_step1)
+	_platform_rects.append(x_step2)
+	_platform_rects.append(x_step3)
+	_platform_rects.append(x_step4)
+	_platform_rects.append(x_step5)
+	_add_static_rect(x_step1, true)
+	_add_static_rect(x_step2, true)
+	_add_static_rect(x_step3, true)
+	_add_static_rect(x_step4, true)
+	_add_static_rect(x_step5, true)
 
-	# Inside-cavern stepping platforms & small cave pillars
-	var cave_x := _ug_entrance_x + _ug_entrance_w + 50.0
-	while cave_x < _ug_exit_x - 140.0:
-		var cave_plat := Rect2(cave_x, _ug_floor_y - 65.0, 130.0, 20.0)
-		_platform_rects.append(cave_plat)
-		_add_static_rect(cave_plat, true)
+	# --- LEVEL 1: Upper Crypt Catwalks (y = _ug_floor1_y) ---
+	# Open catwalks spanning across the upper subterranean level with NO solid pillars
+	var l1_x := _ug_entrance_x + _ug_entrance_w + 10.0
+	while l1_x < _ug_exit_x - 60.0:
+		var l1_w := _rng.randf_range(180.0, 280.0)
+		if l1_x + l1_w > _ug_exit_x - 20.0:
+			l1_w = (_ug_exit_x - 20.0) - l1_x
+		if l1_w >= 80.0:
+			var l1_plat := Rect2(l1_x, _ug_floor1_y, l1_w, 20.0)
+			_platform_rects.append(l1_plat)
+			_add_static_rect(l1_plat, true)
 
-		# Small underground stone obstacle pillar
-		var ug_pillar := Rect2(cave_x + 150.0, _ug_floor_y - 50.0, 28.0, 50.0)
-		_pillar_rects.append(ug_pillar)
-		_add_static_rect(ug_pillar, false)
+			# Wall torch mounted on background cavern wall (NO solid blocking body!)
+			_torch_positions.append(Vector2(l1_x + l1_w * 0.5, _ug_floor1_y - 30.0))
 
-		# Cave torch
-		_torch_positions.append(Vector2(cave_x + 65.0, _ug_floor_y - 95.0))
+		# Descending stone steps connecting Level 1 -> Level 2
+		var s1 := Rect2(l1_x + l1_w + 15.0, _ug_floor1_y + 55.0, 85.0, 18.0)
+		var s2 := Rect2(l1_x + l1_w + 55.0, _ug_floor1_y + 115.0, 85.0, 18.0)
+		_platform_rects.append(s1)
+		_platform_rects.append(s2)
+		_add_static_rect(s1, true)
+		_add_static_rect(s2, true)
 
-		cave_x += 300.0
+		l1_x += l1_w + 130.0
+
+	# --- LEVEL 2: Mid Catacombs Platforms & Chambers (y = _ug_floor2_y) ---
+	# Spacious middle platforms spanning across catacombs with NO solid pillars
+	var l2_x := _ug_entrance_x + _ug_entrance_w + 40.0
+	while l2_x < _ug_exit_x - 60.0:
+		var l2_w := _rng.randf_range(190.0, 290.0)
+		if l2_x + l2_w > _ug_exit_x - 20.0:
+			l2_w = (_ug_exit_x - 20.0) - l2_x
+		if l2_w >= 80.0:
+			var l2_plat := Rect2(l2_x, _ug_floor2_y, l2_w, 20.0)
+			_platform_rects.append(l2_plat)
+			_add_static_rect(l2_plat, true)
+
+			# Wall torch mounted on background cavern wall (NO solid blocking body!)
+			_torch_positions.append(Vector2(l2_x + l2_w * 0.5, _ug_floor2_y - 30.0))
+
+		# Descending stone steps connecting Level 2 -> Level 3
+		var s2_1 := Rect2(l2_x + l2_w + 15.0, _ug_floor2_y + 60.0, 85.0, 18.0)
+		var s2_2 := Rect2(l2_x + l2_w + 55.0, _ug_floor2_y + 120.0, 85.0, 18.0)
+		_platform_rects.append(s2_1)
+		_platform_rects.append(s2_2)
+		_add_static_rect(s2_1, true)
+		_add_static_rect(s2_2, true)
+
+		l2_x += l2_w + 130.0
+
+	# --- LEVEL 3: Deep Sunken Abyss Interior Platforms & Ledges ---
+	# Raised platforms within the bottom cavern floor
+	var l3_x := _ug_entrance_x + _ug_entrance_w + 20.0
+	while l3_x < _ug_exit_x - 80.0:
+		var l3_w := _rng.randf_range(140.0, 220.0)
+		var l3_elev := _ug_floor3_y - _rng.randf_range(60.0, 85.0)
+		var l3_plat := Rect2(l3_x, l3_elev, l3_w, 20.0)
+		_platform_rects.append(l3_plat)
+		_add_static_rect(l3_plat, true)
+
+		# Deep abyss wall torch
+		_torch_positions.append(Vector2(l3_x + l3_w * 0.5, l3_elev - 35.0))
+
+		l3_x += l3_w + _rng.randf_range(110.0, 170.0)
 
 
 # ---------------------------------------------------------------------------
@@ -476,7 +577,7 @@ func _spawn_player() -> void:
 		player.camera.limit_left = 0
 		player.camera.limit_right = int(world_width)
 		player.camera.limit_top = -1800
-		player.camera.limit_bottom = int(_ug_floor_y + 140.0)
+		player.camera.limit_bottom = int(_ug_floor3_y + 180.0)
 
 
 ## Sets up networked remote players when a multiplayer session is active.
@@ -1144,13 +1245,14 @@ func _spawn_monsters() -> void:
 		_enemy_spawns.append(plat_pos)
 		placed += 1
 
-	# 3. Underground cavern spawns along the solid cavern floor
+	# 3. Underground cavern spawns across Level 1, Level 2, and Level 3
 	if not _underground_rects.is_empty():
 		var ug: Rect2 = _underground_rects[0]
-		var ug_x := ug.position.x + 140.0
-		while ug_x < ug.end.x - 120.0:
-			_enemy_spawns.append(Vector2(ug_x, ug.position.y - 4.0))
-			ug_x += 240.0
+		# Deep floor spawns (Level 3)
+		var ug_x := ug.position.x + 130.0
+		while ug_x < ug.end.x - 110.0:
+			_enemy_spawns.append(Vector2(ug_x, _ug_floor3_y - 4.0))
+			ug_x += 260.0
 
 	# Assign monster keys and spawn
 	var reg_count := regular.size()
@@ -1178,8 +1280,17 @@ func _spawn_monster(monster_key: String, at_position: Vector2) -> void:
 	# Constrain wander bounds so monsters stay on walkable terrain and never float
 	var is_underground := at_position.y > ENEMY_ZONE_Y + 50.0
 	if is_underground:
-		monster.left_bound = _ug_entrance_x + 25.0
-		monster.right_bound = _ug_exit_x + _ug_exit_w - 25.0
+		var on_plat := false
+		for p in _platform_rects:
+			if absf(at_position.y - p.position.y) < 14.0 and at_position.x >= p.position.x and at_position.x <= p.end.x:
+				monster.left_bound = p.position.x + 6.0
+				monster.right_bound = p.end.x - 6.0
+				on_plat = true
+				break
+		if not on_plat:
+			# Standing on the deep solid cavern floor (Level 3)
+			monster.left_bound = _ug_entrance_x + 25.0
+			monster.right_bound = _ug_exit_x + _ug_exit_w - 25.0
 	else:
 		var on_plat := false
 		for p in _platform_rects:
@@ -1471,7 +1582,7 @@ func _draw() -> void:
 	var brick_h := 30.0
 	var brick_w := 64.0
 	var wall_top := ENEMY_ZONE_Y - 520.0
-	var wall_bottom := _ug_floor_y + 160.0
+	var wall_bottom := _ug_floor3_y + 180.0
 	var row_y := wall_top
 	var row_idx := 0
 	while row_y < wall_bottom:
@@ -1494,14 +1605,23 @@ func _draw() -> void:
 		var arch_r: float = (arch_end - arch_start) * 0.45
 		draw_arc(Vector2(arch_mid, ENEMY_ZONE_Y - 80.0), arch_r, -PI, 0.0, 32, bg_wall.lightened(0.06), 6.0)
 
-	# 4. Underground Cavern Backdrop & Interior (DRAWN BEFORE PLATFORMS!)
+	# 4. Multi-Level Underground Cavern Backdrop & Interior (DRAWN BEFORE PLATFORMS!)
 	if not _underground_rects.is_empty():
 		var ug: Rect2 = _underground_rects[0]
 		var cave_bg := bg_dark.darkened(0.35)
 		var cave_rock := ground.darkened(0.2)
 
-		# Deep cave chamber background
-		draw_rect(Rect2(_ug_entrance_x - 12.0, ENEMY_ZONE_Y + 36.0, (_ug_exit_x + _ug_exit_w) - _ug_entrance_x + 24.0, _ug_floor_y - ENEMY_ZONE_Y + 28.0), cave_bg)
+		# Deep multi-tier cavern chamber background
+		draw_rect(Rect2(_ug_entrance_x - 14.0, ENEMY_ZONE_Y + 36.0, (_ug_exit_x + _ug_exit_w) - _ug_entrance_x + 28.0, _ug_floor3_y - ENEMY_ZONE_Y + 36.0), cave_bg)
+
+		# Subterranean Level Labels on the cavern back wall
+		var ug_mid_x := (_ug_entrance_x + _ug_exit_x + _ug_exit_w) * 0.5
+		draw_string(ThemeDB.fallback_font, Vector2(ug_mid_x, _ug_floor1_y - 20.0),
+			"— LEVEL I: UPPER CRYPT —", HORIZONTAL_ALIGNMENT_CENTER, 300, 11, accent.darkened(0.25))
+		draw_string(ThemeDB.fallback_font, Vector2(ug_mid_x, _ug_floor2_y - 20.0),
+			"— LEVEL II: CATACOMB VAULTS —", HORIZONTAL_ALIGNMENT_CENTER, 300, 11, accent.darkened(0.25))
+		draw_string(ThemeDB.fallback_font, Vector2(ug_mid_x, _ug_floor3_y - 32.0),
+			"— LEVEL III: SUNKEN ABYSS —", HORIZONTAL_ALIGNMENT_CENTER, 300, 11, accent.darkened(0.25))
 
 		# Stalactites hanging from cavern roof
 		var s_rng := RandomNumberGenerator.new()
@@ -1516,19 +1636,19 @@ func _draw() -> void:
 			]), cave_rock.darkened(0.2))
 			sx += s_rng.randf_range(70.0, 150.0)
 
-		# Stalagmites rising from cavern floor
+		# Stalagmites rising from Level 3 floor
 		sx = _ug_entrance_x + _ug_entrance_w + 50.0
 		while sx < _ug_exit_x - 40.0:
 			if s_rng.randf() < 0.55:
-				var smh := s_rng.randf_range(18.0, 34.0)
+				var smh := s_rng.randf_range(18.0, 36.0)
 				draw_colored_polygon(PackedVector2Array([
-					Vector2(sx - 10.0, _ug_floor_y),
-					Vector2(sx + 10.0, _ug_floor_y),
-					Vector2(sx, _ug_floor_y - smh)
+					Vector2(sx - 10.0, _ug_floor3_y),
+					Vector2(sx + 10.0, _ug_floor3_y),
+					Vector2(sx, _ug_floor3_y - smh)
 				]), cave_rock.lightened(0.08))
 			sx += s_rng.randf_range(90.0, 180.0)
 
-		# Cavern Floor
+		# Level 3 Solid Cavern Floor
 		draw_rect(ug, cave_rock)
 		draw_rect(Rect2(ug.position, Vector2(ug.size.x, 5.0)), top.darkened(0.2))
 		draw_line(ug.position, Vector2(ug.end.x, ug.position.y), plat_edge.darkened(0.2), 2.0)
@@ -1539,8 +1659,8 @@ func _draw() -> void:
 	for pt in _ground_pts:
 		if pt.x <= _ug_entrance_x:
 			poly_a.append(pt)
-	poly_a.append(Vector2(_ug_entrance_x, GROUND_Y + 500.0))
-	poly_a.append(Vector2(-500.0, GROUND_Y + 500.0))
+	poly_a.append(Vector2(_ug_entrance_x, GROUND_Y + 800.0))
+	poly_a.append(Vector2(-500.0, GROUND_Y + 800.0))
 	draw_colored_polygon(poly_a, ground)
 	# Ridge line on segment A
 	for i in range(poly_a.size() - 3):
@@ -1563,8 +1683,8 @@ func _draw() -> void:
 	for pt in _ground_pts:
 		if pt.x >= exit_end:
 			poly_c.append(pt)
-	poly_c.append(Vector2(world_width + 600.0, GROUND_Y + 500.0))
-	poly_c.append(Vector2(exit_end, GROUND_Y + 500.0))
+	poly_c.append(Vector2(world_width + 600.0, GROUND_Y + 800.0))
+	poly_c.append(Vector2(exit_end, GROUND_Y + 800.0))
 	draw_colored_polygon(poly_c, ground)
 	# Ridge line on segment C
 	for i in range(poly_c.size() - 3):
