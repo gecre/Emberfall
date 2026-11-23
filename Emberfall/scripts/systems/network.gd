@@ -202,6 +202,7 @@ func _send_stage_join() -> void:
 		"type": "join_stage",
 		"stage": _current_stage,
 		"name": GameState.player_name,
+		"account_name": Api.username,
 		"class": GameState.player_class,
 		"level": GameState.level,
 		"equipment": GameState.equipment,
