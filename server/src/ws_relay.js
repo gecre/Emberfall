@@ -1,5 +1,36 @@
 import { WebSocketServer, WebSocket } from "ws";
 
+const clients = new Map();
+const stages = new Map();
+
+/** Check if an account is currently connected to the game server. */
+export function isAccountOnline(accountName) {
+  if (!accountName) return false;
+  const target = String(accountName).trim().toLowerCase();
+  for (const client of clients.values()) {
+    if (client.account_name && client.account_name.trim().toLowerCase() === target) {
+      if (client.ws && client.ws.readyState === WebSocket.OPEN) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+/** Check if a character is currently active in the world. */
+export function isCharacterOnline(characterName) {
+  if (!characterName) return false;
+  const target = String(characterName).trim().toLowerCase();
+  for (const client of clients.values()) {
+    if (client.name && client.name.trim().toLowerCase() === target) {
+      if (client.ws && client.ws.readyState === WebSocket.OPEN) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 /**
  * Stage-based multiplayer WebSocket relay.
  *
@@ -7,9 +38,6 @@ import { WebSocketServer, WebSocket } from "ws";
  */
 export function setupWsRelay(server) {
   const wss = new WebSocketServer({ server, path: "/ws" });
-
-  const clients = new Map();
-  const stages = new Map();
 
   let nextId = 1;
 
@@ -48,11 +76,33 @@ export function setupWsRelay(server) {
     client.stall = null;
   }
 
+  const heartbeat = setInterval(() => {
+    for (const [id, client] of clients) {
+      if (client.isAlive === false) {
+        removeFromStage(client);
+        try {
+          client.ws.terminate();
+        } catch {}
+        clients.delete(id);
+        continue;
+      }
+      client.isAlive = false;
+      try {
+        client.ws.ping();
+      } catch {}
+    }
+  }, 30000);
+
+  wss.on("close", () => {
+    clearInterval(heartbeat);
+  });
+
   wss.on("connection", (ws) => {
     const id = nextId++;
     const client = {
       id,
       ws,
+      isAlive: true,
       stage: null,
       name: "",
       class: "Warrior",
@@ -64,6 +114,10 @@ export function setupWsRelay(server) {
       stall: null, // { title, items: [{name, price, qty}] }
     };
     clients.set(id, client);
+
+    ws.on("pong", () => {
+      client.isAlive = true;
+    });
 
     ws.send(JSON.stringify({ type: "welcome", id }));
 
@@ -79,11 +133,32 @@ export function setupWsRelay(server) {
       switch (data.type) {
         case "join_stage": {
           const stageNum = Number(data.stage) || 1;
+          const charName = String(data.name || "Hero").slice(0, 32).trim();
+          const acctName = String(data.account_name || "").slice(0, 32).trim();
+
+          // Reject duplicate connection if already active on another client
+          for (const [otherId, other] of clients) {
+            if (otherId === id) continue;
+            if (!other.ws || other.ws.readyState !== WebSocket.OPEN) continue;
+
+            const sameAcct = Boolean(acctName && other.account_name && other.account_name.toLowerCase() === acctName.toLowerCase());
+            const sameChar = Boolean(charName && other.name && other.name.toLowerCase() === charName.toLowerCase());
+
+            if (sameAcct || sameChar) {
+              ws.send(JSON.stringify({
+                type: "error",
+                error: "This account is already logged in on another device.",
+              }));
+              ws.close(4001, "Already logged in on another device");
+              return;
+            }
+          }
+
           removeFromStage(client);
 
           client.stage = stageNum;
-          client.name = String(data.name || "Hero").slice(0, 32);
-          client.account_name = String(data.account_name || "").slice(0, 32);
+          client.name = charName || "Hero";
+          client.account_name = acctName;
           client.class = String(data.class || "Warrior");
           client.level = Number(data.level) || 1;
           client.equipment = data.equipment || {};

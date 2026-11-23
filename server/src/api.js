@@ -2,6 +2,7 @@ import express from "express";
 import fs from "node:fs";
 import path from "node:path";
 import { signToken, hashPassword, verifyPassword } from "./auth.js";
+import { isAccountOnline, isCharacterOnline } from "./ws_relay.js";
 import { MAX_CHARACTERS, dbFingerprint } from "./config.js";
 import {
   db,
@@ -135,6 +136,12 @@ api.post("/login", loginLimiter, (req, res) => {
     return res.status(403).json({ error: ban.reason || "This account is banned." });
   }
 
+  if (isAccountOnline(account.username)) {
+    return res.status(409).json({
+      error: "This account is already logged in on another device.",
+    });
+  }
+
   touchLogin(account.id);
   return res.json({
     token: signToken(account),
@@ -199,6 +206,11 @@ api.post("/characters", requireAuth, (req, res) => {
 api.get("/characters/:id", requireAuth, (req, res) => {
   const row = findCharacter(req.account.id, Number(req.params.id));
   if (!row) return res.status(404).json({ error: "Character not found." });
+  if (isCharacterOnline(row.name)) {
+    return res.status(409).json({
+      error: "This character is already playing on another device.",
+    });
+  }
   return res.json({ character: characterFull(row) });
 });
 

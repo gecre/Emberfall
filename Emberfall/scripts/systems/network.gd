@@ -110,6 +110,13 @@ func _connect_ws() -> void:
 func _handle_ws_message(msg: Dictionary) -> void:
 	var type := str(msg.get("type", ""))
 	match type:
+		"error":
+			var err_text := str(msg.get("error", "Network error"))
+			print("[network] Server error: %s" % err_text)
+			connection_failed.emit(err_text)
+			online_mode = false
+			_ws.close()
+
 		"welcome":
 			our_id = int(msg.get("id", 1))
 
