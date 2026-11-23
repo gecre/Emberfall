@@ -10,6 +10,7 @@ import {
   characterSummary,
   createAccount,
   deleteCharacter,
+  findAccountById,
   findAccountByUsername,
   findCharacter,
   findCharacterByName,
@@ -271,13 +272,24 @@ api.get("/friends/requests", requireAuth, (req, res) => {
   res.json({ requests, sent });
 });
 
-// POST /api/friends/request  — send a friend request by username
+// POST /api/friends/request  — send a friend request by username or character name
 api.post("/friends/request", requireAuth, (req, res) => {
   const { username } = req.body ?? {};
   if (typeof username !== "string" || !username.trim()) {
-    return res.status(400).json({ error: "Username is required." });
+    return res.status(400).json({ error: "Username or character name is required." });
   }
-  const target = findAccountByUsername(username.trim());
+  const cleanName = username.trim();
+  let target = findAccountByUsername(cleanName);
+  let resolvedName = target ? target.username : "";
+  if (!target) {
+    const char = findCharacterByName(cleanName);
+    if (char) {
+      target = findAccountById(char.account_id);
+      if (target) {
+        resolvedName = char.name;
+      }
+    }
+  }
   if (!target) {
     return res.status(404).json({ error: "Player not found." });
   }
@@ -291,9 +303,11 @@ api.post("/friends/request", requireAuth, (req, res) => {
   if (existing) {
     if (existing.status === "accepted") return res.status(409).json({ error: "Already friends." });
     if (existing.status === "pending") return res.status(409).json({ error: "Friend request already pending." });
+    // If not accepted and not pending (e.g. was declined or cancelled previously), remove old row
+    db.prepare(`DELETE FROM friends WHERE id = ?`).run(existing.id);
   }
   sendFriendRequest(req.account.id, target.id);
-  res.json({ ok: true, to: target.username });
+  res.json({ ok: true, to: resolvedName || target.username, account_username: target.username });
 });
 
 // POST /api/friends/respond  — accept or decline an incoming request

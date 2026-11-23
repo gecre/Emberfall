@@ -188,6 +188,47 @@ try {
   res = await request("POST", "/characters", { name: fourthName, class: "Mage", data: defaultCharacterData(fourthName, "Mage") }, token);
   check(res.status === 409, "the per-account character limit is enforced", String(res.status));
 
+  // ---- Friends System tests ----
+  const otherCharName = `OtherHero${suffix}`.slice(0, 20);
+  res = await request("POST", "/characters", { name: otherCharName, class: "Warrior", data: defaultCharacterData(otherCharName, "Warrior") }, otherToken);
+  check(res.status === 201, "other account created a character");
+
+  // Send request by character name
+  res = await request("POST", "/friends/request", { username: otherCharName }, token);
+  check(res.status === 200 && res.json?.ok === true, "send friend request by character name succeeds", JSON.stringify(res.json));
+
+  // Recipient sees pending incoming request with character_name
+  res = await request("GET", "/friends/requests", undefined, otherToken);
+  check(res.status === 200 && res.json?.requests?.length === 1 && res.json?.requests[0]?.character_name === thirdName, "recipient lists incoming friend request with character_name", JSON.stringify(res.json));
+  const requesterAccountId = res.json?.requests[0]?.id;
+
+  // Sender sees pending sent request
+  res = await request("GET", "/friends/requests", undefined, token);
+  check(res.status === 200 && res.json?.sent?.length === 1, "sender lists pending sent request", JSON.stringify(res.json));
+
+  // Accept friend request
+  res = await request("POST", "/friends/respond", { requester_id: requesterAccountId, accept: true }, otherToken);
+  check(res.status === 200 && res.json?.ok === true, "accept friend request succeeds", JSON.stringify(res.json));
+
+  // Both sides now show accepted friends with character_name
+  res = await request("GET", "/friends", undefined, token);
+  check(res.status === 200 && res.json?.friends?.length === 1 && res.json?.friends[0]?.character_name === otherCharName, "sender sees accepted friend with character_name", JSON.stringify(res.json));
+
+  res = await request("GET", "/friends", undefined, otherToken);
+  check(res.status === 200 && res.json?.friends?.length === 1 && res.json?.friends[0]?.character_name === thirdName, "recipient sees accepted friend with character_name", JSON.stringify(res.json));
+
+  // Cannot send request when already friends
+  res = await request("POST", "/friends/request", { username: otherCharName }, token);
+  check(res.status === 409, "duplicate friend request rejected when already friends");
+
+  // Remove friend
+  const friendAccountId = requesterAccountId;
+  res = await request("DELETE", `/friends/${friendAccountId}`, undefined, otherToken);
+  check(res.status === 200 && res.json?.ok === true, "remove friend succeeds", JSON.stringify(res.json));
+
+  res = await request("GET", "/friends", undefined, token);
+  check(res.status === 200 && res.json?.friends?.length === 0, "friend removed from both lists");
+
   res = await request("POST", "/login", { username, password });
   check(res.status === 200, "login still allowed under the limit");
   let limited = false;

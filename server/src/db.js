@@ -365,23 +365,32 @@ export function updateCharacter(accountId, characterId, summary) {
 // ---------------------------------------------------------------------------
 
 export function sendFriendRequest(requesterId, addresseeId) {
-  db.prepare(
-    `INSERT OR IGNORE INTO friends (requester_id, addressee_id, status) VALUES (?, ?, 'pending')`
-  ).run(requesterId, addresseeId);
+  db.prepare(`
+    INSERT INTO friends (requester_id, addressee_id, status, created_at, updated_at)
+    VALUES (?, ?, 'pending', datetime('now'), datetime('now'))
+    ON CONFLICT(requester_id, addressee_id) DO UPDATE SET status = 'pending', updated_at = datetime('now')
+  `).run(requesterId, addresseeId);
   return db.prepare(`SELECT * FROM friends WHERE requester_id = ? AND addressee_id = ?`).get(requesterId, addresseeId);
 }
 
 export function respondFriendRequest(requesterId, addresseeId, accept) {
-  const status = accept ? 'accepted' : 'declined';
-  db.prepare(
-    `UPDATE friends SET status = ?, updated_at = datetime('now') WHERE requester_id = ? AND addressee_id = ?`
-  ).run(status, requesterId, addresseeId);
-  return db.prepare(`SELECT * FROM friends WHERE requester_id = ? AND addressee_id = ?`).get(requesterId, addresseeId);
+  if (accept) {
+    db.prepare(
+      `UPDATE friends SET status = 'accepted', updated_at = datetime('now') WHERE requester_id = ? AND addressee_id = ?`
+    ).run(requesterId, addresseeId);
+    return db.prepare(`SELECT * FROM friends WHERE requester_id = ? AND addressee_id = ?`).get(requesterId, addresseeId);
+  } else {
+    db.prepare(
+      `DELETE FROM friends WHERE requester_id = ? AND addressee_id = ?`
+    ).run(requesterId, addresseeId);
+    return null;
+  }
 }
 
 export function listFriends(accountId) {
   return db.prepare(`
     SELECT a.id, a.username,
+      (SELECT name FROM characters WHERE account_id = a.id ORDER BY updated_at DESC, id DESC LIMIT 1) as character_name,
       CASE WHEN f.requester_id = ? THEN 'sent' ELSE 'received' END as direction,
       f.status
     FROM friends f
@@ -392,7 +401,9 @@ export function listFriends(accountId) {
 
 export function listPendingRequests(accountId) {
   return db.prepare(`
-    SELECT a.id, a.username, f.created_at
+    SELECT a.id, a.username,
+      (SELECT name FROM characters WHERE account_id = a.id ORDER BY updated_at DESC, id DESC LIMIT 1) as character_name,
+      f.created_at
     FROM friends f
     JOIN accounts a ON a.id = f.requester_id
     WHERE f.addressee_id = ? AND f.status = 'pending'
@@ -401,7 +412,9 @@ export function listPendingRequests(accountId) {
 
 export function listSentRequests(accountId) {
   return db.prepare(`
-    SELECT a.id, a.username, f.created_at
+    SELECT a.id, a.username,
+      (SELECT name FROM characters WHERE account_id = a.id ORDER BY updated_at DESC, id DESC LIMIT 1) as character_name,
+      f.created_at
     FROM friends f
     JOIN accounts a ON a.id = f.addressee_id
     WHERE f.requester_id = ? AND f.status = 'pending'

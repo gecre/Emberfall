@@ -83,6 +83,7 @@ export function setupWsRelay(server) {
 
           client.stage = stageNum;
           client.name = String(data.name || "Hero").slice(0, 32);
+          client.account_name = String(data.account_name || "").slice(0, 32);
           client.class = String(data.class || "Warrior");
           client.level = Number(data.level) || 1;
           client.equipment = data.equipment || {};
@@ -192,9 +193,11 @@ export function setupWsRelay(server) {
           const target = String(data.target || "").trim();
           const text = String(data.text || "").trim().slice(0, 140);
           if (!target || !text) return;
-          // Find target by name (case-insensitive)
+          // Find target by name or account name (case-insensitive)
+          const targetLower = target.toLowerCase();
           const targetClient = [...clients.values()].find(
-            (c) => c.name.toLowerCase() === target.toLowerCase()
+            (c) => c.name.toLowerCase() === targetLower ||
+                   (c.account_name && c.account_name.toLowerCase() === targetLower)
           );
           if (!targetClient) {
             ws.send(JSON.stringify({
@@ -353,9 +356,11 @@ export function setupWsRelay(server) {
 
         case "friend_notify": {
           // Real-time notification: a friend request was sent
-          const targetName = String(data.target_name || "");
+          const targetName = String(data.target_name || "").trim().toLowerCase();
           for (const [cid, c] of clients) {
-            if (c.name.toLowerCase() === targetName.toLowerCase() && c.ws.readyState === WebSocket.OPEN) {
+            const matches = c.name.toLowerCase() === targetName ||
+                            (c.account_name && c.account_name.toLowerCase() === targetName);
+            if (matches && c.ws.readyState === WebSocket.OPEN) {
               c.ws.send(JSON.stringify({
                 type: "friend_notify",
                 from_name: client.name,
