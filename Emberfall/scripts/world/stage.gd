@@ -42,6 +42,9 @@ var trade_panel = null
 var stall_panel = null
 
 var _platform_rects: Array[Rect2] = []
+var _pillar_rects: Array[Rect2] = []
+var _underground_rects: Array[Rect2] = []
+var _underground_ceiling_rects: Array[Rect2] = []
 var _ground_pts: Array[Vector2] = []
 var _enemy_spawns: Array[Vector2] = []
 var _portal_positions: Array[Vector2] = []
@@ -176,24 +179,123 @@ func _find_flat_ground_near(x: float, search_range: float = 200.0) -> float:
 
 
 func _build_platforms() -> void:
-	# Scattered floating platforms across the enemy zone: spread far up into the
-	# sky, with occasional big platforms large enough for monsters to spawn on.
-	# Each gap stays within jump reach and each rise is climbable (max step 60px
-	# < MAX_PLATFORM_RISE 80px, max gap 65px < MAX_PLATFORM_GAP 110px). Kept out
-	# of the town zone.
-	var plat_x := TRANSITION_END + 40.0
-	var plat_y := ENEMY_ZONE_Y - 60.0
-	while plat_x < world_width - 200.0:
-		# Occasionally place a big platform (monster spawn target).
-		var is_big := _rng.randf() < 0.18
-		var width := _rng.randf_range(260.0, 420.0) if is_big else _rng.randf_range(100.0, 160.0)
-		var rect := Rect2(plat_x, plat_y, width, 22.0)
-		if rect.end.x < world_width - 40.0:
+	# Build vertical & horizontal puzzle platforms with up & down routes
+	# plus solid obstacle pillars that create distinct rooms/chambers.
+	_platform_rects.clear()
+	_pillar_rects.clear()
+
+	var start_x := TRANSITION_END + 40.0
+	var playable_width := world_width - start_x - 300.0
+	var section_count := 4
+	var section_width := playable_width / float(section_count)
+
+	# 1. Spawn Solid Stone Pillars between chambers (forming puzzle checkpoints)
+	for i in range(1, section_count):
+		var pillar_x := start_x + float(i) * section_width
+		var pillar_w := 60.0
+		var pillar_h := _rng.randf_range(280.0, 380.0)
+		var ground_at := _ground_y_at(pillar_x)
+		var pillar_y := ground_at - pillar_h
+
+		# A solid pillar rising up from ground
+		var p_rect := Rect2(pillar_x, pillar_y, pillar_w, pillar_h)
+		_pillar_rects.append(p_rect)
+		_add_static_rect(p_rect, false) # Solid collision (not one-way)
+
+		# Stepping stone platforms right before and on top of each pillar to climb up and down over it
+		var step_up := Rect2(pillar_x - 120.0, pillar_y + 120.0, 90.0, 20.0)
+		_platform_rects.append(step_up)
+		_add_static_rect(step_up, true)
+
+		var step_top := Rect2(pillar_x - 15.0, pillar_y - 20.0, pillar_w + 30.0, 20.0)
+		_platform_rects.append(step_top)
+		_add_static_rect(step_top, true)
+
+		var step_down := Rect2(pillar_x + pillar_w + 30.0, pillar_y + 120.0, 90.0, 20.0)
+		_platform_rects.append(step_down)
+		_add_static_rect(step_down, true)
+
+	# 2. Section platforms: alternating high and low vertical tiers (up-and-down puzzle)
+	for s in range(section_count):
+		var sec_start := start_x + float(s) * section_width + 80.0
+		var sec_end := start_x + float(s + 1) * section_width - 80.0
+		var current_x := sec_start
+
+		# Alternating elevation profiles for up-and-down vertical traversal
+		var base_elevations: Array[float] = []
+		if s % 2 == 0:
+			# Tier going UP then DOWN
+			base_elevations = [ENEMY_ZONE_Y - 90.0, ENEMY_ZONE_Y - 180.0, ENEMY_ZONE_Y - 270.0, ENEMY_ZONE_Y - 170.0, ENEMY_ZONE_Y - 80.0]
+		else:
+			# High ceiling tier with lower stepping stones
+			base_elevations = [ENEMY_ZONE_Y - 160.0, ENEMY_ZONE_Y - 260.0, ENEMY_ZONE_Y - 360.0, ENEMY_ZONE_Y - 250.0, ENEMY_ZONE_Y - 130.0]
+
+		var elev_idx := 0
+		while current_x < sec_end:
+			var plat_w := _rng.randf_range(160.0, 300.0)
+			var target_y: float = base_elevations[elev_idx % base_elevations.size()] + _rng.randf_range(-25.0, 25.0)
+			target_y = clampf(target_y, ENEMY_ZONE_Y - 480.0, ENEMY_ZONE_Y - 50.0)
+
+			var rect := Rect2(current_x, target_y, plat_w, 22.0)
 			_platform_rects.append(rect)
 			_add_static_rect(rect, true)
-		plat_x += width + _rng.randf_range(35.0, 65.0)
-		plat_y += _rng.randf_range(-60.0, 60.0)
-		plat_y = clampf(plat_y, ENEMY_ZONE_Y - 900.0, ENEMY_ZONE_Y - 50.0)
+
+			current_x += plat_w + _rng.randf_range(40.0, 75.0)
+			elev_idx += 1
+
+	# 3. Final Summit Platform for the Forward Portal
+	var summit_x := world_width - 340.0
+	var summit_w := 240.0
+	var summit_y := ENEMY_ZONE_Y - 180.0
+	var summit_rect := Rect2(summit_x, summit_y, summit_w, 26.0)
+	_platform_rects.append(summit_rect)
+	_add_static_rect(summit_rect, true)
+
+	# Stepping stone to reach the summit platform
+	var approach_rect := Rect2(summit_x - 120.0, summit_y + 90.0, 90.0, 20.0)
+	_platform_rects.append(approach_rect)
+	_add_static_rect(approach_rect, true)
+
+	# 4. Underground Cavern Path (Alternative Lower Route under the pillars)
+	_underground_rects.clear()
+	_underground_ceiling_rects.clear()
+	var ug_floor_y := ENEMY_ZONE_Y + 160.0
+	var ug_start_x := TRANSITION_END + 180.0
+	var ug_end_x := world_width - 450.0
+
+	# Underground cavern floor
+	var ug_floor := Rect2(ug_start_x, ug_floor_y, ug_end_x - ug_start_x, 24.0)
+	_underground_rects.append(ug_floor)
+	_add_static_rect(ug_floor, false)
+
+	# Underground ceiling (bottom of the surface terrain)
+	var ug_ceil := Rect2(ug_start_x + 90.0, ENEMY_ZONE_Y + 20.0, (ug_end_x - ug_start_x) - 180.0, 20.0)
+	_underground_ceiling_rects.append(ug_ceil)
+	_add_static_rect(ug_ceil, false)
+
+	# Entrance descent steps (going down from surface into the cave)
+	var step_d1 := Rect2(ug_start_x - 40.0, ENEMY_ZONE_Y + 45.0, 70.0, 18.0)
+	var step_d2 := Rect2(ug_start_x + 20.0, ENEMY_ZONE_Y + 105.0, 70.0, 18.0)
+	_platform_rects.append(step_d1)
+	_platform_rects.append(step_d2)
+	_add_static_rect(step_d1, true)
+	_add_static_rect(step_d2, true)
+
+	# Exit ascent steps (climbing up out of the cave near the portal summit)
+	var step_u1 := Rect2(ug_end_x - 80.0, ENEMY_ZONE_Y + 105.0, 70.0, 18.0)
+	var step_u2 := Rect2(ug_end_x - 20.0, ENEMY_ZONE_Y + 45.0, 70.0, 18.0)
+	_platform_rects.append(step_u1)
+	_platform_rects.append(step_u2)
+	_add_static_rect(step_u1, true)
+	_add_static_rect(step_u2, true)
+
+	# Inside-cavern stepping platforms & obstacle stalagmites
+	var cave_x := ug_start_x + 180.0
+	while cave_x < ug_end_x - 200.0:
+		var cave_plat := Rect2(cave_x, ug_floor_y - 65.0, 120.0, 18.0)
+		_platform_rects.append(cave_plat)
+		_add_static_rect(cave_plat, true)
+		cave_x += 280.0
 
 
 # ---------------------------------------------------------------------------
@@ -219,7 +321,7 @@ func _spawn_player() -> void:
 		player.camera.limit_left = 0
 		player.camera.limit_right = int(world_width)
 		player.camera.limit_top = -1800
-		player.camera.limit_bottom = int(ENEMY_ZONE_Y + 160.0)
+		player.camera.limit_bottom = int(ENEMY_ZONE_Y + 380.0)
 
 
 ## Sets up networked remote players when a multiplayer session is active.
@@ -804,17 +906,18 @@ func _spawn_portals() -> void:
 			back_portal.setup(previous_number, -1)
 			_portal_positions.append(Vector2(bx, _ground_y_at(bx)))
 
-	# Forward portal at the right edge (next stage). The last stage has none.
+	# Forward portal placed on the elevated puzzle summit platform
 	var next: Variant = stage_data.get("next", null)
 	if typeof(next) == TYPE_DICTIONARY and next != null:
 		var next_number := int(next.get("number", 0))
 		if next_number > 0 and not GameData.stage(next_number).is_empty():
 			var next_portal: Portal = PORTAL_SCENE.instantiate()
-			var nx2 := _find_flat_ground_near(world_width - 120.0)
-			next_portal.position = Vector2(nx2, _ground_y_at(nx2))
+			var summit_x := world_width - 220.0
+			var summit_y := ENEMY_ZONE_Y - 180.0
+			next_portal.position = Vector2(summit_x, summit_y)
 			add_child(next_portal)
 			next_portal.setup(next_number, 1)
-			_portal_positions.append(Vector2(nx2, _ground_y_at(nx2)))
+			_portal_positions.append(Vector2(summit_x, summit_y))
 
 
 func _is_near_portal(x: float, y: float) -> bool:
@@ -885,14 +988,22 @@ func _spawn_monsters() -> void:
 		_enemy_spawns.append(plat_pos)
 		placed += 1
 
-	# Assign monster keys (bosses last, fixed positions).
-	var all_keys := bosses.duplicate()
-	for k in regular:
-		if all_keys.size() < _enemy_spawns.size():
-			all_keys.append(str(k))
+	# Assign monster keys ensuring each monster species is assigned to distinct areas
+	# and chamber sections instead of bunching up in one area.
+	var assigned_monsters: Array[String] = []
+	var reg_count := regular.size()
 	for i in range(_enemy_spawns.size()):
-		var key: String = all_keys[i] if i < all_keys.size() else str(regular[_rng.randi_range(0, regular.size() - 1)])
-		_spawn_monster(str(key), _enemy_spawns[i])
+		var sp_pos := _enemy_spawns[i]
+		var key: String = ""
+		if not bosses.is_empty() and i == _enemy_spawns.size() - 1:
+			key = str(bosses[0])
+		else:
+			# Area/section based index so different species occupy different chambers
+			var area_idx := int((sp_pos.x - TRANSITION_END) / 450.0)
+			var monster_idx := (area_idx + (1 if sp_pos.y < ENEMY_ZONE_Y - 50.0 else 0)) % reg_count
+			key = str(regular[monster_idx])
+		assigned_monsters.append(key)
+		_spawn_monster(key, sp_pos)
 
 
 func _spawn_monster(monster_key: String, at_position: Vector2) -> void:
@@ -1125,6 +1236,22 @@ func _draw() -> void:
 		draw_rect(r, plat)
 		draw_rect(Rect2(r.position, Vector2(r.size.x, 7.0)), top.lightened(0.08))
 		draw_rect(Rect2(r.position + Vector2(0.0, r.size.y - 5.0), Vector2(r.size.x, 5.0)), plat.darkened(0.3))
+
+	# Solid Stone Pillars
+	var pillar_color := plat.darkened(0.2)
+	for p_rect in _pillar_rects:
+		var pr: Rect2 = p_rect
+		draw_rect(pr, pillar_color)
+		# Pillar 3D shading & stone masonry lines
+		draw_rect(Rect2(pr.position, Vector2(6.0, pr.size.y)), pillar_color.lightened(0.18))
+		draw_rect(Rect2(pr.position + Vector2(pr.size.x - 6.0, 0.0), Vector2(6.0, pr.size.y)), pillar_color.darkened(0.35))
+		draw_rect(Rect2(pr.position - Vector2(6.0, 8.0), Vector2(pr.size.x + 12.0, 10.0)), top.lightened(0.12)) # Pillar capital
+		draw_rect(Rect2(pr.position + Vector2(-6.0, pr.size.y - 4.0), Vector2(pr.size.x + 12.0, 8.0)), pillar_color.darkened(0.2)) # Pillar base
+		# Horizontal stone block grooves
+		var groove_y := pr.position.y + 45.0
+		while groove_y < pr.position.y + pr.size.y - 20.0:
+			draw_line(Vector2(pr.position.x + 4.0, groove_y), Vector2(pr.position.x + pr.size.x - 4.0, groove_y), pillar_color.darkened(0.4), 2.0)
+			groove_y += 45.0
 
 	# Ground decoration: trees, rocks and bushes (snapped to ground, clear of
 	# the town NPC area and the hotbar bottom zone).
