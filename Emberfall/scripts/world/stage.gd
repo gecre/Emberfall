@@ -348,7 +348,7 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	# Full-screen backdrop to block clicks from reaching the game world
 	var backdrop := ColorRect.new()
 	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
-	backdrop.color = Color(0, 0, 0, 0.5)
+	backdrop.color = Color(0, 0, 0, 0.6)
 	backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
 	canvas.add_child(backdrop)
 	# Click outside the popup to dismiss
@@ -365,47 +365,97 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	canvas.add_child(center)
 
 	var frame := PanelContainer.new()
-	frame.custom_minimum_size = Vector2(340, 260)
+	frame.custom_minimum_size = Vector2(370, 290)
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.11, 0.13, 0.19, 0.98)
-	style.set_corner_radius_all(10)
+	style.bg_color = Color(0.08, 0.11, 0.17, 0.98)
+	style.set_corner_radius_all(14)
 	style.border_width_left = 2
 	style.border_width_top = 2
 	style.border_width_right = 2
 	style.border_width_bottom = 2
-	style.border_color = Color(0.85, 0.65, 0.25)
+	style.border_color = Color(1.0, 0.78, 0.3)
+	style.shadow_color = Color(0, 0, 0, 0.8)
+	style.shadow_size = 22
+	style.content_margin_left = 18
+	style.content_margin_right = 18
+	style.content_margin_top = 16
+	style.content_margin_bottom = 16
 	frame.add_theme_stylebox_override("panel", style)
 	center.add_child(frame)
 
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 10)
+	vbox.add_theme_constant_override("separation", 12)
 	frame.add_child(vbox)
 
-	# Name & Level Header
+	# Header: Avatar + Name + Class/Level + Close 'X'
+	var header := HBoxContainer.new()
+	header.add_theme_constant_override("separation", 12)
+	vbox.add_child(header)
+
+	var avatar := PanelContainer.new()
+	avatar.custom_minimum_size = Vector2(44, 44)
+	var av_style := StyleBoxFlat.new()
+	av_style.bg_color = Color(0.15, 0.25, 0.45, 0.9)
+	av_style.set_corner_radius_all(10)
+	av_style.set_border_width_all(1)
+	av_style.border_color = Color(0.4, 0.7, 1.0, 0.7)
+	avatar.add_theme_stylebox_override("panel", av_style)
+	header.add_child(avatar)
+
+	var av_lbl := Label.new()
+	match rclass.to_lower():
+		"mage": av_lbl.text = "🧙"
+		"archer": av_lbl.text = "🏹"
+		"warrior": av_lbl.text = "⚔"
+		"paladin": av_lbl.text = "🛡"
+		_: av_lbl.text = "👤"
+	av_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	av_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	av_lbl.add_theme_font_size_override("font_size", 20)
+	avatar.add_child(av_lbl)
+
+	var name_box := VBoxContainer.new()
+	name_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	name_box.add_theme_constant_override("separation", 2)
+	header.add_child(name_box)
+
 	var name_lbl := Label.new()
 	name_lbl.text = rname
-	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name_lbl.add_theme_font_size_override("font_size", 18)
+	name_lbl.add_theme_font_size_override("font_size", 16)
 	name_lbl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.35))
-	vbox.add_child(name_lbl)
+	name_box.add_child(name_lbl)
 
 	var sub_lbl := Label.new()
-	sub_lbl.text = "%s • Level %d" % [rclass, rlevel]
-	sub_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	sub_lbl.add_theme_font_size_override("font_size", 13)
-	sub_lbl.add_theme_color_override("font_color", Color(0.75, 0.8, 0.9))
-	vbox.add_child(sub_lbl)
+	sub_lbl.text = "%s  •  Level %d" % [rclass, rlevel]
+	sub_lbl.add_theme_font_size_override("font_size", 12)
+	sub_lbl.add_theme_color_override("font_color", Color(0.65, 0.8, 0.95))
+	name_box.add_child(sub_lbl)
 
-	# Equipment overview
+	var x_btn := Button.new()
+	x_btn.text = "✕"
+	x_btn.custom_minimum_size = Vector2(28, 28)
+	x_btn.flat = true
+	x_btn.add_theme_font_size_override("font_size", 13)
+	x_btn.add_theme_color_override("font_color", Color(0.7, 0.75, 0.8))
+	x_btn.pressed.connect(func(): canvas.queue_free())
+	header.add_child(x_btn)
+
+	# Equipment overview card
 	var eq_box := PanelContainer.new()
 	var eq_style := StyleBoxFlat.new()
-	eq_style.bg_color = Color(0.16, 0.18, 0.26, 0.9)
-	eq_style.set_corner_radius_all(6)
+	eq_style.bg_color = Color(0.05, 0.08, 0.13, 0.85)
+	eq_style.set_corner_radius_all(10)
+	eq_style.set_border_width_all(1)
+	eq_style.border_color = Color(0.2, 0.3, 0.45, 0.4)
+	eq_style.content_margin_left = 12
+	eq_style.content_margin_right = 12
+	eq_style.content_margin_top = 8
+	eq_style.content_margin_bottom = 8
 	eq_box.add_theme_stylebox_override("panel", eq_style)
 	vbox.add_child(eq_box)
 
 	var eq_vbox := VBoxContainer.new()
-	eq_vbox.add_theme_constant_override("separation", 3)
+	eq_vbox.add_theme_constant_override("separation", 5)
 	eq_box.add_child(eq_vbox)
 
 	var weapon_name := str(req.get("weapon", "None"))
@@ -413,26 +463,41 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	var helmet_name := str(req.get("helmet", "None"))
 	var shield_name := str(req.get("shield", "None"))
 
-	var w_lbl := Label.new()
-	w_lbl.text = " ⚔ Weapon: %s" % (weapon_name if weapon_name != "" else "None")
-	w_lbl.add_theme_font_size_override("font_size", 11)
-	eq_vbox.add_child(w_lbl)
+	var gear_list: Array = [
+		{"icon": "⚔", "slot": "Weapon", "item": weapon_name},
+		{"icon": "🛡", "slot": "Armor", "item": armor_name},
+		{"icon": "🪖", "slot": "Helmet", "item": helmet_name},
+	]
+	if shield_name != "" and shield_name != "None":
+		gear_list.append({"icon": "🔰", "slot": "Shield", "item": shield_name})
 
-	var a_lbl := Label.new()
-	a_lbl.text = " 🛡 Armor: %s" % (armor_name if armor_name != "" else "None")
-	a_lbl.add_theme_font_size_override("font_size", 11)
-	eq_vbox.add_child(a_lbl)
+	for g in gear_list:
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 6)
+		eq_vbox.add_child(row)
 
-	var h_lbl := Label.new()
-	h_lbl.text = " 🪖 Helmet: %s" % (helmet_name if helmet_name != "" else "None")
-	h_lbl.add_theme_font_size_override("font_size", 11)
-	eq_vbox.add_child(h_lbl)
+		var icon_lbl := Label.new()
+		icon_lbl.text = g["icon"]
+		icon_lbl.add_theme_font_size_override("font_size", 12)
+		row.add_child(icon_lbl)
 
-	if shield_name != "":
-		var s_lbl := Label.new()
-		s_lbl.text = " 🔰 Shield: %s" % shield_name
-		s_lbl.add_theme_font_size_override("font_size", 11)
-		eq_vbox.add_child(s_lbl)
+		var slot_lbl := Label.new()
+		slot_lbl.text = "%s:" % g["slot"]
+		slot_lbl.custom_minimum_size = Vector2(56, 0)
+		slot_lbl.add_theme_font_size_override("font_size", 11)
+		slot_lbl.add_theme_color_override("font_color", Color(0.6, 0.7, 0.82))
+		row.add_child(slot_lbl)
+
+		var item_lbl := Label.new()
+		var iname: String = g["item"] if g["item"] != "" else "None"
+		item_lbl.text = iname
+		item_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		item_lbl.add_theme_font_size_override("font_size", 11)
+		if iname != "None":
+			item_lbl.add_theme_color_override("font_color", Color(0.95, 0.96, 1.0))
+		else:
+			item_lbl.add_theme_color_override("font_color", Color(0.45, 0.48, 0.55))
+		row.add_child(item_lbl)
 
 	# Action Buttons Row
 	var actions := HBoxContainer.new()
@@ -440,10 +505,15 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	actions.add_theme_constant_override("separation", 10)
 	vbox.add_child(actions)
 
-	# 1. Trade Button
+	# 1. Trade Button (Emerald Green)
 	var trade_btn := Button.new()
-	trade_btn.text = "TRADE"
-	trade_btn.custom_minimum_size = Vector2(90, 42)
+	trade_btn.text = "🤝 TRADE"
+	trade_btn.custom_minimum_size = Vector2(100, 38)
+	trade_btn.add_theme_font_size_override("font_size", 12)
+	var tsb := StyleBoxFlat.new()
+	tsb.bg_color = Color(0.14, 0.48, 0.26, 0.95)
+	tsb.set_corner_radius_all(8)
+	trade_btn.add_theme_stylebox_override("normal", tsb)
 	trade_btn.pressed.connect(func():
 		canvas.queue_free()
 		Network.request_trade(pid)
@@ -451,10 +521,15 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	)
 	actions.add_child(trade_btn)
 
-	# 2. Add Friend Button
+	# 2. Add Friend Button (Royal Purple)
 	var friend_btn := Button.new()
-	friend_btn.text = "ADD FRIEND"
-	friend_btn.custom_minimum_size = Vector2(105, 42)
+	friend_btn.text = "👥 FRIEND"
+	friend_btn.custom_minimum_size = Vector2(100, 38)
+	friend_btn.add_theme_font_size_override("font_size", 12)
+	var fsb := StyleBoxFlat.new()
+	fsb.bg_color = Color(0.36, 0.22, 0.58, 0.95)
+	fsb.set_corner_radius_all(8)
+	friend_btn.add_theme_stylebox_override("normal", fsb)
 	friend_btn.pressed.connect(func():
 		canvas.queue_free()
 		if not Api.token.is_empty():
@@ -472,21 +547,31 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	)
 	actions.add_child(friend_btn)
 
-	# 3. Stats Button
+	# 3. Stats Button (Slate/Cyan)
 	var stats_btn := Button.new()
-	stats_btn.text = "STATS"
-	stats_btn.custom_minimum_size = Vector2(85, 42)
+	stats_btn.text = "📊 STATS"
+	stats_btn.custom_minimum_size = Vector2(95, 38)
+	stats_btn.add_theme_font_size_override("font_size", 12)
+	var ssb := StyleBoxFlat.new()
+	ssb.bg_color = Color(0.18, 0.28, 0.42, 0.95)
+	ssb.set_corner_radius_all(8)
+	stats_btn.add_theme_stylebox_override("normal", ssb)
 	stats_btn.pressed.connect(func():
 		canvas.queue_free()
 		_show_player_stats_inspection(rplayer)
 	)
 	actions.add_child(stats_btn)
 
-	# Close Button
+	# Bottom Close Button
 	var close_btn := Button.new()
 	close_btn.text = "CLOSE"
-	close_btn.custom_minimum_size = Vector2(120, 36)
+	close_btn.custom_minimum_size = Vector2(110, 32)
 	close_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	close_btn.add_theme_font_size_override("font_size", 11)
+	var csb := StyleBoxFlat.new()
+	csb.bg_color = Color(0.2, 0.22, 0.28, 0.8)
+	csb.set_corner_radius_all(6)
+	close_btn.add_theme_stylebox_override("normal", csb)
 	close_btn.pressed.connect(func(): canvas.queue_free())
 	vbox.add_child(close_btn)
 
