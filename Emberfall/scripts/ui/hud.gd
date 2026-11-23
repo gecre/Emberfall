@@ -642,7 +642,7 @@ func _build_friends_panel() -> void:
 	add_row.add_theme_constant_override("separation", 8)
 	outer.add_child(add_row)
 	friend_name_input = LineEdit.new()
-	friend_name_input.placeholder_text = "Username"
+	friend_name_input.placeholder_text = "Username or Character"
 	friend_name_input.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	friend_name_input.text_submitted.connect(func(_text: String) -> void: _send_friend_request())
 	add_row.add_child(friend_name_input)
@@ -681,6 +681,10 @@ func _build_friends_panel() -> void:
 		Api.friend_responded.connect(_on_friend_responded)
 	if not Api.friend_removed.is_connected(_on_friend_removed):
 		Api.friend_removed.connect(_on_friend_removed)
+	if not Api.request_failed.is_connected(_on_friends_api_failed):
+		Api.request_failed.connect(_on_friends_api_failed)
+	if not Network.friend_notify_received.is_connected(_on_friend_notify_received):
+		Network.friend_notify_received.connect(_on_friend_notify_received)
 
 
 func _toggle_friends() -> void:
@@ -694,6 +698,19 @@ func _toggle_friends() -> void:
 func _refresh_friends() -> void:
 	_clear(friends_list)
 	_clear(friend_requests_list)
+	if Api.token.is_empty():
+		var local_friends: Array = GameState.quests.get("_friends", [])
+		if local_friends.is_empty():
+			friends_list.add_child(_make_label("No friends yet. (Online mode recommended)", 14, Color(0.7, 0.75, 0.7)))
+		else:
+			for fname in local_friends:
+				var row := _friend_row(friends_list)
+				var name_lbl := _make_label(str(fname), 15, Color(0.95, 0.9, 0.7))
+				name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				row.add_child(name_lbl)
+		friend_requests_list.add_child(_make_label("Requests require online sign-in.", 14, Color(0.7, 0.75, 0.7)))
+		return
+
 	friends_list.add_child(_make_label("Loading...", 14, Color(0.7, 0.75, 0.7)))
 	friend_requests_list.add_child(_make_label("Loading...", 14, Color(0.7, 0.75, 0.7)))
 	Api.list_friends()
@@ -703,6 +720,18 @@ func _refresh_friends() -> void:
 func _send_friend_request() -> void:
 	var username := friend_name_input.text.strip_edges()
 	if username.is_empty():
+		return
+	if Api.token.is_empty():
+		var friends: Array = GameState.quests.get("_friends", [])
+		if not friends.has(username):
+			friends.append(username)
+			GameState.quests["_friends"] = friends
+			GameState.save_game()
+			GameState.message.emit("%s added to local friends list!" % username)
+		else:
+			GameState.message.emit("%s is already in your friends list." % username)
+		friend_name_input.text = ""
+		_refresh_friends()
 		return
 	Api.send_friend_request(username)
 	friend_name_input.text = ""
@@ -729,13 +758,16 @@ func _on_friends_loaded(friends: Array) -> void:
 			continue
 		var account_id := int(f.get("id", 0))
 		var username := str(f.get("username", "?"))
+		var char_name := str(f.get("character_name", ""))
+		var display_name := char_name if not char_name.is_empty() else username
+		var label_text := "%s (@%s)" % [char_name, username] if (not char_name.is_empty() and char_name != username) else display_name
 		var row := _friend_row(friends_list)
-		var name_lbl := _make_label(username, 15, Color(0.95, 0.9, 0.7))
+		var name_lbl := _make_label(label_text, 15, Color(0.95, 0.9, 0.7))
 		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(name_lbl)
 		var whisper_btn := _make_button("Whisper", Vector2(90, 30))
 		whisper_btn.add_theme_font_size_override("font_size", 12)
-		whisper_btn.pressed.connect(_whisper_friend.bind(username))
+		whisper_btn.pressed.connect(_whisper_friend.bind(display_name))
 		row.add_child(whisper_btn)
 		var remove_btn := _make_button("Remove", Vector2(90, 30))
 		remove_btn.add_theme_font_size_override("font_size", 12)
@@ -753,8 +785,11 @@ func _on_friend_requests_loaded(requests: Array, sent: Array) -> void:
 			continue
 		var requester_id := int(req.get("id", 0))
 		var username := str(req.get("username", "?"))
+		var char_name := str(req.get("character_name", ""))
+		var display_name := char_name if not char_name.is_empty() else username
+		var label_text := "%s (@%s)" % [char_name, username] if (not char_name.is_empty() and char_name != username) else display_name
 		var row := _friend_row(friend_requests_list)
-		var name_lbl := _make_label(username, 15, Color(0.95, 0.9, 0.7))
+		var name_lbl := _make_label(label_text, 15, Color(0.95, 0.9, 0.7))
 		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(name_lbl)
 		var accept_btn := _make_button("Accept", Vector2(80, 30))
@@ -769,8 +804,12 @@ func _on_friend_requests_loaded(requests: Array, sent: Array) -> void:
 		if typeof(req) != TYPE_DICTIONARY:
 			continue
 		var account_id := int(req.get("id", 0))
+		var username := str(req.get("username", "?"))
+		var char_name := str(req.get("character_name", ""))
+		var display_name := char_name if not char_name.is_empty() else username
+		var label_text := "%s (@%s) (sent)" % [char_name, username] if (not char_name.is_empty() and char_name != username) else "%s (sent)" % display_name
 		var row := _friend_row(friend_requests_list)
-		var name_lbl := _make_label("%s (sent)" % str(req.get("username", "?")), 15, Color(0.75, 0.75, 0.8))
+		var name_lbl := _make_label(label_text, 15, Color(0.75, 0.75, 0.8))
 		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(name_lbl)
 		var cancel_btn := _make_button("Cancel", Vector2(80, 30))
@@ -796,6 +835,7 @@ func _whisper_friend(username: String) -> void:
 
 func _on_friend_request_sent(to_name: String) -> void:
 	GameState.message.emit("Friend request sent to %s." % to_name)
+	Network.notify_friend_request(to_name)
 	Api.list_friend_requests()
 
 
@@ -809,6 +849,22 @@ func _on_friend_responded(_ok: bool) -> void:
 
 func _on_friend_removed(_ok: bool) -> void:
 	_refresh_friends()
+
+
+func _on_friend_notify_received(_from_name: String, message: String) -> void:
+	GameState.message.emit(message)
+	if friends_panel != null and friends_panel.visible:
+		_refresh_friends()
+
+
+func _on_friends_api_failed(error: String) -> void:
+	if friends_panel != null and friends_panel.visible:
+		if friends_list.get_child_count() == 1:
+			var first_child = friends_list.get_child(0)
+			if first_child is Label and first_child.text == "Loading...":
+				_clear(friends_list)
+				_clear(friend_requests_list)
+				friends_list.add_child(_make_label(error, 14, Color(0.9, 0.4, 0.4)))
 
 
 func _build_chat_box() -> void:
