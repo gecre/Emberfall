@@ -241,7 +241,7 @@ func _on_stall_buy_completed(success: bool, item: Dictionary, price: int, error:
 		GameState.message.emit("Purchase failed: %s" % error)
 		return
 	GameState.gold = maxi(0, GameState.gold - price)
-	GameState.add_inventory_item(str(item.get("name")), 1)
+	GameState.add_item(str(item.get("name")), 1)
 	GameState.gold_changed.emit()
 	GameState.inventory_changed.emit()
 	GameState.save_game()
@@ -250,7 +250,7 @@ func _on_stall_buy_completed(success: bool, item: Dictionary, price: int, error:
 
 
 func _on_stall_item_sold(buyer_name: String, item: Dictionary, price: int) -> void:
-	GameState.remove_inventory_item(str(item.get("name")), 1)
+	GameState.remove_item(str(item.get("name")), 1)
 	GameState.gold += price
 	GameState.gold_changed.emit()
 	GameState.inventory_changed.emit()
