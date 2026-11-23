@@ -370,8 +370,23 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	canvas.layer = 90
 	add_child(canvas)
 
+	# Full-screen backdrop to block clicks from reaching the game world
+	var backdrop := ColorRect.new()
+	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+	backdrop.color = Color(0, 0, 0, 0.5)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
+	canvas.add_child(backdrop)
+	# Click outside the popup to dismiss
+	backdrop.gui_input.connect(func(ev: InputEvent):
+		if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
+			canvas.queue_free()
+		elif ev is InputEventScreenTouch and ev.pressed:
+			canvas.queue_free()
+	)
+
 	var center := CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(center)
 
 	var frame := PanelContainer.new()
@@ -507,8 +522,22 @@ func _show_player_stats_inspection(rplayer: Player) -> void:
 	canvas.layer = 92
 	add_child(canvas)
 
+	# Full-screen backdrop to block clicks from reaching the game world
+	var backdrop := ColorRect.new()
+	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+	backdrop.color = Color(0, 0, 0, 0.5)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
+	canvas.add_child(backdrop)
+	backdrop.gui_input.connect(func(ev: InputEvent):
+		if ev is InputEventMouseButton and ev.pressed and ev.button_index == MOUSE_BUTTON_LEFT:
+			canvas.queue_free()
+		elif ev is InputEventScreenTouch and ev.pressed:
+			canvas.queue_free()
+	)
+
 	var center := CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	canvas.add_child(center)
 
 	var frame := PanelContainer.new()
