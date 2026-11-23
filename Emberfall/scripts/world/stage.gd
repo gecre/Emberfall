@@ -482,14 +482,18 @@ func _show_player_interaction_menu(rplayer: Player) -> void:
 	friend_btn.custom_minimum_size = Vector2(105, 42)
 	friend_btn.pressed.connect(func():
 		canvas.queue_free()
-		var friends: Array = GameState.quests.get("_friends", [])
-		if not friends.has(rname):
-			friends.append(rname)
-			GameState.quests["_friends"] = friends
-			GameState.save_game()
-			GameState.message.emit("%s added to your friends list!" % rname)
+		if not Api.token.is_empty():
+			Api.send_friend_request(rname)
+			Network.notify_friend_request(rname)
 		else:
-			GameState.message.emit("%s is already in your friends list." % rname)
+			var friends: Array = GameState.quests.get("_friends", [])
+			if not friends.has(rname):
+				friends.append(rname)
+				GameState.quests["_friends"] = friends
+				GameState.save_game()
+				GameState.message.emit("%s added to your friends list!" % rname)
+			else:
+				GameState.message.emit("%s is already in your friends list." % rname)
 	)
 	actions.add_child(friend_btn)
 
