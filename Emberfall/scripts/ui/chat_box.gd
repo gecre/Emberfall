@@ -10,7 +10,7 @@ class_name ChatBox
 ## - Quick channel cycle button: [Global] / [Stage] / [Whisper]
 ## - Clickable player names in chat to whisper directly
 ## - Slash commands: /g, /s, /w, /r, /help, /clear
-## - Draggable and minimizable for mobile & desktop
+## - Minimizable for mobile & desktop
 
 const MAX_MESSAGES := 150
 const DEFAULT_SIZE := Vector2(330, 160)
@@ -40,11 +40,6 @@ var _channel_btn: Button
 var _input_line: LineEdit
 var _send_btn: Button
 
-# Draggable state
-var _dragging := false
-var _drag_start := Vector2.ZERO
-var _drag_initial_pos := Vector2.ZERO
-
 
 func _ready() -> void:
 	name = "ChatBox"
@@ -52,6 +47,9 @@ func _ready() -> void:
 	size = DEFAULT_SIZE
 	_build_ui()
 	_connect_signals()
+
+	if is_minimized:
+		_apply_minimized_ui()
 
 	# Add welcome system message
 	add_system_message("Welcome to Emberfall! Type /help for chat commands.")
@@ -68,10 +66,9 @@ func _build_ui() -> void:
 	_content_box.add_theme_constant_override("separation", 4)
 	_main_panel.add_child(_content_box)
 
-	# --- Header: Title/Drag Handle, Tabs, Minimize Button ---
+	# --- Header: Title, Tabs, Minimize Button ---
 	_header_bar = HBoxContainer.new()
 	_header_bar.add_theme_constant_override("separation", 6)
-	_header_bar.mouse_filter = Control.MOUSE_FILTER_STOP
 	_content_box.add_child(_header_bar)
 
 	_title_label = Label.new()
@@ -97,9 +94,6 @@ func _build_ui() -> void:
 	_minimize_btn.add_theme_font_size_override("font_size", 11)
 	_minimize_btn.pressed.connect(_toggle_minimize)
 	_header_bar.add_child(_minimize_btn)
-
-	# Setup dragging via header
-	_header_bar.gui_input.connect(_on_header_gui_input)
 
 	# --- Chat Log: RichTextLabel ---
 	_rich_text = RichTextLabel.new()
@@ -223,6 +217,12 @@ func _update_channel_button() -> void:
 
 func _toggle_minimize() -> void:
 	is_minimized = not is_minimized
+	_apply_minimized_ui()
+
+
+func _apply_minimized_ui() -> void:
+	if _rich_text == null:
+		return
 	if is_minimized:
 		_rich_text.visible = false
 		_input_row.visible = false
@@ -276,21 +276,6 @@ func start_whisper(target: String) -> void:
 	whisper_target = target
 	_set_channel("whisper")
 	focus_chat_input()
-
-
-func _on_header_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			_dragging = true
-			_drag_start = get_viewport().get_mouse_position()
-			_drag_initial_pos = position
-			get_viewport().set_input_as_handled()
-		else:
-			_dragging = false
-	elif event is InputEventMouseMotion and _dragging:
-		var mouse_pos := get_viewport().get_mouse_position()
-		position = _drag_initial_pos + (mouse_pos - _drag_start)
-		get_viewport().set_input_as_handled()
 
 
 func _on_text_submitted(_text: String) -> void:
