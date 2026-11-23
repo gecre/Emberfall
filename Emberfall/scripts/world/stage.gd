@@ -103,36 +103,77 @@ func _build_bounds() -> void:
 	_add_static_rect(Rect2(-70.0, GROUND_Y - 2200.0, 50.0, 2200.0))
 	_add_static_rect(Rect2(world_width + 20.0, GROUND_Y - 2200.0, 50.0, 2200.0))
 
-	# Zone-based ground: flat town, smooth ramp up, flat elevated enemy area.
-	# Kept clear of the hotbar zone (content stays above HOTBAR_Y on screen).
-	var pts := PackedVector2Array()
-	_ground_pts = []
+	# Define cavern shaft coordinates for physical entrance and exit
+	var ug_entrance_x := TRANSITION_END + 160.0
+	var ug_entrance_w := 140.0
+	var ug_exit_x := world_width - 520.0
+	var ug_exit_w := 140.0
+
+	# Zone-based ground: flat town, smooth ramp up, flat elevated enemy area with entrance holes.
 	var seg := 40.0
 	var x := -500.0
+
+	# 1. Continuous ridge line for visuals
+	_ground_pts = []
 	while x < world_width + 600.0:
 		var y: float
 		if x <= TOWN_RIGHT:
 			y = GROUND_Y  # safe town flat
 		elif x <= TRANSITION_END:
-			# Smooth ramp from town up to enemy zone.
 			var t := (x - TOWN_RIGHT) / (TRANSITION_END - TOWN_RIGHT)
 			y = lerpf(GROUND_Y, ENEMY_ZONE_Y, t)
 		else:
 			y = ENEMY_ZONE_Y  # elevated enemy area flat
-		pts.append(Vector2(x, y))
 		_ground_pts.append(Vector2(x, y))
 		x += seg
-	pts.append(Vector2(world_width + 600.0, GROUND_Y + 500.0))
-	pts.append(Vector2(-500.0, GROUND_Y + 500.0))
 
-	var body := StaticBody2D.new()
-	body.collision_layer = 1
-	body.collision_mask = 0
-	body.position = Vector2.ZERO
-	var poly := CollisionPolygon2D.new()
-	poly.polygon = pts
-	body.add_child(poly)
-	add_child(body)
+	# 2. Segmented ground collision: leaves open gaps at entrance and exit shafts
+	# Segment A: Town flat and ramp up to entrance gap
+	var poly_a := PackedVector2Array()
+	for pt in _ground_pts:
+		if pt.x <= ug_entrance_x:
+			poly_a.append(pt)
+	poly_a.append(Vector2(ug_entrance_x, GROUND_Y + 500.0))
+	poly_a.append(Vector2(-500.0, GROUND_Y + 500.0))
+	var body_a := StaticBody2D.new()
+	body_a.collision_layer = 1
+	body_a.collision_mask = 0
+	var col_a := CollisionPolygon2D.new()
+	col_a.polygon = poly_a
+	body_a.add_child(col_a)
+	add_child(body_a)
+
+	# Segment B: Surface ground between entrance and exit shafts (roof of the cave)
+	var poly_b := PackedVector2Array()
+	var roof_start := ug_entrance_x + ug_entrance_w
+	var roof_end := ug_exit_x
+	poly_b.append(Vector2(roof_start, ENEMY_ZONE_Y))
+	poly_b.append(Vector2(roof_end, ENEMY_ZONE_Y))
+	poly_b.append(Vector2(roof_end, ENEMY_ZONE_Y + 40.0))
+	poly_b.append(Vector2(roof_start, ENEMY_ZONE_Y + 40.0))
+	var body_b := StaticBody2D.new()
+	body_b.collision_layer = 1
+	body_b.collision_mask = 0
+	var col_b := CollisionPolygon2D.new()
+	col_b.polygon = poly_b
+	body_b.add_child(col_b)
+	add_child(body_b)
+
+	# Segment C: Right ground after exit gap leading up to summit
+	var poly_c := PackedVector2Array()
+	var exit_end := ug_exit_x + ug_exit_w
+	for pt in _ground_pts:
+		if pt.x >= exit_end:
+			poly_c.append(pt)
+	poly_c.append(Vector2(world_width + 600.0, GROUND_Y + 500.0))
+	poly_c.append(Vector2(exit_end, GROUND_Y + 500.0))
+	var body_c := StaticBody2D.new()
+	body_c.collision_layer = 1
+	body_c.collision_mask = 0
+	var col_c := CollisionPolygon2D.new()
+	col_c.polygon = poly_c
+	body_c.add_child(col_c)
+	add_child(body_c)
 
 
 func _ground_y_at(x: float) -> float:
@@ -221,6 +262,22 @@ func _build_platforms() -> void:
 		var sec_end := start_x + float(s + 1) * section_width - 80.0
 		var current_x := sec_start
 
+		# Small intermediate pillars within each chamber for extra puzzle jumping & cover
+		var small_pillar_count := 2
+		for sp in range(small_pillar_count):
+			var sp_x := sec_start + float(sp + 1) * ((sec_end - sec_start) / float(small_pillar_count + 1))
+			var sp_w := _rng.randf_range(28.0, 38.0)
+			var sp_h := _rng.randf_range(70.0, 115.0) # Low/medium height jumpable obstacles
+			var ground_y := _ground_y_at(sp_x)
+			var sp_rect := Rect2(sp_x, ground_y - sp_h, sp_w, sp_h)
+			_pillar_rects.append(sp_rect)
+			_add_static_rect(sp_rect, false)
+
+			# Top stepping cap on the small pillar so the player can jump onto it
+			var sp_cap := Rect2(sp_x - 4.0, ground_y - sp_h - 8.0, sp_w + 8.0, 12.0)
+			_platform_rects.append(sp_cap)
+			_add_static_rect(sp_cap, true)
+
 		# Alternating elevation profiles for up-and-down vertical traversal
 		var base_elevations: Array[float] = []
 		if s % 2 == 0:
@@ -260,41 +317,46 @@ func _build_platforms() -> void:
 	_underground_rects.clear()
 	_underground_ceiling_rects.clear()
 	var ug_floor_y := ENEMY_ZONE_Y + 160.0
-	var ug_start_x := TRANSITION_END + 180.0
-	var ug_end_x := world_width - 450.0
+	var ug_entrance_x := TRANSITION_END + 160.0
+	var ug_entrance_w := 140.0
+	var ug_exit_x := world_width - 520.0
+	var ug_exit_w := 140.0
+	var ug_start_x := ug_entrance_x
+	var ug_end_x := ug_exit_x + ug_exit_w
 
 	# Underground cavern floor
 	var ug_floor := Rect2(ug_start_x, ug_floor_y, ug_end_x - ug_start_x, 24.0)
 	_underground_rects.append(ug_floor)
 	_add_static_rect(ug_floor, false)
 
-	# Underground ceiling (bottom of the surface terrain)
-	var ug_ceil := Rect2(ug_start_x + 90.0, ENEMY_ZONE_Y + 20.0, (ug_end_x - ug_start_x) - 180.0, 20.0)
-	_underground_ceiling_rects.append(ug_ceil)
-	_add_static_rect(ug_ceil, false)
-
-	# Entrance descent steps (going down from surface into the cave)
-	var step_d1 := Rect2(ug_start_x - 40.0, ENEMY_ZONE_Y + 45.0, 70.0, 18.0)
-	var step_d2 := Rect2(ug_start_x + 20.0, ENEMY_ZONE_Y + 105.0, 70.0, 18.0)
+	# Entrance descent steps (positioned right inside the entrance shaft)
+	var step_d1 := Rect2(ug_entrance_x + 15.0, ENEMY_ZONE_Y + 45.0, 95.0, 18.0)
+	var step_d2 := Rect2(ug_entrance_x + 55.0, ENEMY_ZONE_Y + 105.0, 95.0, 18.0)
 	_platform_rects.append(step_d1)
 	_platform_rects.append(step_d2)
 	_add_static_rect(step_d1, true)
 	_add_static_rect(step_d2, true)
 
-	# Exit ascent steps (climbing up out of the cave near the portal summit)
-	var step_u1 := Rect2(ug_end_x - 80.0, ENEMY_ZONE_Y + 105.0, 70.0, 18.0)
-	var step_u2 := Rect2(ug_end_x - 20.0, ENEMY_ZONE_Y + 45.0, 70.0, 18.0)
+	# Exit ascent steps (positioned right inside the exit shaft)
+	var step_u1 := Rect2(ug_exit_x - 10.0, ENEMY_ZONE_Y + 105.0, 95.0, 18.0)
+	var step_u2 := Rect2(ug_exit_x + 30.0, ENEMY_ZONE_Y + 45.0, 95.0, 18.0)
 	_platform_rects.append(step_u1)
 	_platform_rects.append(step_u2)
 	_add_static_rect(step_u1, true)
 	_add_static_rect(step_u2, true)
 
-	# Inside-cavern stepping platforms & obstacle stalagmites
-	var cave_x := ug_start_x + 180.0
-	while cave_x < ug_end_x - 200.0:
+	# Inside-cavern stepping platforms & small obstacle pillars
+	var cave_x := ug_entrance_x + ug_entrance_w + 50.0
+	while cave_x < ug_exit_x - 140.0:
 		var cave_plat := Rect2(cave_x, ug_floor_y - 65.0, 120.0, 18.0)
 		_platform_rects.append(cave_plat)
 		_add_static_rect(cave_plat, true)
+
+		# Small underground stone pillar (obstacle / jumping cover inside the cave)
+		var ug_pillar := Rect2(cave_x + 140.0, ug_floor_y - 50.0, 26.0, 50.0)
+		_pillar_rects.append(ug_pillar)
+		_add_static_rect(ug_pillar, false)
+
 		cave_x += 280.0
 
 
@@ -988,6 +1050,13 @@ func _spawn_monsters() -> void:
 		_enemy_spawns.append(plat_pos)
 		placed += 1
 
+	# Also spawn monsters inside the underground cavern path
+	for ug_rect in _underground_rects:
+		var ug_x := ug_rect.position.x + 220.0
+		while ug_x < ug_rect.end.x - 180.0:
+			_enemy_spawns.append(Vector2(ug_x, ug_rect.position.y - 4.0))
+			ug_x += 340.0
+
 	# Assign monster keys ensuring each monster species is assigned to distinct areas
 	# and chamber sections instead of bunching up in one area.
 	var assigned_monsters: Array[String] = []
@@ -1000,7 +1069,10 @@ func _spawn_monsters() -> void:
 		else:
 			# Area/section based index so different species occupy different chambers
 			var area_idx := int((sp_pos.x - TRANSITION_END) / 450.0)
-			var monster_idx := (area_idx + (1 if sp_pos.y < ENEMY_ZONE_Y - 50.0 else 0)) % reg_count
+			var is_underground := sp_pos.y > ENEMY_ZONE_Y + 50.0
+			var is_elevated := sp_pos.y < ENEMY_ZONE_Y - 50.0
+			var vertical_offset := 2 if is_underground else (1 if is_elevated else 0)
+			var monster_idx := (area_idx + vertical_offset) % reg_count
 			key = str(regular[monster_idx])
 		assigned_monsters.append(key)
 		_spawn_monster(key, sp_pos)
@@ -1252,6 +1324,40 @@ func _draw() -> void:
 		while groove_y < pr.position.y + pr.size.y - 20.0:
 			draw_line(Vector2(pr.position.x + 4.0, groove_y), Vector2(pr.position.x + pr.size.x - 4.0, groove_y), pillar_color.darkened(0.4), 2.0)
 			groove_y += 45.0
+
+	# Underground Caverns & Tunnels
+	var cave_bg := ground.darkened(0.55)
+	var cave_rock := ground.darkened(0.3)
+	for ug in _underground_rects:
+		# Dark cave background
+		draw_rect(Rect2(ug.position.x, ENEMY_ZONE_Y + 20.0, ug.size.x, ug.position.y - ENEMY_ZONE_Y + ug.size.y), cave_bg)
+		# Cavern floor
+		draw_rect(ug, cave_rock)
+		draw_rect(Rect2(ug.position, Vector2(ug.size.x, 5.0)), top.darkened(0.35))
+		# Stalactites & stalagmites details
+		var s_rng := RandomNumberGenerator.new()
+		s_rng.seed = int(ug.position.x)
+		var sx := ug.position.x + 40.0
+		while sx < ug.end.x - 40.0:
+			# Stalactite hanging from ceiling
+			var sh := s_rng.randf_range(18.0, 35.0)
+			draw_colored_polygon(PackedVector2Array([
+				Vector2(sx - 10.0, ENEMY_ZONE_Y + 20.0),
+				Vector2(sx + 10.0, ENEMY_ZONE_Y + 20.0),
+				Vector2(sx, ENEMY_ZONE_Y + 20.0 + sh)
+			]), cave_rock.darkened(0.2))
+			# Stalagmite rising from floor
+			if s_rng.randf() < 0.45:
+				var smh := s_rng.randf_range(16.0, 30.0)
+				draw_colored_polygon(PackedVector2Array([
+					Vector2(sx - 8.0, ug.position.y),
+					Vector2(sx + 8.0, ug.position.y),
+					Vector2(sx, ug.position.y - smh)
+				]), cave_rock.lightened(0.08))
+			sx += s_rng.randf_range(80.0, 160.0)
+
+	for ceil_r in _underground_ceiling_rects:
+		draw_rect(ceil_r, cave_rock)
 
 	# Ground decoration: trees, rocks and bushes (snapped to ground, clear of
 	# the town NPC area and the hotbar bottom zone).
