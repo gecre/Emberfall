@@ -465,57 +465,57 @@ func _build_ui() -> void:
 	# ---- top right menu buttons ----
 	var top_right := HBoxContainer.new()
 	top_right.alignment = BoxContainer.ALIGNMENT_END
-	top_right.add_theme_constant_override("separation", 6)
+	top_right.add_theme_constant_override("separation", 5)
 	top_right.anchor_left = 1.0
 	top_right.anchor_right = 1.0
-	top_right.offset_left = -740.0
+	top_right.offset_left = -640.0
 	top_right.offset_right = -12.0
-	top_right.offset_top = 12.0
+	top_right.offset_top = 10.0
 	root.add_child(top_right)
 
-	var char_button := _make_button("Character", Vector2(100, 32))
-	char_button.add_theme_font_size_override("font_size", 13)
+	var char_button := _make_button("Character", Vector2(84, 30))
+	char_button.add_theme_font_size_override("font_size", 12)
 	char_button.pressed.connect(_toggle_character_panel)
 	top_right.add_child(char_button)
 
-	var skills_button := _make_button("Skills", Vector2(76, 32))
-	skills_button.add_theme_font_size_override("font_size", 13)
+	var skills_button := _make_button("Skills", Vector2(64, 30))
+	skills_button.add_theme_font_size_override("font_size", 12)
 	skills_button.pressed.connect(_toggle_skills_panel)
 	top_right.add_child(skills_button)
 
-	var map_button := _make_button("Map", Vector2(64, 32))
-	map_button.add_theme_font_size_override("font_size", 13)
+	var map_button := _make_button("Map", Vector2(52, 30))
+	map_button.add_theme_font_size_override("font_size", 12)
 	map_button.pressed.connect(_open_stage_panel)
 	top_right.add_child(map_button)
 
-	var inv_button := _make_button("Items", Vector2(64, 32))
-	inv_button.add_theme_font_size_override("font_size", 13)
+	var inv_button := _make_button("Items", Vector2(58, 30))
+	inv_button.add_theme_font_size_override("font_size", 12)
 	inv_button.pressed.connect(_toggle_inventory)
 	top_right.add_child(inv_button)
 
-	var chat_button := _make_button("Chat", Vector2(64, 32))
-	chat_button.add_theme_font_size_override("font_size", 13)
+	var chat_button := _make_button("Chat", Vector2(54, 30))
+	chat_button.add_theme_font_size_override("font_size", 12)
 	chat_button.pressed.connect(_toggle_chat_box)
 	top_right.add_child(chat_button)
 
-	var pedia_button := _make_button("Monsterpedia", Vector2(120, 32))
-	pedia_button.add_theme_font_size_override("font_size", 13)
+	var pedia_button := _make_button("Monsters", Vector2(80, 30))
+	pedia_button.add_theme_font_size_override("font_size", 12)
 	pedia_button.pressed.connect(_toggle_monsterpedia)
 	top_right.add_child(pedia_button)
 
-	var options_button := _make_button("Options", Vector2(76, 32))
-	options_button.add_theme_font_size_override("font_size", 13)
+	var options_button := _make_button("Options", Vector2(68, 30))
+	options_button.add_theme_font_size_override("font_size", 12)
 	options_button.pressed.connect(_toggle_settings)
 	top_right.add_child(options_button)
 
-	var friends_button := _make_button("👥 Friends", Vector2(100, 32))
-	friends_button.add_theme_font_size_override("font_size", 13)
+	var friends_button := _make_button("👥 Friends", Vector2(88, 30))
+	friends_button.add_theme_font_size_override("font_size", 12)
 	friends_button.pressed.connect(_toggle_friends)
 	top_right.add_child(friends_button)
 
 	# Mobile-only Pause entry point; Esc remains the desktop shortcut.
-	var pause_button := _make_button("Pause", Vector2(76, 32))
-	pause_button.add_theme_font_size_override("font_size", 13)
+	var pause_button := _make_button("Pause", Vector2(68, 30))
+	pause_button.add_theme_font_size_override("font_size", 12)
 	pause_button.pressed.connect(_toggle_pause_panel)
 	pause_button.visible = _is_mobile_platform()
 	top_right.add_child(pause_button)
@@ -524,15 +524,15 @@ func _build_ui() -> void:
 		(b as Control).theme_type_variation = "NavButton"
 
 	# ---- stage label below menu ----
-	stage_label = _make_label("Stage", 18, Color(1.0, 0.85, 0.7))
-	stage_label.add_theme_color_override("font_outline_color", Color(0.2, 0.08, 0.02, 0.9))
-	stage_label.add_theme_constant_override("outline_size", 5)
+	stage_label = _make_label("Stage", 15, Color(1.0, 0.85, 0.55))
+	stage_label.add_theme_color_override("font_outline_color", Color(0.12, 0.06, 0.02, 0.95))
+	stage_label.add_theme_constant_override("outline_size", 4)
 	stage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	stage_label.anchor_left = 1.0
 	stage_label.anchor_right = 1.0
-	stage_label.offset_left = -740.0
+	stage_label.offset_left = -400.0
 	stage_label.offset_right = -14.0
-	stage_label.offset_top = 54.0
+	stage_label.offset_top = 46.0
 	root.add_child(stage_label)
 
 	# ---- prompt ----
@@ -544,25 +544,11 @@ func _build_ui() -> void:
 	prompt_label.anchor_bottom = 1.0
 	prompt_label.offset_left = -320.0
 	prompt_label.offset_right = 320.0
-	prompt_label.offset_top = -176.0
-	prompt_label.offset_bottom = -146.0
+	prompt_label.offset_top = -168.0
+	prompt_label.offset_bottom = -138.0
 	root.add_child(prompt_label)
 
-	# ---- hotbar ----
-	hotbar = HBoxContainer.new()
-	hotbar.alignment = BoxContainer.ALIGNMENT_CENTER
-	hotbar.add_theme_constant_override("separation", 8)
-	hotbar.anchor_left = 0.5
-	hotbar.anchor_right = 0.5
-	hotbar.anchor_top = 1.0
-	hotbar.anchor_bottom = 1.0
-	hotbar.offset_left = -300.0
-	hotbar.offset_right = 300.0
-	hotbar.offset_top = -124.0
-	hotbar.offset_bottom = -64.0
-	root.add_child(hotbar)
-
-	# ---- skill bar (activatable learned skills) ----
+	# ---- skill bar (at the top of equip items) ----
 	skill_bar = HBoxContainer.new()
 	skill_bar.alignment = BoxContainer.ALIGNMENT_CENTER
 	skill_bar.add_theme_constant_override("separation", 8)
@@ -572,9 +558,23 @@ func _build_ui() -> void:
 	skill_bar.anchor_bottom = 1.0
 	skill_bar.offset_left = -480.0
 	skill_bar.offset_right = 480.0
-	skill_bar.offset_top = -56.0
-	skill_bar.offset_bottom = -8.0
+	skill_bar.offset_top = -118.0
+	skill_bar.offset_bottom = -68.0
 	root.add_child(skill_bar)
+
+	# ---- hotbar (equip items at the bottom) ----
+	hotbar = HBoxContainer.new()
+	hotbar.alignment = BoxContainer.ALIGNMENT_CENTER
+	hotbar.add_theme_constant_override("separation", 8)
+	hotbar.anchor_left = 0.5
+	hotbar.anchor_right = 0.5
+	hotbar.anchor_top = 1.0
+	hotbar.anchor_bottom = 1.0
+	hotbar.offset_left = -300.0
+	hotbar.offset_right = 300.0
+	hotbar.offset_top = -60.0
+	hotbar.offset_bottom = -8.0
+	root.add_child(hotbar)
 
 	# ---- toasts ----
 	toast_box = VBoxContainer.new()
@@ -873,11 +873,11 @@ func _build_chat_box() -> void:
 	if get_viewport() != null:
 		screen_h = get_viewport().get_visible_rect().size.y
 	if _is_mobile_platform():
-		chat_box.position = Vector2(16, maxf(180, screen_h - 380))
+		chat_box.position = Vector2(14, maxf(160, screen_h - 320))
 		chat_box.is_minimized = true
 		chat_box._toggle_minimize()
 	else:
-		chat_box.position = Vector2(16, maxf(280, screen_h - 240))
+		chat_box.position = Vector2(14, maxf(200, screen_h - 176))
 	root.add_child(chat_box)
 
 

@@ -264,7 +264,6 @@ func _remote_players_setup() -> void:
 		Network.trade_responded.connect(_on_trade_responded)
 		Network.chat_message_received.connect(_on_chat_message_received)
 		Network.join_stage(stage_number, spawn_point)
-		_setup_stall_hud_button()
 
 	if multiplayer.multiplayer_peer != null and not (multiplayer.multiplayer_peer is OfflineMultiplayerPeer):
 		multiplayer.peer_connected.connect(_spawn_remote_player)
@@ -319,23 +318,6 @@ func _on_player_stall_changed(pid: int, stall: Variant) -> void:
 		rplayer.queue_redraw()
 
 
-func _setup_stall_hud_button() -> void:
-	var cl := CanvasLayer.new()
-	cl.layer = 80
-	add_child(cl)
-
-	var btn := Button.new()
-	btn.text = "🏪 Setup Shop"
-	btn.custom_minimum_size = Vector2(130, 36)
-	btn.position = Vector2(20, 165)
-	btn.add_theme_font_size_override("font_size", 12)
-	btn.pressed.connect(func():
-		if is_instance_valid(stall_panel):
-			stall_panel.open_for_setup()
-	)
-	cl.add_child(btn)
-
-
 func _on_chat_message_received(channel: String, sender: String, _whisper_to: String, text: String) -> void:
 	# Show overhead speech bubbles for players currently in this stage
 	if channel == "stage" or channel == "global":
@@ -349,14 +331,7 @@ func _on_chat_message_received(channel: String, sender: String, _whisper_to: Str
 
 
 func interact_with_remote_player(rplayer: Player) -> void:
-	var pid: int = int(rplayer.remote_data.get("id", 0))
-	var rname: String = str(rplayer.remote_data.get("name", "Player"))
-	var stall: Variant = rplayer.remote_data.get("stall")
-	if stall != null and typeof(stall) == TYPE_DICTIONARY:
-		if is_instance_valid(stall_panel):
-			stall_panel.open_for_browsing(pid, rname, stall)
-	else:
-		_show_player_interaction_menu(rplayer)
+	_show_player_interaction_menu(rplayer)
 
 
 func _show_player_interaction_menu(rplayer: Player) -> void:
@@ -601,31 +576,79 @@ func _show_player_stats_inspection(rplayer: Player) -> void:
 
 
 func _on_incoming_trade_request(from_id: int, from_name: String) -> void:
-	var banner := PanelContainer.new()
-	banner.set_anchors_preset(Control.PRESET_TOP_WIDE)
-	banner.custom_minimum_size = Vector2(0, 56)
+	var canvas := CanvasLayer.new()
+	canvas.layer = 98
+	add_child(canvas)
+
+	# Dimmed backdrop
+	var backdrop := ColorRect.new()
+	backdrop.set_anchors_preset(Control.PRESET_FULL_RECT)
+	backdrop.color = Color(0, 0, 0, 0.5)
+	canvas.add_child(backdrop)
+
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	canvas.add_child(center)
+
+	var panel := PanelContainer.new()
+	panel.custom_minimum_size = Vector2(400, 190)
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.12, 0.15, 0.22, 0.96)
+	style.bg_color = Color(0.09, 0.12, 0.18, 0.98)
+	style.set_corner_radius_all(14)
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
 	style.border_width_bottom = 2
-	style.border_color = Color(1.0, 0.75, 0.3)
-	banner.add_theme_stylebox_override("panel", style)
-	add_child(banner)
+	style.border_color = Color(1.0, 0.78, 0.28)
+	style.shadow_color = Color(0, 0, 0, 0.75)
+	style.shadow_size = 20
+	style.content_margin_left = 24
+	style.content_margin_right = 24
+	style.content_margin_top = 18
+	style.content_margin_bottom = 18
+	panel.add_theme_stylebox_override("panel", style)
+	center.add_child(panel)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 12)
+	panel.add_child(vbox)
+
+	var title := Label.new()
+	title.text = "🤝  TRADE REQUEST"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 16)
+	title.add_theme_color_override("font_color", Color(1.0, 0.85, 0.35))
+	vbox.add_child(title)
+
+	var msg := Label.new()
+	msg.text = "%s wants to trade with you!" % from_name
+	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	msg.add_theme_font_size_override("font_size", 14)
+	msg.add_theme_color_override("font_color", Color(0.9, 0.94, 1.0))
+	vbox.add_child(msg)
+
+	var timer_lbl := Label.new()
+	timer_lbl.text = "Request expires in 15s"
+	timer_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	timer_lbl.add_theme_font_size_override("font_size", 11)
+	timer_lbl.add_theme_color_override("font_color", Color(0.6, 0.65, 0.75))
+	vbox.add_child(timer_lbl)
 
 	var hbox := HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	hbox.add_theme_constant_override("separation", 16)
-	banner.add_child(hbox)
-
-	var lbl := Label.new()
-	lbl.text = "%s wants to trade with you!" % from_name
-	lbl.add_theme_font_size_override("font_size", 14)
-	hbox.add_child(lbl)
+	vbox.add_child(hbox)
 
 	var accept_btn := Button.new()
 	accept_btn.text = "ACCEPT"
-	accept_btn.custom_minimum_size = Vector2(100, 40)
+	accept_btn.custom_minimum_size = Vector2(130, 38)
+	accept_btn.add_theme_font_size_override("font_size", 13)
+	var accept_style := StyleBoxFlat.new()
+	accept_style.bg_color = Color(0.18, 0.58, 0.32, 1.0)
+	accept_style.set_corner_radius_all(8)
+	accept_btn.add_theme_stylebox_override("normal", accept_style)
 	accept_btn.pressed.connect(func():
-		banner.queue_free()
+		canvas.queue_free()
 		Network.respond_trade(from_id, true)
 		if is_instance_valid(trade_panel):
 			trade_panel.open(from_id, from_name)
@@ -634,16 +657,21 @@ func _on_incoming_trade_request(from_id: int, from_name: String) -> void:
 
 	var decline_btn := Button.new()
 	decline_btn.text = "DECLINE"
-	decline_btn.custom_minimum_size = Vector2(100, 40)
+	decline_btn.custom_minimum_size = Vector2(130, 38)
+	decline_btn.add_theme_font_size_override("font_size", 13)
+	var decline_style := StyleBoxFlat.new()
+	decline_style.bg_color = Color(0.68, 0.22, 0.22, 1.0)
+	decline_style.set_corner_radius_all(8)
+	decline_btn.add_theme_stylebox_override("normal", decline_style)
 	decline_btn.pressed.connect(func():
-		banner.queue_free()
+		canvas.queue_free()
 		Network.respond_trade(from_id, false)
 	)
 	hbox.add_child(decline_btn)
 
 	get_tree().create_timer(15.0).timeout.connect(func():
-		if is_instance_valid(banner):
-			banner.queue_free()
+		if is_instance_valid(canvas):
+			canvas.queue_free()
 	)
 
 

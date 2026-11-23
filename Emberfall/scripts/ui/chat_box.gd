@@ -13,8 +13,8 @@ class_name ChatBox
 ## - Draggable and minimizable for mobile & desktop
 
 const MAX_MESSAGES := 150
-const DEFAULT_SIZE := Vector2(380, 220)
-const MINIMIZED_SIZE := Vector2(160, 32)
+const DEFAULT_SIZE := Vector2(330, 160)
+const MINIMIZED_SIZE := Vector2(140, 28)
 
 var current_channel := "stage" # "stage" | "global" | "whisper"
 var whisper_target := ""
@@ -496,21 +496,21 @@ func _on_meta_clicked(meta: Variant) -> void:
 # --- UI Styling Helpers ---
 func _panel_style() -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.07, 0.08, 0.10, 0.88)
-	sb.border_color = Color(0.35, 0.25, 0.2, 0.75)
+	sb.bg_color = Color(0.06, 0.08, 0.12, 0.65)
+	sb.border_color = Color(0.28, 0.32, 0.42, 0.5)
 	sb.set_border_width_all(1)
 	sb.set_corner_radius_all(8)
-	sb.content_margin_left = 8
-	sb.content_margin_right = 8
-	sb.content_margin_top = 6
-	sb.content_margin_bottom = 6
+	sb.content_margin_left = 6
+	sb.content_margin_right = 6
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
 	return sb
 
 
 func _log_style() -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.04, 0.05, 0.06, 0.75)
-	sb.border_color = Color(0.2, 0.22, 0.26, 0.5)
+	sb.bg_color = Color(0.03, 0.04, 0.06, 0.40)
+	sb.border_color = Color(0.2, 0.22, 0.28, 0.3)
 	sb.set_border_width_all(1)
 	sb.set_corner_radius_all(6)
 	sb.content_margin_left = 6
