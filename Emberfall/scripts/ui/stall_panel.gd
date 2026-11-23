@@ -107,6 +107,7 @@ func _build_ui() -> void:
 	var add_btn := Button.new()
 	add_btn.text = "+ Put Item For Sale"
 	add_btn.custom_minimum_size = Vector2(160, 36)
+	add_btn.focus_mode = Control.FOCUS_NONE
 	add_btn.pressed.connect(_on_add_item_pressed)
 	_owner_controls.add_child(add_btn)
 
@@ -128,12 +129,14 @@ func _build_ui() -> void:
 	open_stall_btn.name = "OpenStallBtn"
 	open_stall_btn.text = "OPEN STALL"
 	open_stall_btn.custom_minimum_size = Vector2(160, 44)
+	open_stall_btn.focus_mode = Control.FOCUS_NONE
 	open_stall_btn.pressed.connect(_on_open_stall_confirmed)
 	bot_actions.add_child(open_stall_btn)
 
 	var close_btn := Button.new()
 	close_btn.text = "CLOSE"
 	close_btn.custom_minimum_size = Vector2(120, 44)
+	close_btn.focus_mode = Control.FOCUS_NONE
 	close_btn.pressed.connect(close)
 	bot_actions.add_child(close_btn)
 
@@ -184,6 +187,7 @@ func _refresh_ui() -> void:
 			var buy_btn := Button.new()
 			buy_btn.text = "BUY"
 			buy_btn.custom_minimum_size = Vector2(90, 38)
+			buy_btn.focus_mode = Control.FOCUS_NONE
 			buy_btn.disabled = GameState.gold < iprice
 			buy_btn.pressed.connect(_on_buy_clicked.bind(iname, iprice))
 			hbox.add_child(buy_btn)
@@ -191,6 +195,7 @@ func _refresh_ui() -> void:
 			var rm_btn := Button.new()
 			rm_btn.text = "Remove"
 			rm_btn.custom_minimum_size = Vector2(80, 36)
+			rm_btn.focus_mode = Control.FOCUS_NONE
 			rm_btn.pressed.connect(func():
 				stall_items.erase(it)
 				_refresh_ui()

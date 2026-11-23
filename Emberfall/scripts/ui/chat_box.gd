@@ -91,6 +91,7 @@ func _build_ui() -> void:
 	_minimize_btn.text = "—"
 	_minimize_btn.custom_minimum_size = Vector2(26, 22)
 	_minimize_btn.flat = true
+	_minimize_btn.focus_mode = Control.FOCUS_NONE
 	_minimize_btn.add_theme_font_size_override("font_size", 11)
 	_minimize_btn.pressed.connect(_toggle_minimize)
 	_header_bar.add_child(_minimize_btn)
@@ -113,6 +114,7 @@ func _build_ui() -> void:
 
 	_channel_btn = Button.new()
 	_channel_btn.custom_minimum_size = Vector2(74, 28)
+	_channel_btn.focus_mode = Control.FOCUS_NONE
 	_channel_btn.add_theme_font_size_override("font_size", 11)
 	_channel_btn.pressed.connect(_cycle_channel)
 	_update_channel_button()
@@ -132,6 +134,7 @@ func _build_ui() -> void:
 	_send_btn = Button.new()
 	_send_btn.text = "Send"
 	_send_btn.custom_minimum_size = Vector2(50, 28)
+	_send_btn.focus_mode = Control.FOCUS_NONE
 	_send_btn.add_theme_font_size_override("font_size", 11)
 	_style_primary_button(_send_btn)
 	_send_btn.pressed.connect(_on_send_pressed)
@@ -149,6 +152,7 @@ func _add_tab_button(label: String, tab_id: String) -> void:
 	var btn := Button.new()
 	btn.text = label
 	btn.custom_minimum_size = Vector2(46, 20)
+	btn.focus_mode = Control.FOCUS_NONE
 	btn.add_theme_font_size_override("font_size", 10)
 	btn.pressed.connect(func() -> void: _set_active_tab(tab_id))
 	_tabs_container.add_child(btn)

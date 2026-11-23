@@ -392,6 +392,7 @@ func _make_button(text: String, min_size: Vector2 = Vector2(160, 36)) -> Button:
 	button.text = text
 	button.custom_minimum_size = min_size
 	button.add_theme_font_size_override("font_size", 15)
+	button.focus_mode = Control.FOCUS_NONE
 	return button
 
 
@@ -2746,6 +2747,7 @@ func _rebuild_character_panel() -> void:
 		help_btn.tooltip_text = _stat_help_text(stat_labels[i])
 		help_btn.pressed.connect(_show_char_help.bind(_stat_help_text(stat_labels[i])))
 		help_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+		help_btn.focus_mode = Control.FOCUS_NONE
 		row.add_child(help_btn)
 
 		var plus_btn := _make_button("+", Vector2(32, 28))
@@ -2800,6 +2802,7 @@ func _stat_row(parent: VBoxContainer, name: String, value: String, help: String)
 	help_btn.tooltip_text = help
 	help_btn.pressed.connect(_show_char_help.bind(help))
 	help_btn.mouse_filter = Control.MOUSE_FILTER_STOP
+	help_btn.focus_mode = Control.FOCUS_NONE
 	row.add_child(help_btn)
 
 

@@ -166,6 +166,7 @@ func _build_ui() -> void:
 		btn.custom_minimum_size = Vector2(72, 54)
 		btn.text = "Empty"
 		btn.clip_text = true
+		btn.focus_mode = Control.FOCUS_NONE
 		btn.add_theme_font_size_override("font_size", 10)
 		btn.pressed.connect(_on_my_slot_clicked.bind(i))
 		_my_slots_box.add_child(btn)
@@ -184,6 +185,7 @@ func _build_ui() -> void:
 	var add_10k := Button.new()
 	add_10k.text = "+10K"
 	add_10k.custom_minimum_size = Vector2(44, 28)
+	add_10k.focus_mode = Control.FOCUS_NONE
 	add_10k.add_theme_font_size_override("font_size", 10)
 	add_10k.pressed.connect(func(): _add_gold(10000))
 	gold_row.add_child(add_10k)
@@ -191,6 +193,7 @@ func _build_ui() -> void:
 	var add_100k := Button.new()
 	add_100k.text = "+100K"
 	add_100k.custom_minimum_size = Vector2(50, 28)
+	add_100k.focus_mode = Control.FOCUS_NONE
 	add_100k.add_theme_font_size_override("font_size", 10)
 	add_100k.pressed.connect(func(): _add_gold(100000))
 	gold_row.add_child(add_100k)
@@ -198,6 +201,7 @@ func _build_ui() -> void:
 	var add_1m := Button.new()
 	add_1m.text = "+1M"
 	add_1m.custom_minimum_size = Vector2(44, 28)
+	add_1m.focus_mode = Control.FOCUS_NONE
 	add_1m.add_theme_font_size_override("font_size", 10)
 	add_1m.pressed.connect(func(): _add_gold(1000000))
 	gold_row.add_child(add_1m)
@@ -205,6 +209,7 @@ func _build_ui() -> void:
 	var clr_gold := Button.new()
 	clr_gold.text = "Clr"
 	clr_gold.custom_minimum_size = Vector2(36, 28)
+	clr_gold.focus_mode = Control.FOCUS_NONE
 	clr_gold.add_theme_font_size_override("font_size", 10)
 	clr_gold.pressed.connect(func(): _set_gold(0))
 	gold_row.add_child(clr_gold)
@@ -223,6 +228,7 @@ func _build_ui() -> void:
 	_lock_button = Button.new()
 	_lock_button.text = "🔒 LOCK OFFER"
 	_lock_button.custom_minimum_size = Vector2(105, 32)
+	_lock_button.focus_mode = Control.FOCUS_NONE
 	_lock_button.add_theme_font_size_override("font_size", 11)
 	_lock_button.pressed.connect(_toggle_lock)
 	status_row.add_child(_lock_button)
@@ -310,6 +316,7 @@ func _build_ui() -> void:
 	_trade_button = Button.new()
 	_trade_button.text = "CONFIRM TRADE"
 	_trade_button.custom_minimum_size = Vector2(190, 42)
+	_trade_button.focus_mode = Control.FOCUS_NONE
 	_trade_button.add_theme_font_size_override("font_size", 13)
 	_trade_button.disabled = true
 	var trade_style := StyleBoxFlat.new()
@@ -322,6 +329,7 @@ func _build_ui() -> void:
 	var cancel_btn := Button.new()
 	cancel_btn.text = "CANCEL"
 	cancel_btn.custom_minimum_size = Vector2(130, 42)
+	cancel_btn.focus_mode = Control.FOCUS_NONE
 	cancel_btn.add_theme_font_size_override("font_size", 13)
 	var cancel_style := StyleBoxFlat.new()
 	cancel_style.bg_color = Color(0.35, 0.15, 0.15, 1.0)
@@ -530,6 +538,7 @@ func _refresh_ui() -> void:
 		btn.custom_minimum_size = Vector2(105, 34)
 		btn.text = inv_item.name
 		btn.clip_text = true
+		btn.focus_mode = Control.FOCUS_NONE
 		btn.add_theme_font_size_override("font_size", 11)
 
 		var already_offered := false
