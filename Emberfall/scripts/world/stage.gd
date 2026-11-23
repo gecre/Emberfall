@@ -42,7 +42,6 @@ var trade_panel = null
 var stall_panel = null
 
 var _platform_rects: Array[Rect2] = []
-var _ramp_polys: Array = []
 var _ground_pts: Array[Vector2] = []
 var _enemy_spawns: Array[Vector2] = []
 var _portal_positions: Array[Vector2] = []
@@ -94,25 +93,6 @@ func _add_static_rect(rect: Rect2, one_way: bool = false) -> StaticBody2D:
 	body.add_child(collision)
 	add_child(body)
 	return body
-
-
-# Adds a walkable sloped ramp (hill) from the ground up to a platform top.
-# The slope stays shallow enough (<= ~40 deg) to be climbable by the player.
-func _add_ramp(start_x: float, end_x: float, top_y: float) -> void:
-	var body := StaticBody2D.new()
-	body.collision_layer = 1
-	body.collision_mask = 0
-	body.position = Vector2.ZERO
-	var poly := CollisionPolygon2D.new()
-	var pts := PackedVector2Array([
-		Vector2(start_x, GROUND_Y),
-		Vector2(end_x, GROUND_Y),
-		Vector2(end_x, top_y),
-	])
-	poly.polygon = pts
-	body.add_child(poly)
-	add_child(body)
-	_ramp_polys.append(pts)
 
 
 func _build_bounds() -> void:
@@ -1145,11 +1125,6 @@ func _draw() -> void:
 		draw_rect(r, plat)
 		draw_rect(Rect2(r.position, Vector2(r.size.x, 7.0)), top.lightened(0.08))
 		draw_rect(Rect2(r.position + Vector2(0.0, r.size.y - 5.0), Vector2(r.size.x, 5.0)), plat.darkened(0.3))
-
-	# Ramps / hills
-	for pts in _ramp_polys:
-		draw_colored_polygon(pts, plat)
-		draw_line(pts[2], pts[1], top.lightened(0.12), 2.0)
 
 	# Ground decoration: trees, rocks and bushes (snapped to ground, clear of
 	# the town NPC area and the hotbar bottom zone).

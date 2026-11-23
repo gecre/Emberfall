@@ -36,8 +36,6 @@ var hotbar: HBoxContainer
 var skill_bar: HBoxContainer
 ## Skill name -> Button, for activatable learned skills.
 var _skill_buttons: Dictionary = {}
-## Skill name -> cooldown Label (shows remaining seconds, or empty when ready).
-var _skill_cd_labels: Dictionary = {}
 var stats_label: Label
 var fps_label: Label
 var show_fps := false
@@ -210,16 +208,6 @@ func _setup_touch_controls(player_ref: Player) -> void:
 # ---------------------------------------------------------------------------
 # UI construction
 # ---------------------------------------------------------------------------
-func _style(color: Color, radius: int = 10) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	style.set_corner_radius_all(radius)
-	style.content_margin_left = 12.0
-	style.content_margin_right = 12.0
-	style.content_margin_top = 10.0
-	style.content_margin_bottom = 10.0
-	return style
-
 func _hud_panel_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.07, 0.07, 0.09, 0.92)
@@ -2239,11 +2227,6 @@ func _sort_inventory(by: String) -> void:
 ## Sorts the backpack by the given criterion (called from the sort popup).
 func _on_sort_criterion_selected(by: String) -> void:
 	_sort_inventory(by)
-
-
-func _unequip_slot(slot: String) -> void:
-	GameState.unequip(slot)
-	_rebuild_inventory()
 
 
 # ---------------------------------------------------------------------------
