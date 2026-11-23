@@ -354,12 +354,12 @@ func _on_trade_cancelled_by_partner(from_id: int) -> void:
 
 func _execute_trade() -> void:
 	for it in my_items:
-		GameState.remove_inventory_item(str(it.get("name")), int(it.get("qty", 1)))
+		GameState.remove_item(str(it.get("name")), int(it.get("qty", 1)))
 	if my_gold > 0:
 		GameState.gold = maxi(0, GameState.gold - my_gold)
 
 	for it in their_items:
-		GameState.add_inventory_item(str(it.get("name")), int(it.get("qty", 1)))
+		GameState.add_item(str(it.get("name")), int(it.get("qty", 1)))
 	if their_gold > 0:
 		GameState.gold += their_gold
 
